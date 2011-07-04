@@ -1,0 +1,64 @@
+#
+# .screenrc
+#
+
+# 起動時メッセージ off
+startup_message off
+
+# 接続が切れた場合は自動デタッチ
+autodetach on
+
+# ベルは鳴らさない
+vbell off
+
+# シェルはzsh
+shell /bin/zsh
+
+# ^Tでエスケープ
+escape ^Tt
+
+# スクロールバッファ
+# メモリ食うので小さく小さく...
+defscrollback 2000
+
+# 文字コード関係
+defkanji utf-8
+defencoding utf-8
+encoding utf-8 utf-8
+
+# フロー制御 off
+defflow off
+
+# 256色表示関係
+defbce on
+term xterm-256color
+
+# termcapinfoの設定
+# ex:
+#   # 強制的に幅がリサイズされるのを抑止
+#   termcapinfo xterm-256color 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
+#   # 256色表示対応
+#   termcapinfo xterm-256color 'termcapinfo xterm-256color '
+termcapinfo xterm-256color 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l;Co#256:pa#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+
+# タブと日時を表示
+caption always "%{= wb} %-w%{=bu dg}%n %t%{-}%+w %= %{=b wk} %{=b dc}%Y/%m/%d(%D) %{=b dc}%c"
+
+# ^T + で起動
+bind s eval 'split' 'focus' 'screen 1'
+bind v eval 'split -v' 'focus' 'screen 1'
+bind q only
+bind w windowlist
+bind j eval 'focus down'
+bind J eval 'focus bottom'
+bind k eval 'focus up'
+bind K eval 'focus top'
+
+# キーバインド
+# Alt+Ctrl-n
+#bindkey "^[^n" next
+# Alt+Ctrl-p
+#bindkey "^[^p" prev
+#bindkey \033'n' next
+#bindkey '√' next
+#bindkey 'π' prev
