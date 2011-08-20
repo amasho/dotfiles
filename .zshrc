@@ -74,6 +74,8 @@ alias h='history'
 alias g='grep'
 alias s='screen -D -RR -q'
 alias less='less -r'
+alias mysql='/opt/local/bin/mysql5'
+alias which='/usr/bin/which'
 
 # Termcap
 #export TERM=xterm-256color
@@ -83,3 +85,4 @@ function chpwd() { ls }
 
 # RVM
 if [[ -s ${HOME}/.rvm/scripts/rvm ]] ; then source ${HOME}/.rvm/scripts/rvm ; fi
+

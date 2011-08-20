@@ -56,9 +56,6 @@ bind K eval 'focus top'
 
 # キーバインド
 # Alt+Ctrl-n
-#bindkey "^[^n" next
+bindkey "^[^n" next
 # Alt+Ctrl-p
-#bindkey "^[^p" prev
-#bindkey \033'n' next
-#bindkey '√' next
-#bindkey 'π' prev
+bindkey "^[^p" prev
