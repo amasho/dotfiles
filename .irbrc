@@ -1,9 +1,9 @@
 require 'rubygems'
 require 'active_support'
 require 'pp'
-require 'irb/completion' # メソッド補完
-require 'what_methods' # what? でメソッドを調べる
-require 'wirble' # カラーリングの設定
+require 'irb/completion'
+require 'what_methods'
+require 'wirble'
 
 IRB.conf[:AUTO_INDENT]=true
 IRB.conf[:SAVE_HISTORY]=200

@@ -20,7 +20,7 @@ export LC_ALL=ja_JP.UTF-8
 export PATH=/opt/local/bin:$PATH
 
 # Screen session
-export SCREENDIR=/Users/amasho/.screen
+export SCREENDIR=${HOME}/.screen
 
 # Prompt Setting
 local GREEN=$'%{\e[1;32m%}'
