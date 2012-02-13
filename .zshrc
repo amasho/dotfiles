@@ -17,7 +17,7 @@ export JLESSCHARSET=japanese
 export LC_ALL=ja_JP.UTF-8
 
 # Path
-export PATH=/opt/local/bin:$PATH
+export PATH=/usr/local/bin:$PATH
 
 # Screen session
 export SCREENDIR=${HOME}/.screen
@@ -60,8 +60,7 @@ HISTFILE=~/.zsh_history
 HISTSIZE=1000
 SAVEHIST=1000
 
-alias vim=/opt/local/bin/vim
-alias screen=/usr/local/bin/screen
+alias screen=${HOME}/bin/screen
 
 # Aliases
 alias l='ls -v'
@@ -72,10 +71,11 @@ alias v='vim'
 alias e='emacs -nw'
 alias h='history'
 alias g='grep'
-alias s='screen -D -RR -q'
 alias less='less -r'
 alias mysql='/opt/local/bin/mysql5'
 alias which='/usr/bin/which'
+
+alias s='screen -D -RR -q'
 
 # Termcap
 #export TERM=xterm-256color
