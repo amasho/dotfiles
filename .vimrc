@@ -332,3 +332,17 @@ function PHPLint()
     echo result
 endf
 autocmd FileType php,inc  :nmap ,l :call PHPLint()<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vundle
+"
+set nocompatible
+filetype off
+set rtp+=~/.vim/vundle.git/
+call vundle#rc()
+ 
+Bundle "Shougo/neocomplcache"
+Bundle "Shougo/unite.vim"
+filetype plugin indent on
+
+
