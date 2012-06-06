@@ -82,7 +82,7 @@ set smartindent
 set smarttab
 
 "タブをスペースに置き換える
-set expandtab
+"set expandtab
 
 "
 set viminfo=
@@ -104,7 +104,7 @@ set shellslash
 
 "ファイル内の <Tab> が対応する空白の数
 set tabstop=4
-set softtabstop=2
+"set softtabstop=4
 
 "シフト移動幅
 set shiftwidth=4
@@ -155,6 +155,7 @@ if &term == "screen"
     set ttymouse=xterm-256color
 endif
 
+set guioptions-=T
 
 " タグファイル
 set tags=~/.tags
@@ -308,13 +309,13 @@ endfunction
 command! ExitVimFuncSession call ExitVimFuncSession()
 
 " 起動時にSessionを読み込む
-let g:session_autoload = 1
+"let g:session_autoload = 1
 "Sessionファイル名を聞かず勝手に読み書きする
-let g:session_autosave = 1
-augroup MySession
+"let g:session_autosave = 1
+"augroup MySession
     "Vim終了時にSassionを保存する
-    au VimLeave * ExitVimFuncSession
-augroup END
+"    au VimLeave * ExitVimFuncSession
+"augroup END
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

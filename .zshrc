@@ -72,7 +72,6 @@ alias e='emacs -nw'
 alias h='history'
 alias g='grep'
 alias less='less -r'
-alias mysql='/opt/local/bin/mysql5'
 alias which='/usr/bin/which'
 
 alias s='screen -D -RR -q'
