@@ -42,7 +42,7 @@ term xterm-256color
 termcapinfo xterm-256color 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l;Co#256:pa#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
 
 # タブと日時を表示
-caption always "%{= wb} %-w%{=bu dg}%n %t%{-}%+w %= %{=b wk} %{=b dc}%Y/%m/%d(%D) %{=b dc}%c"
+caption always "%{= wb} %-w%{=bu dg}%n %t%{-}%+w %= %{=b wk} %{=b dc}%Y/%m/%d %{=b dc}%c"
 
 # ^T + で起動
 bind s eval 'split' 'focus' 'screen 1'
