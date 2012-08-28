@@ -78,6 +78,13 @@ alias which='/usr/bin/which'
 alias s='screen -D -RR -q'
 alias tmux='tmux -2'
 
+# nodebrew
+if [[ -f ~/.nodebrew/nodebrew ]]; then
+	export PATH=$HOME/.nodebrew/current/bin:$PATH
+	nodebrew use v0.8.4
+	alias nb='nodebrew'
+fi
+
 # Git
 alias g='git'
 alias gst='git status -s -b'
@@ -93,4 +100,4 @@ if [[ -s ${HOME}/.rvm/scripts/rvm ]] ; then source ${HOME}/.rvm/scripts/rvm ; fi
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 # Node.js
-NODE_PATH=/usr/local/lib/node_modules
+export NODE_PATH=/usr/local/lib/node_modules
