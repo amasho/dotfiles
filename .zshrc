@@ -111,7 +111,7 @@ alias tmux='tmux -2'
 if [[ -f $HOME/.nodebrew/nodebrew ]]; then
 	export NODE_PATH=$HOME/.nodebrew/current/lib/node_modules
 	export PATH=$HOME/.nodebrew/current/bin:$PATH
-	nodebrew use v0.8.4
+	nodebrew use v0.8.4 > /dev/null
 	alias nb='nodebrew'
 fi
 
