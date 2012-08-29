@@ -28,6 +28,8 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*' menu select=1
 autoload -U compinit; compinit -u
 
+autoload -Uz VCS_INFO_get_data_git; VCS_INFO_get_data_git 2> /dev/null
+
 # Options
 setopt PROMPT_SUBST
 setopt CORRECT_ALL
@@ -47,15 +49,42 @@ setopt NO_HUP
 autoload -U colors; colors
 
 # Prompt Setting
+function rprompt-git-current-branch {
+	local name st color gitdir action
+	if [[ "$PWD" =~ '/\.git(/.*)?$' ]]; then
+		return
+	fi
+	name=`git rev-parse --abbrev-ref=loose HEAD 2> /dev/null`
+	if [[ -z $name ]]; then
+		return
+	fi
+
+	gitdir=`git rev-parse --git-dir 2> /dev/null`
+	action=`VCS_INFO_git_getaction "$gitdir"` && action="($action)"
+
+	st=`git status 2> /dev/null`
+	if [[ -n `echo "$st" | grep "^nothing to"` ]]; then
+		color=%F{green}
+	elif [[ -n `echo "$st" | grep "^no changes added"` ]]; then
+		color=%F{yellow}
+	elif [[ -n `echo "$st" | grep "^# Changes to be committed"` ]]; then
+		color=%B%F{red}
+	else
+		color=%F{red}
+	fi
+
+	echo "$color$name$action%f%b: "
+}
 local DEFAULT=$'%{\e[1;m%}'
 local GREEN=$'%{\e[1;32m%}'
 local YELLOW=$'%{\e[1;33m%}'
 local BLUE=$'%{\e[1;34m%}'
 local CYAN=$'%{\e[1;36m%}'
 local WHITE=$'%{\e[1;37m%}'
-RPROMPT=$WHITE"[%~]"$DEFAULT
+#PROMPT=$CYAN"[%n@%m${WINDOW:+[$WINDOW]}]$ "$WHITE
+PROMPT=$CYAN"$ "$WHITE
+RPROMPT='[`rprompt-git-current-branch`%~]'
 PROMPT2="%_%% "
-PROMPT=$CYAN"[%n@%m${WINDOW:+[$WINDOW]}]$ "$WHITE
 
 # Command history configuration
 HISTFILE=~/.zsh_history
