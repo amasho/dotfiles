@@ -80,6 +80,7 @@ alias tmux='tmux -2'
 
 # nodebrew
 if [[ -f ~/.nodebrew/nodebrew ]]; then
+	export NODE_PATH=$HOME/.nodebrew/current/lib/node_modules
 	export PATH=$HOME/.nodebrew/current/bin:$PATH
 	nodebrew use v0.8.4
 	alias nb='nodebrew'
@@ -99,5 +100,3 @@ function chpwd() { ls }
 if [[ -s ${HOME}/.rvm/scripts/rvm ]] ; then source ${HOME}/.rvm/scripts/rvm ; fi
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
-# Node.js
-export NODE_PATH=/usr/local/lib/node_modules
