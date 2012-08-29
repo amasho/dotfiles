@@ -242,28 +242,28 @@ if &term =~ "xterm-256color"
     "256色表示
     set t_Co=256
 
-    highlight Normal ctermfg=255
-    highlight NonText ctermfg=255
-    highlight Directory cterm=bold ctermfg=206
-    highlight Cursor ctermfg=255 ctermbg=255
-    highlight CursorIM ctermfg=0 ctermbg=206
-    highlight Comment ctermfg=120
-    highlight String ctermfg=198
-    highlight Constant ctermfg=6
-    highlight Keyword ctermfg=202
-    highlight Statement cterm=bold ctermfg=255
-    highlight Identifier ctermfg=222
-    highlight Visual cterm=bold ctermbg=136
-    highlight Special ctermfg=255
-    highlight Search cterm=none ctermfg=88 ctermbg=211
-    highlight StatusLine cterm=bold ctermfg=255 ctermbg=21
-    highlight LineNr cterm=none ctermfg=255
-    highlight Pmenu cterm=none ctermfg=255 ctermbg=200
-    highlight PmenuSel cterm=bold ctermfg=255 ctermbg=21
-    highlight Include cterm=bold ctermfg=255
-    highlight Define cterm=bold ctermfg=14
-    highlight Macro cterm=bold ctermfg=14
-    highlight PreCondit cterm=bold ctermfg=21
+	highlight Normal ctermfg=255
+	highlight NonText ctermfg=255
+	highlight Directory cterm=bold ctermfg=206
+	highlight Cursor ctermfg=255 ctermbg=255
+	highlight CursorIM ctermfg=0 ctermbg=206
+	highlight Comment ctermfg=120
+	highlight String ctermfg=198
+	highlight Constant ctermfg=6
+	highlight Keyword ctermfg=202
+	highlight Statement cterm=bold ctermfg=255
+	highlight Identifier ctermfg=222
+	highlight Visual cterm=bold ctermbg=136
+	highlight Special ctermfg=255
+	highlight Search cterm=none ctermfg=88 ctermbg=211
+	highlight StatusLine cterm=bold ctermfg=255 ctermbg=21
+	highlight LineNr cterm=none ctermfg=255
+	highlight Pmenu cterm=none ctermfg=255 ctermbg=200
+	highlight PmenuSel cterm=bold ctermfg=255 ctermbg=21
+	highlight Include cterm=bold ctermfg=255
+	highlight Define cterm=bold ctermfg=14
+	highlight Macro cterm=bold ctermfg=14
+	highlight PreCondit cterm=bold ctermfg=21
 else
     highlight Normal ctermfg=255
     highlight NonText ctermfg=255
