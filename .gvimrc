@@ -2,6 +2,11 @@
 " vimrc
 "
 
+" メニューを英語に戻す
+source $VIMRUNTIME/delmenu.vim
+set langmenu=none
+source $VIMRUNTIME/menu.vim
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 日本語入力に関する設定:
 "
@@ -26,7 +31,7 @@ endif
 syntax on
 
 "font
-set gfn=Ricty:h11
+set gfn=Ricty:h12
 
 "window width
 set columns=100
@@ -247,48 +252,31 @@ inoremap ' ''<LEFT>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 色の設定
 "
-if &term =~ "xterm-256color"
-    "256色表示
-    set t_Co=256
+"256色表示
+set t_Co=256
 
-    highlight Normal guifg=255
-    highlight NonText guifg=255
-    highlight Directory gui=bold guifg=206
-    highlight Cursor guifg=255 guibg=255
-    highlight CursorIM guifg=0 guibg=206
-    highlight Comment guifg=120
-    highlight String guifg=198
-    highlight Constant guifg=6
-    highlight Keyword guifg=202
-    highlight Statement gui=bold guifg=255
-    highlight Identifier guifg=222
-    highlight Visual gui=bold guibg=136
-    highlight Special guifg=255
-    highlight Search gui=none guifg=88 guibg=211
-    highlight StatusLine gui=bold guifg=255 guibg=21
-    highlight LineNr gui=none guifg=255
-    highlight Pmenu gui=none guifg=255 guibg=200
-    highlight PmenuSel gui=bold guifg=255 guibg=21
-    highlight Include gui=bold guifg=255
-    highlight Define gui=bold guifg=14
-    highlight Macro gui=bold guifg=14
-    highlight PreCondit gui=bold guifg=21
-else
-    highlight Normal guifg=255
-    highlight NonText guifg=255
-    highlight Directory gui=bold guifg=206 guibg=0
-    highlight Cursor guifg=255 guibg=255
-    highlight Comment guifg=120 guibg=0
-    highlight String guifg=198 guibg=0
-    highlight Constant guifg=6 guibg=0
-    highlight Keyword guifg=202 guibg=0
-    highlight Statement gui=bold guifg=255 guibg=0
-    highlight Identifier guifg=222 guibg=0
-    highlight Visual gui=bold guibg=136
-    highlight Special guifg=255 guibg=0
-    highlight Search gui=none guifg=88 guibg=211
-    highlight StatusLine gui=bold guifg=255 guibg=21
-endif
+highlight Normal guifg=Black guibg=White
+highlight NonText guifg=White
+highlight Directory gui=bold guifg=206
+highlight Cursor guifg=White guibg=Cyan
+highlight CursorIM guifg=0 guibg=206
+highlight Comment guifg=120
+highlight String guifg=198
+highlight Constant guifg=6
+highlight Keyword guifg=202
+highlight Statement gui=bold guifg=255
+highlight Identifier guifg=222
+highlight Visual gui=bold guibg=Gold
+highlight Special guifg=255
+highlight Search gui=none guifg=88 guibg=211
+highlight StatusLine gui=bold guifg=White guibg=Blue
+highlight LineNr gui=none guifg=Black
+highlight Pmenu gui=none guifg=Black guibg=200
+highlight PmenuSel gui=bold guifg=Black guibg=21
+highlight Include gui=bold guifg=White
+highlight Define gui=bold guifg=14
+highlight Macro gui=bold guifg=14
+highlight PreCondit gui=bold guifg=21
 
 " 先頭のスペースをカラー表示
 function! SOLSpaceHilight()
