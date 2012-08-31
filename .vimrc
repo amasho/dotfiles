@@ -48,7 +48,7 @@ set nowrap
 set nowrapscan
 
 "日本語対応
-set encoding=japan
+"set encoding=japan
 
 "TERMの文字コード
 set termencoding=utf-8
