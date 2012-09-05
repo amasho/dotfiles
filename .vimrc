@@ -300,6 +300,14 @@ let g:neocomplcache_enable_at_startup = 1
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NERDTreeの設定
+
+"デフォルトで表示
+"autocmd vimenter * if !argc() | NERDTree | endif    
+nmap <F9> :NERDTreeToggle<CR>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Session.vimの設定
 " 終了時のsession保存と起動時のautoload
 "
@@ -343,6 +351,7 @@ call vundle#rc()
  
 Bundle "Shougo/neocomplcache"
 Bundle "Shougo/unite.vim"
+Bundle "scrooloose/nerdtree"
 filetype plugin indent on
 
 
