@@ -81,8 +81,7 @@ local YELLOW=$'%{\e[1;33m%}'
 local BLUE=$'%{\e[1;34m%}'
 local CYAN=$'%{\e[1;36m%}'
 local WHITE=$'%{\e[1;37m%}'
-#PROMPT=$CYAN"[%n@%m${WINDOW:+[$WINDOW]}]$ "$WHITE
-PROMPT=$CYAN"$ "$WHITE
+PROMPT=$CYAN"[%n@%m${WINDOW:+[$WINDOW]}]$ "$WHITE
 RPROMPT='[`rprompt-git-current-branch`%~]'
 PROMPT2="%_%% "
 
