@@ -91,7 +91,7 @@ set viminfo=
 set ruler
 
 "行番号を表示
-set number
+"set number
 
 "編集時のバックアップを生成しない
 set nobackup
@@ -159,6 +159,7 @@ set guioptions-=T
 
 " タグファイル
 set tags=~/.tags
+autocmd FileType php :set tags+=~/.php_tags
 
 "C/Migemo
 if has('migemo')
@@ -223,7 +224,6 @@ autocmd FileType perl :set dictionary=~/.vim/dict/perl.dict
 autocmd FileType php :set dictionary=~/.vim/dict/php.dict
 autocmd FileType c set omnifunc=ccomplete#Complete
 autocmd FileType java set omnifunc=javaccomplete#Complete
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 括弧/クォートを自動補完
@@ -296,16 +296,26 @@ endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " neocomplcache.vimの設定
+"
 let g:neocomplcache_enable_at_startup = 1
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTreeの設定
-
+"
 "デフォルトで表示
 "autocmd vimenter * if !argc() | NERDTree | endif    
 nmap <F9> :NERDTreeToggle<CR>
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Fugitiveの設定
+"
+nnoremap ,gd :<C-u>Gdiff<Enter>
+nnoremap ,gs :<C-u>Gstatus<Enter>
+nnoremap ,gl :<C-u>Glog<Enter>
+nnoremap ,ga :<C-u>Gwrite<Enter>
+nnoremap ,gc :<C-u>Gcommit<Enter>
+nnoremap ,gC :<C-u>Git commit --amend<Enter>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Session.vimの設定
@@ -352,6 +362,7 @@ call vundle#rc()
 Bundle "Shougo/neocomplcache"
 Bundle "Shougo/unite.vim"
 Bundle "scrooloose/nerdtree"
+Bundle "tpope/vim-fugitive"
 filetype plugin indent on
 
 
