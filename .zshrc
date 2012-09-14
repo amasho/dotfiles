@@ -117,6 +117,7 @@ fi
 # Git
 alias g='git'
 alias gst='git status -s -b'
+export GIT_EDITOR=vim
 
 # Termcap
 export TERM=xterm-256color
