@@ -315,7 +315,9 @@ nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
 " 全部乗せ
 nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
 
-" Outline
+" Unite Help
+nnoremap <silent> ,uh :Unite help<Enter>
+" Unite Outline
 nnoremap <silent> ,uo :Unite outline<Enter>
 
 
@@ -387,7 +389,8 @@ call vundle#rc()
 
 Bundle "Shougo/neocomplcache"
 Bundle "Shougo/unite.vim"
-Bundle 'h1mesuke/unite-outline'''
+Bundle "h1mesuke/unite-outline"
+Bundle "tsukkee/unite-help"
 Bundle "scrooloose/nerdtree"
 Bundle "tpope/vim-fugitive"
 filetype plugin indent on
