@@ -236,6 +236,90 @@ inoremap " ""<LEFT>
 inoremap ' ''<LEFT>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" neocomplcache.vimの設定
+"
+let g:neocomplcache_enable_at_startup = 1
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NERDTreeの設定
+"
+"デフォルトで表示
+"autocmd vimenter * if !argc() | NERDTree | endif    
+nmap <F9> :NERDTreeToggle<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Fugitiveの設定
+"
+nnoremap ,gd :<C-u>Gdiff<Enter>
+nnoremap ,gs :<C-u>Gstatus<Enter>
+nnoremap ,gl :<C-u>Glog<Enter>
+nnoremap ,ga :<C-u>Gwrite<Enter>
+nnoremap ,gc :<C-u>Gcommit<Enter>
+nnoremap ,gC :<C-u>Git commit --amend<Enter>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 終了時のSession保存と起動時のautoload
+"
+augroup SessionAutocommands
+	autocmd!
+
+	autocmd VimEnter * nested call <SID>RestoreSessionWithConfirm()
+	autocmd VimLeave * execute 'SaveSession'
+augroup END
+	  
+command! RestoreSession :source ~/.vim/.session
+command! SaveSession    :mksession! ~/.vim/.session
+
+"Restore session with confirm
+function! s:RestoreSessionWithConfirm()
+	let msg = 'Do you want to restore previous session?'
+
+	if !argc() && confirm(msg, "&Yes\n&No", 1, 'Question') == 1
+		execute 'RestoreSession'
+	endif
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"バッファ切替と同時にディレクトリ移動
+"
+au BufRead * execute ":lcd " . expand("%:p:h")
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" PHPのSyntaxチェック
+"
+function PHPLint()
+    let result = system( 'php' . ' -l ' . bufname(""))
+    echo result
+endf
+autocmd FileType php,inc  :nmap ,l :call PHPLint()<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Unite
+"
+let g:unite_data_directory = expand('~/.vim/tmp/plugin/.unite')
+
+" 入力モードで開始する
+let g:unite_enable_start_insert=1
+" バッファ一覧
+nnoremap <silent> <S-b> :<C-u>Unite buffer<CR>
+" ファイル一覧
+nnoremap <silent> <S-f> :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+" レジスタ一覧
+nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
+" 最近使用したファイル一覧
+nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
+" 常用セット
+nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
+" 全部乗せ
+nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+
+" Outline
+nnoremap <silent> ,uo :Unite outline<Enter>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 色の設定
 "
 if &term =~ "xterm-256color"
@@ -293,64 +377,6 @@ if has("syntax")
     augroup END
 endif
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" neocomplcache.vimの設定
-"
-let g:neocomplcache_enable_at_startup = 1
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NERDTreeの設定
-"
-"デフォルトで表示
-"autocmd vimenter * if !argc() | NERDTree | endif    
-nmap <F9> :NERDTreeToggle<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Fugitiveの設定
-"
-nnoremap ,gd :<C-u>Gdiff<Enter>
-nnoremap ,gs :<C-u>Gstatus<Enter>
-nnoremap ,gl :<C-u>Glog<Enter>
-nnoremap ,ga :<C-u>Gwrite<Enter>
-nnoremap ,gc :<C-u>Gcommit<Enter>
-nnoremap ,gC :<C-u>Git commit --amend<Enter>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Session.vimの設定
-" 終了時のsession保存と起動時のautoload
-"
-function! ExitVimFuncSession()
-    SaveSession
-endfunction
-command! ExitVimFuncSession call ExitVimFuncSession()
-
-" 起動時にSessionを読み込む
-"let g:session_autoload = 1
-"Sessionファイル名を聞かず勝手に読み書きする
-"let g:session_autosave = 1
-"augroup MySession
-    "Vim終了時にSassionを保存する
-"    au VimLeave * ExitVimFuncSession
-"augroup END
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"バッファ切替と同時にディレクトリ移動
-"
-au BufRead * execute ":lcd " . expand("%:p:h")
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" PHPのSyntaxチェック
-"
-function PHPLint()
-    let result = system( 'php' . ' -l ' . bufname(""))
-    echo result
-endf
-autocmd FileType php,inc  :nmap ,l :call PHPLint()<CR>
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle
 "
@@ -358,11 +384,11 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/vundle.git/
 call vundle#rc()
- 
+
 Bundle "Shougo/neocomplcache"
 Bundle "Shougo/unite.vim"
+Bundle 'h1mesuke/unite-outline'''
 Bundle "scrooloose/nerdtree"
 Bundle "tpope/vim-fugitive"
 filetype plugin indent on
-
 
