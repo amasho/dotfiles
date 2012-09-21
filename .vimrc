@@ -265,9 +265,10 @@ augroup SessionAutocommands
 	autocmd!
 
 	autocmd VimEnter * nested call <SID>RestoreSessionWithConfirm()
+	autocmd VimEnter * :source ~/.vimrc
 	autocmd VimLeave * execute 'SaveSession'
 augroup END
-	  
+
 command! RestoreSession :source ~/.vim/.session
 command! SaveSession    :mksession! ~/.vim/.session
 
@@ -285,15 +286,32 @@ endfunction
 "
 au BufRead * execute ":lcd " . expand("%:p:h")
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PHPのSyntaxチェック
 "
-function PHPLint()
-    let result = system( 'php' . ' -l ' . bufname(""))
-    echo result
-endf
-autocmd FileType php,inc  :nmap ,l :call PHPLint()<CR>
+augroup php_lint
+	autocmd!
+"	autocmd FileType php,inc set makeprg=php\ -l\ %
+"	autocmd BufWritePost *.php,*.inc silent make | if len(getqflist()) != 1 | copen | else | cclose | endif
+
+	function! PHPLint()
+		let result = system( 'php' . ' -l ' . bufname(""))
+		if result !~ '^No.*' | echomsg result | endif
+	endfunction
+	autocmd FileType php,inc :nmap ,l :call PHPLint()<CR>
+	autocmd BufWritePost *.php,*.inc call PHPLint()
+augroup END
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" javascriptのSyntaxチェック
+" - jslint
+"
+function! s:javascript_filetype_settings()
+	autocmd BufLeave     <buffer> call jslint#clear()
+	autocmd BufWritePost <buffer> call jslint#check()
+	autocmd CursorMoved  <buffer> call jslint#message()
+endfunction
+autocmd FileType javascript call s:javascript_filetype_settings()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Unite
@@ -387,11 +405,12 @@ filetype off
 set rtp+=~/.vim/vundle.git/
 call vundle#rc()
 
-Bundle "Shougo/neocomplcache"
-Bundle "Shougo/unite.vim"
-Bundle "h1mesuke/unite-outline"
-Bundle "tsukkee/unite-help"
-Bundle "scrooloose/nerdtree"
-Bundle "tpope/vim-fugitive"
+Bundle 'Shougo/neocomplcache'
+Bundle 'Shougo/unite.vim'
+Bundle 'h1mesuke/unite-outline'
+Bundle 'tsukkee/unite-help'
+Bundle 'scrooloose/nerdtree'
+Bundle 'tpope/vim-fugitive'
+Bundle 'basyura/jslint.vim'
 filetype plugin indent on
 
