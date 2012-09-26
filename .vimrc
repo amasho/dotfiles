@@ -412,5 +412,6 @@ Bundle 'tsukkee/unite-help'
 Bundle 'scrooloose/nerdtree'
 Bundle 'tpope/vim-fugitive'
 Bundle 'basyura/jslint.vim'
+Bundle 'thinca/vim-quickrun'
 filetype plugin indent on
 
