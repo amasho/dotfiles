@@ -337,6 +337,8 @@ nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mr
 nnoremap <silent> ,uh :Unite help<Enter>
 " Unite Outline
 nnoremap <silent> ,uo :Unite outline<Enter>
+" Unite Mark
+nnoremap <silent> <S-m> :Unite mark<Enter>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -409,6 +411,7 @@ Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/unite.vim'
 Bundle 'h1mesuke/unite-outline'
 Bundle 'tsukkee/unite-help'
+Bundle 'tacroe/unite-mark'
 Bundle 'scrooloose/nerdtree'
 Bundle 'tpope/vim-fugitive'
 Bundle 'basyura/jslint.vim'
