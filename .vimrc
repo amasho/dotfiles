@@ -207,10 +207,10 @@ autocmd! BufRead,BufNewFile *.(sh|bash) set filetype=sh
 autocmd! BufRead,BufNewFile *.php[34]? set filetype=php
 autocmd! BufRead,BufNewFile *.inc set filetype=php
 autocmd! BufRead,BufNewFile *.phtml set filetype=php
-autocmd! BufRead,BufNewFile *.html set filetype=php
+autocmd! BufRead,BufNewFile *.html set filetype=html
 autocmd! BufRead,BufNewFile *.(t|pl|pm) set filetype=perl
 autocmd! BufRead,BufNewFile *.(js|as|json|jsn) set filetype=javascript
-autocmd! BufRead,BufNewFile *.tpl set filetype=html
+autocmd! BufRead,BufNewFile *.tpl set filetype=smarty
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " コード補完
@@ -391,11 +391,11 @@ endif
 function! SOLSpaceHilight()
     syntax match SOLSpace "^ \+" display containedin=ALL
 "   highlight SOLSpace term=underline ctermbg=DarkGray
-endf
+endfunction
 if has("syntax")
     augroup invisible
-    autocmd! invisible
-    autocmd BufNew,BufRead * call SOLSpaceHilight()
+        autocmd! invisible
+        autocmd BufNew,BufRead * call SOLSpaceHilight()
     augroup END
 endif
 
