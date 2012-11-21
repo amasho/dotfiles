@@ -18,7 +18,7 @@ export JLESSCHARSET=japanese
 export LC_ALL=ja_JP.UTF-8
 
 # Path
-export PATH=/usr/local/bin:/usr/share/pear/bin:$HOME/local/bin:$PATH
+export PATH=/usr/local/bin:/usr/local/sbin:/usr/share/pear/bin:$HOME/local/bin:$PATH
 
 # Screen session
 export SCREENDIR=${HOME}/.screen
