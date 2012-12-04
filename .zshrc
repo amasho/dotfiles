@@ -126,6 +126,11 @@ export TERMCAP="xterm-256color:Co#256:pa#256:AF=\E[38;5;%dm:AB=\E[48;5;%dm:tc=xt
 function chpwd() { ls }
 
 # RVM
-if [[ -s ${HOME}/.rvm/scripts/rvm ]] ; then source ${HOME}/.rvm/scripts/rvm ; fi
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+#if [[ -s ${HOME}/.rvm/scripts/rvm ]] ; then source ${HOME}/.rvm/scripts/rvm ; fi
+#PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
+# rbenv
+if [[ -s ${HOME}/.rbenv/bin ]]; then
+	PATH=$PATH:$HOME/.rbenv/bin;
+	eval "$(rbenv init -)";
+fi
