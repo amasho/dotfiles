@@ -106,6 +106,10 @@ alias which='/usr/bin/which'
 alias s='screen -D -RR -q'
 alias tmux='tmux -2'
 
+if [ `uname` = "Darwin" ]; then
+	alias o='open';
+fi
+
 # nodebrew
 if [[ -f $HOME/.nodebrew/nodebrew ]]; then
 	export NODE_PATH=$HOME/.nodebrew/current/lib/node_modules
