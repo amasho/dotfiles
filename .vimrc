@@ -342,6 +342,11 @@ nnoremap <silent> ,uo :Unite outline<Enter>
 " Unite Mark
 nnoremap <silent> <S-m> :Unite mark<Enter>
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" quickrun
+"
+let g:quickrun_config = {}
+let g:quickrun_config._ = {'runner' : 'vimproc'}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 色の設定
@@ -412,6 +417,9 @@ call vundle#rc()
 Bundle 'vim-scripts/javacomplete'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/unite.vim'
+Bundle 'Shougo/vimfiler'
+Bundle 'Shougo/vimproc'
+Bundle 'Shougo/vimshell'
 Bundle 'h1mesuke/unite-outline'
 Bundle 'tsukkee/unite-help'
 Bundle 'tacroe/unite-mark'
