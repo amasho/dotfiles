@@ -223,7 +223,9 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType perl :set dictionary=~/.vim/dict/perl.dict
 autocmd FileType php :set dictionary=~/.vim/dict/php.dict
 autocmd FileType c set omnifunc=ccomplete#Complete
-autocmd FileType java set omnifunc=javaccomplete#Complete
+"autocmd FileType java set omnifunc=javaccomplete#Complete
+autocmd FileType java :setlocal omnifunc=javacomplete#Complete
+autocmd FileType java :setlocal completefunc=javacomplete#CompleteParamsInfo
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 括弧/クォートを自動補完
@@ -407,6 +409,7 @@ filetype off
 set rtp+=~/.vim/vundle.git/
 call vundle#rc()
 
+Bundle 'vim-scripts/javacomplete'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/unite.vim'
 Bundle 'h1mesuke/unite-outline'
