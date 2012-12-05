@@ -2,8 +2,7 @@
 # .zshrc
 #
 
-#stty erase  -ixon
-stty erase  -ixon
+stty erase  -ixon
 
 # Emacs keybind
 bindkey -e
@@ -106,9 +105,36 @@ alias which='/usr/bin/which'
 alias s='screen -D -RR -q'
 alias tmux='tmux -2'
 
+# for Mac
 if [ `uname` = "Darwin" ]; then
 	alias o='open';
 fi
+
+# z.sh
+if [ -f ~/z/z.sh ]; then
+	_Z_CMD=j
+	source ~/z/z.sh
+	precmd() { _z --add "$(pwd -P)" }
+fi
+
+# auto-fu.zsh
+if [ -f ~/.zsh/auto-fu.zsh ]; then
+	source ~/.zsh/auto-fu.zsh
+	function zle-line-init () {
+		auto-fu-init
+	}
+	zle -N zle-line-init
+	zstyle ':completion:*' completer _oldlist _complete
+fi
+
+# command line stack
+show_buffer_stack() {
+	POSTDISPLAY="stack: $LBUFFER"
+	zle push-line-or-edit
+}
+zle -N show_buffer_stack
+setopt noflowcontrol
+bindkey '^Q' show_buffer_stack''
 
 # nodebrew
 if [[ -f $HOME/.nodebrew/nodebrew ]]; then
