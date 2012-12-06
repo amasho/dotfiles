@@ -2,8 +2,6 @@
 # .zshrc
 #
 
-stty erase  -ixon
-
 # Emacs keybind
 bindkey -e
 
@@ -105,9 +103,10 @@ alias which='/usr/bin/which'
 alias s='screen -D -RR -q'
 alias tmux='tmux -2'
 
-# for Mac
 if [ `uname` = "Darwin" ]; then
-	alias o='open';
+	stty erase  -ixon
+else
+	stty erase  -ixon
 fi
 
 # z.sh
@@ -134,7 +133,7 @@ show_buffer_stack() {
 }
 zle -N show_buffer_stack
 setopt noflowcontrol
-bindkey '^Q' show_buffer_stack''
+bindkey 'M-q' show_buffer_stack''
 
 # nodebrew
 if [[ -f $HOME/.nodebrew/nodebrew ]]; then
