@@ -334,6 +334,8 @@ nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
 nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
 " 全部乗せ
 nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+" Bookmark
+nnoremap <silent> ,ub :<C-u>Unite bookmark<CR>
 
 " Unite Help
 nnoremap <silent> ,uh :Unite help<Enter>
