@@ -242,13 +242,26 @@ inoremap ' ''<LEFT>
 "
 let g:neocomplcache_enable_at_startup = 1
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" snippets
+"
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+
+imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+if has('conceal')
+    set conceallevel=2 concealcursor=i
+endif
+let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERDTreeの設定
 "
 "デフォルトで表示
 "autocmd vimenter * if !argc() | NERDTree | endif    
-nmap <F9> :NERDTreeToggle<CR>
+"nmap <F9> :NERDTreeToggle<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fugitiveの設定
@@ -293,15 +306,25 @@ au BufRead * execute ":lcd " . expand("%:p:h")
 "
 augroup php_lint
 	autocmd!
-"	autocmd FileType php,inc set makeprg=php\ -l\ %
-"	autocmd BufWritePost *.php,*.inc silent make | if len(getqflist()) != 1 | copen | else | cclose | endif
-
 	function! PHPLint()
 		let result = system( 'php' . ' -l ' . bufname(""))
 		if result !~ '^No.*' | echomsg result | endif
 	endfunction
 	autocmd FileType php,inc :nmap ,l :call PHPLint()<CR>
 	autocmd BufWritePost *.php,*.inc call PHPLint()
+augroup END
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RubyのSyntaxチェック
+"
+augroup ruby_lint
+	autocmd!
+	function! RubyLint()
+		let result = system( 'ruby' . ' -c ' . bufname(""))
+		if result !~ '^Syntax OK.*' | echomsg result | endif
+	endfunction
+	autocmd FileType rb :nmap ,c :call RubyLint()<CR>
+	autocmd BufWritePost *.rb call RubyLint()
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -416,25 +439,30 @@ if has("syntax")
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vundle
+" NeoVundle
 "
 set nocompatible
 filetype off
-set rtp+=~/.vim/vundle.git/
-call vundle#rc()
+if has('vim_starting')
+	set runtimepath+=~/.vim/bundle/neobundle.vim
+	call neobundle#rc(expand('~/.vim/bundle/'))
+endif
 
-Bundle 'vim-scripts/javacomplete'
-Bundle 'Shougo/neocomplcache'
-Bundle 'Shougo/unite.vim'
-Bundle 'Shougo/vimfiler'
-Bundle 'Shougo/vimproc'
-Bundle 'Shougo/vimshell'
-Bundle 'h1mesuke/unite-outline'
-Bundle 'tsukkee/unite-help'
-Bundle 'tacroe/unite-mark'
-Bundle 'scrooloose/nerdtree'
-Bundle 'tpope/vim-fugitive'
-Bundle 'basyura/jslint.vim'
-Bundle 'thinca/vim-quickrun'
+NeoBundle 'Shougo/vimproc', {'build' : {'mac' : 'make -f make_mac.mak', }, }
+NeoBundle 'Shougo/vimshell'
+NeoBundle 'Shougo/vimfiler'
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'honza/snipmate-snippets'
+NeoBundle 'h1mesuke/unite-outline'
+NeoBundle 'tsukkee/unite-help'
+NeoBundle 'tacroe/unite-mark'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'basyura/jslint.vim'
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'vim-scripts/javacomplete'
+
 filetype plugin indent on
-
+filetype indent on
