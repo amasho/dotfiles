@@ -462,7 +462,9 @@ NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'basyura/jslint.vim'
 NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'vim-scripts/javacomplete'
+NeoBundle 'surround.vim'
 
 filetype plugin indent on
 filetype indent on
