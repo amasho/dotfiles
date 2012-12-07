@@ -472,8 +472,11 @@ NeoBundle 'basyura/jslint.vim'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'vim-scripts/javacomplete'
+NeoBundle "vim-scripts/SQLUtilities"
 NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'surround.vim'
+NeoBundle "ruby.vim"
+NeoBundle "tpope/vim-rails"
 
 filetype plugin indent on
 filetype indent on
