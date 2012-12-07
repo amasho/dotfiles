@@ -378,7 +378,7 @@ nnoremap <silent> <S-m> :Unite mark<Enter>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vimfiler
 "
-nnoremap <silent> fv :VimFiler -split -simple -toggle -winwidth=35 -no-quit<CR>
+nnoremap <silent> fv :VimFiler -split -toggle -simple -winwidth=40 -no-quit<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " quickrun
@@ -447,7 +447,7 @@ if has("syntax")
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NeoVundle
+" NeoBundle
 "
 set nocompatible
 filetype off
