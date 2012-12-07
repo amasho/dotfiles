@@ -105,6 +105,7 @@ alias tmux='tmux -2'
 
 if [ `uname` = "Darwin" ]; then
 	stty erase  -ixon
+	export __CF_USER_TEXT_ENCODING="0x1F5:0x08000100:14"
 else
 	stty erase  -ixon
 fi

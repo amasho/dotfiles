@@ -96,6 +96,7 @@ set ruler
 "編集時のバックアップを生成しない
 set nobackup
 
+
 "編集時のスワップファイルを生成しない
 set noswapfile
 
@@ -118,8 +119,15 @@ set nolist
 "タブが２つ以上になったらタブバーを表示
 set showtabline=1
 
-"クリップボードをWindowsと連携
+"クリップボード連携
 set clipboard=unnamed
+vmap <silent> ,y "*y
+
+" ポップアップメニューをよしなに
+set completeopt=menu,preview,longest,menuone
+
+" 補完候補の設定
+set complete=.,w,b,u,k
 
 " ポップアップメニューをよしなに
 set completeopt=menu,preview,longest,menuone
@@ -464,6 +472,7 @@ NeoBundle 'basyura/jslint.vim'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'vim-scripts/javacomplete'
+NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'surround.vim'
 
 filetype plugin indent on
