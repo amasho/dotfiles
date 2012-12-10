@@ -401,8 +401,7 @@ function! s:java_compile()
 	let path = expand("%")
 	let ret = system("/usr/bin/javac -J-Dfile.encoding=UTF8 " . path)
 	if ret != ""
-		echomsg "Compile Failure:"
-		echomsg ret 
+		echohl ErrorMsg | echomsg "Failure:" . ret | echohl None
 	endif
 endfunction
 autocmd BufWritePost *.java call s:java_compile()
