@@ -99,6 +99,7 @@ alias e='emacs -nw'
 alias h='history'
 alias less='less -r'
 alias which='/usr/bin/which'
+alias javac="javac -J-Dfile.encoding=UTF8"
 
 alias s='screen -D -RR -q'
 alias tmux='tmux -2'

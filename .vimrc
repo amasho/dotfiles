@@ -167,12 +167,60 @@ set guioptions-=T
 
 " タグファイル
 set tags=~/.tags
-autocmd FileType php :set tags+=~/.php_tags
 
 "C/Migemo
 if has('migemo')
     set migemo
 endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 色の設定
+"
+function! s:MyHighlight_Colors()
+	if &term =~ "xterm-256color"
+	    "256色表示
+	    set t_Co=256
+	
+		highlight Normal ctermfg=255
+		highlight NonText ctermfg=255
+		highlight Directory cterm=bold ctermfg=206
+		highlight Cursor ctermfg=255 ctermbg=255
+		highlight CursorIM ctermfg=0 ctermbg=206
+		highlight Comment ctermfg=120
+		highlight String ctermfg=198
+		highlight Constant ctermfg=6
+		highlight Keyword ctermfg=202
+		highlight Statement cterm=bold ctermfg=255
+		highlight Identifier ctermfg=222
+		highlight Visual cterm=bold ctermbg=136
+		highlight Special ctermfg=255
+		highlight Search cterm=none ctermfg=88 ctermbg=211
+		highlight StatusLine cterm=bold ctermfg=255 ctermbg=21
+		highlight LineNr cterm=none ctermfg=255
+		highlight Pmenu cterm=none ctermfg=255 ctermbg=200
+		highlight PmenuSel cterm=bold ctermfg=255 ctermbg=21
+		highlight Include cterm=bold ctermfg=255
+		highlight Define cterm=bold ctermfg=14
+		highlight Macro cterm=bold ctermfg=14
+		highlight PreCondit cterm=bold ctermfg=21
+	else
+	    highlight Normal ctermfg=255
+	    highlight NonText ctermfg=255
+	    highlight Directory cterm=bold ctermfg=206 ctermbg=0
+	    highlight Cursor ctermfg=255 ctermbg=255
+	    highlight Comment ctermfg=120 ctermbg=0
+	    highlight String ctermfg=198 ctermbg=0
+	    highlight Constant ctermfg=6 ctermbg=0
+	    highlight Keyword ctermfg=202 ctermbg=0
+	    highlight Statement cterm=bold ctermfg=255 ctermbg=0
+	    highlight Identifier ctermfg=222 ctermbg=0
+	    highlight Visual cterm=bold ctermbg=136
+	    highlight Special ctermfg=255 ctermbg=0
+	    highlight Search cterm=none ctermfg=88 ctermbg=211
+	    highlight StatusLine cterm=bold ctermfg=255 ctermbg=21
+	endif
+endfunction
+autocmd VimEnter * nested call s:MyHighlight_Colors()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " キーマップ 
@@ -219,6 +267,7 @@ autocmd! BufRead,BufNewFile *.html set filetype=html
 autocmd! BufRead,BufNewFile *.(t|pl|pm) set filetype=perl
 autocmd! BufRead,BufNewFile *.(js|as|json|jsn) set filetype=javascript
 autocmd! BufRead,BufNewFile *.tpl set filetype=smarty
+autocmd! BufRead,BufNewFile *.java set filetype=java
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " コード補完
@@ -231,7 +280,6 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType perl :set dictionary=~/.vim/dict/perl.dict
 autocmd FileType php :set dictionary=~/.vim/dict/php.dict
 autocmd FileType c set omnifunc=ccomplete#Complete
-"autocmd FileType java set omnifunc=javaccomplete#Complete
 autocmd FileType java :setlocal omnifunc=javacomplete#Complete
 autocmd FileType java :setlocal completefunc=javacomplete#CompleteParamsInfo
 
@@ -288,7 +336,7 @@ augroup SessionAutocommands
 	autocmd!
 
 	autocmd VimEnter * nested call <SID>RestoreSessionWithConfirm()
-	autocmd VimEnter * :source ~/.vimrc
+	autocmd VimEnter * nested call s:MyHighlight_Colors()
 	autocmd VimLeave * execute 'SaveSession'
 augroup END
 
@@ -347,6 +395,19 @@ endfunction
 autocmd FileType javascript call s:javascript_filetype_settings()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" javaの保存時コンパイル
+"
+function! s:java_compile()
+	let path = expand("%")
+	let ret = system("/usr/bin/javac -J-Dfile.encoding=UTF8 " . path)
+	if ret != ""
+		echomsg "Compile Failure:"
+		echomsg ret 
+	endif
+endfunction
+autocmd BufWritePost *.java call s:java_compile()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Unite
 "
 let g:unite_data_directory = expand('~/.vim/tmp/plugin/.unite')
@@ -387,52 +448,6 @@ let g:quickrun_config = {}
 let g:quickrun_config['_'] = {}
 let g:quickrun_config['_']['runner'] = 'vimproc'
 let g:quickrun_config['_']['runner/vimproc/updatetime'] = 100
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 色の設定
-"
-if &term =~ "xterm-256color"
-    "256色表示
-    set t_Co=256
-
-	highlight Normal ctermfg=255
-	highlight NonText ctermfg=255
-	highlight Directory cterm=bold ctermfg=206
-	highlight Cursor ctermfg=255 ctermbg=255
-	highlight CursorIM ctermfg=0 ctermbg=206
-	highlight Comment ctermfg=120
-	highlight String ctermfg=198
-	highlight Constant ctermfg=6
-	highlight Keyword ctermfg=202
-	highlight Statement cterm=bold ctermfg=255
-	highlight Identifier ctermfg=222
-	highlight Visual cterm=bold ctermbg=136
-	highlight Special ctermfg=255
-	highlight Search cterm=none ctermfg=88 ctermbg=211
-	highlight StatusLine cterm=bold ctermfg=255 ctermbg=21
-	highlight LineNr cterm=none ctermfg=255
-	highlight Pmenu cterm=none ctermfg=255 ctermbg=200
-	highlight PmenuSel cterm=bold ctermfg=255 ctermbg=21
-	highlight Include cterm=bold ctermfg=255
-	highlight Define cterm=bold ctermfg=14
-	highlight Macro cterm=bold ctermfg=14
-	highlight PreCondit cterm=bold ctermfg=21
-else
-    highlight Normal ctermfg=255
-    highlight NonText ctermfg=255
-    highlight Directory cterm=bold ctermfg=206 ctermbg=0
-    highlight Cursor ctermfg=255 ctermbg=255
-    highlight Comment ctermfg=120 ctermbg=0
-    highlight String ctermfg=198 ctermbg=0
-    highlight Constant ctermfg=6 ctermbg=0
-    highlight Keyword ctermfg=202 ctermbg=0
-    highlight Statement cterm=bold ctermfg=255 ctermbg=0
-    highlight Identifier ctermfg=222 ctermbg=0
-    highlight Visual cterm=bold ctermbg=136
-    highlight Special ctermfg=255 ctermbg=0
-    highlight Search cterm=none ctermfg=88 ctermbg=211
-    highlight StatusLine cterm=bold ctermfg=255 ctermbg=21
-endif
 
 " 先頭のスペースをカラー表示
 function! SOLSpaceHilight()
