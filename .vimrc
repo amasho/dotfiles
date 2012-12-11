@@ -303,6 +303,11 @@ inoremap ' ''<LEFT>
 " neocomplcache.vimの設定
 "
 let g:neocomplcache_enable_at_startup = 1
+imap <C-k>     <Plug>(neocomplcache_snippets_expand)
+smap <C-k>     <Plug>(neocomplcache_snippets_expand)
+inoremap <expr><C-g>     neocomplcache#undo_completion()
+inoremap <expr><C-l>     neocomplcache#complete_common_string()
+imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " snippets
@@ -413,6 +418,22 @@ endfunction
 autocmd BufWritePost *.java call s:java_compile()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" jcommenter.vim
+"
+autocmd FileType java map <reader>jc :call JCommentWriter()<CR>
+
+":let b:jcommenter_class_author = ""
+":let b:jcommenter_class_version = ""
+":let b:jcommenter_file_author = ""
+":let b:jcommenter_file_copyright = ""
+
+:let b:jcommenter_class_author = "作者名"
+:let b:jcommenter_class_version = "$Revision: 1.6 $"
+:let b:jcommenter_file_author = "作者名"
+:let b:jcommenter_file_copyright = "作者名"
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Unite
 "
 let g:unite_data_directory = expand('~/.vim/tmp/plugin/.unite')
@@ -493,9 +514,9 @@ NeoBundle "tpope/vim-rails"
 NeoBundle 'basyura/jslint.vim'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'tomtom/tcomment_vim'
+NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'vim-scripts/javacomplete'
 NeoBundle "vim-scripts/SQLUtilities"
-NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'surround.vim'
 NeoBundle "ruby.vim"
 NeoBundle "rubycomplete.vim"
