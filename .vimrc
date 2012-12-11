@@ -272,16 +272,22 @@ autocmd! BufRead,BufNewFile *.java set filetype=java
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " コード補完
 "
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType perl :set dictionary=~/.vim/dict/perl.dict
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType php :set dictionary=~/.vim/dict/php.dict
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType perl :set dictionary=~/.vim/dict/perl.dict
 autocmd FileType c set omnifunc=ccomplete#Complete
 autocmd FileType java :setlocal omnifunc=javacomplete#Complete
 autocmd FileType java :setlocal completefunc=javacomplete#CompleteParamsInfo
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+
+autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 括弧/クォートを自動補完
@@ -441,7 +447,7 @@ nnoremap <silent> <S-m> :Unite mark<Enter>
 nnoremap <silent> fv :VimFiler -split -toggle -simple -winwidth=40 -no-quit<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" quickrun
+" vim-quickrun
 "
 let g:quickrun_config = {}
 let g:quickrun_config['_'] = {}
@@ -483,6 +489,7 @@ NeoBundle 'tsukkee/unite-help'
 NeoBundle 'tacroe/unite-mark'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle "tpope/vim-rails"
 NeoBundle 'basyura/jslint.vim'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'tomtom/tcomment_vim'
@@ -491,7 +498,7 @@ NeoBundle "vim-scripts/SQLUtilities"
 NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'surround.vim'
 NeoBundle "ruby.vim"
-NeoBundle "tpope/vim-rails"
+NeoBundle "rubycomplete.vim"
 
 filetype plugin indent on
 filetype indent on
