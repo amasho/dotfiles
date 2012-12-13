@@ -223,6 +223,43 @@ endfunction
 autocmd VimEnter * nested call s:MyHighlight_Colors()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NeoBundle
+"
+set nocompatible
+filetype off
+if has('vim_starting')
+    set runtimepath+=~/.vim/bundle/neobundle.vim
+    call neobundle#rc(expand('~/.vim/bundle/'))
+endif
+
+NeoBundle 'Shougo/vimproc', {'build' : {'mac' : 'make -f make_mac.mak', }, }
+NeoBundle 'Shougo/vimshell'
+NeoBundle 'Shougo/vimfiler'
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle "Lokaltog/vim-powerline"
+NeoBundle 'honza/snipmate-snippets'
+NeoBundle 'h1mesuke/unite-outline'
+NeoBundle 'tsukkee/unite-help'
+NeoBundle 'tacroe/unite-mark'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle "tpope/vim-rails"
+NeoBundle 'basyura/jslint.vim'
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'tomtom/tcomment_vim'
+NeoBundle 'kana/vim-fakeclip'
+NeoBundle 'vim-scripts/javacomplete'
+NeoBundle "vim-scripts/SQLUtilities"
+NeoBundle 'surround.vim'
+NeoBundle "ruby.vim"
+NeoBundle "rubycomplete.vim"
+
+filetype plugin indent on
+filetype indent on
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " キーマップ 
 "
 " Jで5行下へ
@@ -488,38 +525,134 @@ if has("syntax")
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NeoBundle
+" vim-powerline
 "
-set nocompatible
-filetype off
-if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/neobundle.vim
-    call neobundle#rc(expand('~/.vim/bundle/'))
-endif
+let g:Powerline_symbols='fancy'
+let g:Powerline_mode_n = 'NORMAL'
+call Pl#Hi#Allocate({
+  \ 'black'          : 16,
+  \ 'white'          : 231,
+  \
+  \ 'darkestgreen'   : 22,
+  \ 'darkgreen'      : 28,
+  \
+  \ 'darkestcyan'    : 21,
+  \ 'mediumcyan'     : 117,
+  \
+  \ 'darkestblue'    : 24,
+  \ 'darkblue'       : 31,
+  \
+  \ 'darkestred'     : 52,
+  \ 'darkred'        : 88,
+  \ 'mediumred'      : 124,
+  \ 'brightred'      : 160,
+  \ 'brightestred'   : 196,
+  \
+  \ 'darkestyellow'  : 59,
+  \ 'darkyellow'     : 100,
+  \ 'darkestpurple'  : 57,
+  \ 'mediumpurple'   : 98,
+  \ 'brightpurple'   : 189,
+  \
+  \ 'brightorange'   : 208,
+  \ 'brightestorange': 214,
+  \
+  \ 'gray0'          : 233,
+  \ 'gray1'          : 235,
+  \ 'gray2'          : 236,
+  \ 'gray3'          : 239,
+  \ 'gray4'          : 240,
+  \ 'gray5'          : 241,
+  \ 'gray6'          : 244,
+  \ 'gray7'          : 245,
+  \ 'gray8'          : 247,
+  \ 'gray9'          : 250,
+  \ 'gray10'         : 252,
+  \ })
 
-NeoBundle 'Shougo/vimproc', {'build' : {'mac' : 'make -f make_mac.mak', }, }
-NeoBundle 'Shougo/vimshell'
-NeoBundle 'Shougo/vimfiler'
-NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle "Lokaltog/vim-powerline"
-NeoBundle 'honza/snipmate-snippets'
-NeoBundle 'h1mesuke/unite-outline'
-NeoBundle 'tsukkee/unite-help'
-NeoBundle 'tacroe/unite-mark'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle "tpope/vim-rails"
-NeoBundle 'basyura/jslint.vim'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'tomtom/tcomment_vim'
-NeoBundle 'kana/vim-fakeclip'
-NeoBundle 'vim-scripts/javacomplete'
-NeoBundle "vim-scripts/SQLUtilities"
-NeoBundle 'surround.vim'
-NeoBundle "ruby.vim"
-NeoBundle "rubycomplete.vim"
+" 'n': normal mode
+" 'i': insert mode
+" 'v': visual mode
+" 'r': replace mode
+" 'N': not active
+let g:Powerline#Colorschemes#my#colorscheme = Pl#Colorscheme#Init([
+  \ Pl#Hi#Segments(['SPLIT'], {
+    \ 'n': ['white', 'gray2'],
+    \ 'N': ['gray0', 'gray0'],
+    \ }),
+  \
+  \ Pl#Hi#Segments(['mode_indicator'], {
+    \ 'i': ['darkestgreen', 'white', ['bold']],
+    \ 'n': ['darkestcyan', 'white', ['bold']],
+    \ 'v': ['darkestpurple', 'white', ['bold']],
+    \ 'r': ['mediumred', 'white', ['bold']],
+    \ 's': ['white', 'gray5', ['bold']],
+    \ }),
+  \
+  \ Pl#Hi#Segments(['fileinfo', 'filename'], {
+    \ 'i': ['white', 'darkestgreen', ['bold']],
+    \ 'n': ['white', 'darkestcyan', ['bold']],
+    \ 'v': ['white', 'darkestpurple', ['bold']],
+    \ 'r': ['white', 'mediumred', ['bold']],
+    \ 'N': ['gray0', 'gray2', ['bold']],
+    \ }),
+  \
+  \ Pl#Hi#Segments(['branch', 'scrollpercent', 'raw', 'filesize'], {
+    \ 'n': ['gray2', 'gray7'],
+    \ 'N': ['gray0', 'gray2'],
+    \ }),
+  \
+  \ Pl#Hi#Segments(['fileinfo.filepath', 'status'], {
+    \ 'n': ['gray10'],
+    \ 'N': ['gray5'],
+    \ }),
+  \
+  \ Pl#Hi#Segments(['static_str'], {
+    \ 'n': ['white', 'gray4'],
+    \ 'N': ['gray1', 'gray1'],
+    \ }),
+  \
+  \ Pl#Hi#Segments(['fileinfo.flags'], {
+    \ 'n': ['white'],
+    \ 'N': ['gray4'],
+    \ }),
+  \
+  \ Pl#Hi#Segments(['currenttag', 'fileformat', 'fileencoding', 'pwd', 'filetype', 'charcode', 'currhigroup'], {
+    \ 'n': ['gray9', 'gray4'],
+    \ }),
+  \
+  \ Pl#Hi#Segments(['lineinfo'], {
+    \ 'n': ['gray2', 'gray10'],
+    \ 'N': ['gray2', 'gray4'],
+    \ }),
+  \
+  \ Pl#Hi#Segments(['errors'], {
+    \ 'n': ['white', 'gray2'],
+    \ }),
+  \
+  \ Pl#Hi#Segments(['lineinfo.line.tot'], {
+    \ 'n': ['gray2'],
+    \ 'N': ['gray2'],
+    \ }),
+  \
+  \ Pl#Hi#Segments(['paste_indicator', 'ws_marker'], {
+    \ 'n': ['white', 'brightred', ['bold']],
+    \ }),
+  \
+  \ Pl#Hi#Segments(['gundo:static_str.name'], {
+    \ 'n': ['white', 'mediumred', ['bold']],
+    \ 'N': ['brightred', 'darkestred', ['bold']],
+    \ }),
+  \
+  \ Pl#Hi#Segments(['gundo:static_str.buffer'], {
+    \ 'n': ['white', 'darkred'],
+    \ 'N': ['brightred', 'darkestred'],
+    \ }),
+  \
+  \ Pl#Hi#Segments(['gundo:SPLIT'], {
+    \ 'n': ['white', 'gray2'],
+    \ 'N': ['white', 'gray0'],
+    \ }),
+  \ ])
+let g:Powerline_colorscheme='my'
 
-filetype plugin indent on
-filetype indent on
