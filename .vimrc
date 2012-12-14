@@ -26,13 +26,18 @@ endif
 syntax on
 
 "GUI用設定
-set guifont=Ricty:h12
-set guioptions+=i
-set guioptions-=l
-set guioptions-=L
-set guioptions-=r
-set guioptions-=R
-set guioptions-=T
+if has('gui')
+	set guifont=Ricty:h13
+	set guioptions+=i
+	set guioptions-=l
+	set guioptions-=L
+	set guioptions-=r
+	set guioptions-=R
+	set guioptions-=T
+
+	nnoremap <C-f> <Pagedown>
+	nnoremap <C-b> <Pageup>
+endif
 
 "set autochdir
 set directory=~
@@ -187,27 +192,26 @@ function! s:MyHighlight_Colors()
 	if has('gui')
 		highlight Normal guifg=#FFFFFF guibg=#000000
 		highlight NonText guifg=#FFFFFF guibg=#000000
-		highlight Directory gui=bold guifg=#CECECE
+		highlight Directory gui=bold guifg=#FF5FD7
 		highlight Cursor guifg=#FFFFFF guibg=#FFFFFF
-		highlight CursorIM guifg=#000000 guibg=#CECECE
-		highlight Comment guifg=LightGreen
-		highlight String guifg=#D75F87
-		highlight Constant ctermfg=6
-		highlight Keyword guifg=#3cb471
-		highlight Statement gui=bold ctermfg=255
-		highlight Identifier ctermfg=222
-		highlight Visual gui=bold ctermbg=136
+		highlight CursorIM guifg=#000000 guibg=#FF5FD7
+		highlight Comment guifg=#87FF87
+		highlight String guifg=#FF0087
+		highlight Constant guifg=#FFFFFF
+		highlight Keyword guifg=#FF5F00
+		highlight Statement gui=bold guifg=#FFFFFF
+		highlight Identifier guifg=#FFD787
+		highlight Visual gui=bold guibg=#AF8700
 		highlight Special guifg=#FFFFFF
-		highlight Search gui=bold guifg=#000000 guibg=Yellow
-		highlight StatusLine cterm=bold ctermfg=255 ctermbg=21
+		highlight Search gui=bold guifg=#000000 guibg=#FF87AF
 		highlight LineNr gui=none guifg=#FFFFFF guibg=#000000
-		highlight Pmenu gui=none guifg=#FFFFFF ctermbg=200
-		highlight PmenuSel gui=bold guifg=#FFFFFF ctermbg=21
+		highlight Pmenu gui=none guifg=#FFFFFF guibg=#FF00D7
+		highlight PmenuSel gui=bold guifg=#FFFFFF guibg=#FF00D7
 		highlight Include gui=bold guifg=#FFFFFF
 		highlight Define gui=bold ctermfg=14
 		highlight Macro gui=bold ctermfg=14
-		highlight PreCondit gui=bold ctermfg=21
-		highlight diffAdded guifg=#000000  guibg=LightBlue
+		highlight PreCondit gui=bold guifg=#0000FF
+		highlight diffAdded guifg=#000000  guibg=#0000FF
 	else
 		if &term =~ "xterm-256color"
 			"256色表示
@@ -536,6 +540,12 @@ nnoremap <silent> <S-m> :Unite mark<Enter>
 " vimfiler
 "
 nnoremap <silent> fv :VimFiler -split -toggle -simple -winwidth=40 -no-quit<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VimShell
+"
+let g:vimshell_editor_command='/Applications/MacVim/MacVim.app/Contents/MacOS/Vim --servername=VIM --remote-tab-wait-silent'
+nnoremap <silent> vs :VimShell<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-quickrun
