@@ -27,7 +27,7 @@ syntax on
 
 "GUI用設定
 if has('gui')
-	set guifont=Ricty:h13
+	set guifont=Ricty:h12
 	set guioptions+=i
 	set guioptions-=l
 	set guioptions-=L
@@ -539,7 +539,7 @@ nnoremap <silent> <S-m> :Unite mark<Enter>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vimfiler
 "
-nnoremap <silent> fv :VimFiler -split -toggle -simple -winwidth=40 -no-quit<CR>
+nnoremap <silent> fv :VimFiler -split -toggle -simple -winwidth=35 -no-quit<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VimShell
