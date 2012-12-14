@@ -25,6 +25,15 @@ endif
 "シンタックス・ハイライトをON
 syntax on
 
+"GUI用設定
+set guifont=Ricty:h12
+set guioptions+=i
+set guioptions-=l
+set guioptions-=L
+set guioptions-=r
+set guioptions-=R
+set guioptions-=T
+
 "set autochdir
 set directory=~
 
@@ -163,8 +172,6 @@ if &term == "screen"
     set ttymouse=xterm-256color
 endif
 
-set guioptions-=T
-
 " タグファイル
 set tags=~/.tags
 
@@ -177,47 +184,74 @@ endif
 " 色の設定
 "
 function! s:MyHighlight_Colors()
-	if &term =~ "xterm-256color"
-	    "256色表示
-	    set t_Co=256
-	
-		highlight Normal ctermfg=255
-		highlight NonText ctermfg=255
-		highlight Directory cterm=bold ctermfg=206
-		highlight Cursor ctermfg=255 ctermbg=255
-		highlight CursorIM ctermfg=0 ctermbg=206
-		highlight Comment ctermfg=120
-		highlight String ctermfg=198
+	if has('gui')
+		highlight Normal guifg=#FFFFFF guibg=#000000
+		highlight NonText guifg=#FFFFFF guibg=#000000
+		highlight Directory gui=bold guifg=#CECECE
+		highlight Cursor guifg=#FFFFFF guibg=#FFFFFF
+		highlight CursorIM guifg=#000000 guibg=#CECECE
+		highlight Comment guifg=LightGreen
+		highlight String guifg=#D75F87
 		highlight Constant ctermfg=6
-		highlight Keyword ctermfg=202
-		highlight Statement cterm=bold ctermfg=255
+		highlight Keyword guifg=#3cb471
+		highlight Statement gui=bold ctermfg=255
 		highlight Identifier ctermfg=222
-		highlight Visual cterm=bold ctermbg=136
-		highlight Special ctermfg=255
-		highlight Search cterm=none ctermfg=88 ctermbg=211
+		highlight Visual gui=bold ctermbg=136
+		highlight Special guifg=#FFFFFF
+		highlight Search gui=bold guifg=#000000 guibg=Yellow
 		highlight StatusLine cterm=bold ctermfg=255 ctermbg=21
-		highlight LineNr cterm=none ctermfg=255
-		highlight Pmenu cterm=none ctermfg=255 ctermbg=200
-		highlight PmenuSel cterm=bold ctermfg=255 ctermbg=21
-		highlight Include cterm=bold ctermfg=255
-		highlight Define cterm=bold ctermfg=14
-		highlight Macro cterm=bold ctermfg=14
-		highlight PreCondit cterm=bold ctermfg=21
+		highlight LineNr gui=none guifg=#FFFFFF guibg=#000000
+		highlight Pmenu gui=none guifg=#FFFFFF ctermbg=200
+		highlight PmenuSel gui=bold guifg=#FFFFFF ctermbg=21
+		highlight Include gui=bold guifg=#FFFFFF
+		highlight Define gui=bold ctermfg=14
+		highlight Macro gui=bold ctermfg=14
+		highlight PreCondit gui=bold ctermfg=21
+		highlight diffAdded guifg=#000000  guibg=LightBlue
 	else
-	    highlight Normal ctermfg=255
-	    highlight NonText ctermfg=255
-	    highlight Directory cterm=bold ctermfg=206 ctermbg=0
-	    highlight Cursor ctermfg=255 ctermbg=255
-	    highlight Comment ctermfg=120 ctermbg=0
-	    highlight String ctermfg=198 ctermbg=0
-	    highlight Constant ctermfg=6 ctermbg=0
-	    highlight Keyword ctermfg=202 ctermbg=0
-	    highlight Statement cterm=bold ctermfg=255 ctermbg=0
-	    highlight Identifier ctermfg=222 ctermbg=0
-	    highlight Visual cterm=bold ctermbg=136
-	    highlight Special ctermfg=255 ctermbg=0
-	    highlight Search cterm=none ctermfg=88 ctermbg=211
-	    highlight StatusLine cterm=bold ctermfg=255 ctermbg=21
+		if &term =~ "xterm-256color"
+			"256色表示
+			set t_Co=256
+
+			highlight Normal ctermfg=255
+			highlight NonText ctermfg=255
+			highlight Directory cterm=bold ctermfg=206
+			highlight Cursor ctermfg=255 ctermbg=255
+			highlight CursorIM ctermfg=0 ctermbg=206
+			highlight Comment ctermfg=120
+			highlight String ctermfg=198
+			highlight Constant ctermfg=6
+			highlight Keyword ctermfg=202
+			highlight Statement cterm=bold ctermfg=255
+			highlight Identifier ctermfg=222
+			highlight Visual cterm=bold ctermbg=136
+			highlight Special ctermfg=255
+			highlight Search cterm=none ctermfg=88 ctermbg=211
+			highlight StatusLine cterm=bold ctermfg=255 ctermbg=21
+			highlight LineNr cterm=none ctermfg=255
+			highlight Pmenu cterm=none ctermfg=255 ctermbg=200
+			highlight PmenuSel cterm=bold ctermfg=255 ctermbg=21
+			highlight Include cterm=bold ctermfg=255
+			highlight Define cterm=bold ctermfg=14
+			highlight Macro cterm=bold ctermfg=14
+			highlight PreCondit cterm=bold ctermfg=21
+			highlight diffAdded ctermfg=21
+		else
+			highlight Normal ctermfg=255
+			highlight NonText ctermfg=255
+			highlight Directory cterm=bold ctermfg=206 ctermbg=0
+			highlight Cursor ctermfg=255 ctermbg=255
+			highlight Comment ctermfg=120 ctermbg=0
+			highlight String ctermfg=198 ctermbg=0
+			highlight Constant ctermfg=6 ctermbg=0
+			highlight Keyword ctermfg=202 ctermbg=0
+			highlight Statement cterm=bold ctermfg=255 ctermbg=0
+			highlight Identifier ctermfg=222 ctermbg=0
+			highlight Visual cterm=bold ctermbg=136
+			highlight Special ctermfg=255 ctermbg=0
+			highlight Search cterm=none ctermfg=88 ctermbg=211
+			highlight StatusLine cterm=bold ctermfg=255 ctermbg=21
+		endif
 	endif
 endfunction
 autocmd VimEnter * nested call s:MyHighlight_Colors()
@@ -238,23 +272,22 @@ NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/unite.vim'
-NeoBundle "Lokaltog/vim-powerline"
+NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'honza/snipmate-snippets'
 NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'tsukkee/unite-help'
 NeoBundle 'tacroe/unite-mark'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle "tpope/vim-rails"
+NeoBundle 'tpope/vim-rails'
 NeoBundle 'basyura/jslint.vim'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'vim-scripts/javacomplete'
-NeoBundle "vim-scripts/SQLUtilities"
+NeoBundle 'vim-scripts/SQLUtilities'
 NeoBundle 'surround.vim'
-NeoBundle "ruby.vim"
-NeoBundle "rubycomplete.vim"
+NeoBundle 'ruby.vim'
 
 filetype plugin indent on
 filetype indent on
