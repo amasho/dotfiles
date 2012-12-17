@@ -91,7 +91,7 @@ set viminfo=
 set ruler
 
 "行番号を表示
-set number
+"set number
 
 "編集時のバックアップを生成しない
 set nobackup
