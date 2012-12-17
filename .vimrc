@@ -25,20 +25,6 @@ endif
 "シンタックス・ハイライトをON
 syntax on
 
-"GUI用設定
-if has('gui')
-	set guifont=Ricty:h12
-	set guioptions+=i
-	set guioptions-=l
-	set guioptions-=L
-	set guioptions-=r
-	set guioptions-=R
-	set guioptions-=T
-
-	nnoremap <C-f> <Pagedown>
-	nnoremap <C-b> <Pageup>
-endif
-
 "set autochdir
 set directory=~
 
@@ -105,7 +91,7 @@ set viminfo=
 set ruler
 
 "行番号を表示
-"set number
+set number
 
 "編集時のバックアップを生成しない
 set nobackup
@@ -190,6 +176,21 @@ endif
 "
 function! s:MyHighlight_Colors()
 	if has('gui')
+
+		"GUI用設定
+		set transparency=15
+
+		set guifont=Ricty:h12
+		set guioptions+=i
+		set guioptions-=l
+		set guioptions-=L
+		set guioptions-=r
+		set guioptions-=R
+		set guioptions-=T
+
+		nnoremap <C-f> <Pagedown>
+		nnoremap <C-b> <Pageup>
+
 		highlight Normal guifg=#FFFFFF guibg=#000000
 		highlight NonText guifg=#FFFFFF guibg=#000000
 		highlight Directory gui=bold guifg=#FF5FD7
