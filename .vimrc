@@ -178,7 +178,7 @@ function! s:MyHighlight_Colors()
 	if has('gui')
 
 		"GUI用設定
-		set transparency=15
+		set transparency=18
 
 		set guifont=Ricty:h12
 		set guioptions+=i
