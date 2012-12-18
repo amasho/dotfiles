@@ -178,7 +178,7 @@ function! s:MyHighlight_Colors()
 	if has('gui')
 
 		"GUI用設定
-		set transparency=17
+		set transparency=20
 
 		set guifont=Ricty:h12
 		set guioptions+=i
@@ -194,7 +194,7 @@ function! s:MyHighlight_Colors()
 		augroup focus_group
 			autocmd!
 			autocmd FocusGained * call <SID>MyHighlight_Colors()
-			autocmd FocusLost * set transparency=70
+			autocmd FocusLost * set transparency=60
 		augroup END
 
 		highlight Normal guifg=#FFFFFF guibg=#000000
