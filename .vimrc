@@ -178,7 +178,7 @@ function! s:MyHighlight_Colors()
 	if has('gui')
 
 		"GUI用設定
-		set transparency=18
+		set transparency=17
 
 		set guifont=Ricty:h12
 		set guioptions+=i
@@ -191,6 +191,12 @@ function! s:MyHighlight_Colors()
 		nnoremap <C-f> <Pagedown>
 		nnoremap <C-b> <Pageup>
 
+		augroup focus_group
+			autocmd!
+			autocmd FocusGained * call <SID>MyHighlight_Colors()
+			autocmd FocusLost * set transparency=70
+		augroup END
+
 		highlight Normal guifg=#FFFFFF guibg=#000000
 		highlight NonText guifg=#FFFFFF guibg=#000000
 		highlight Directory gui=bold guifg=#FF5FD7
@@ -202,15 +208,15 @@ function! s:MyHighlight_Colors()
 		highlight Keyword guifg=#FF5F00
 		highlight Statement gui=bold guifg=#FFFFFF
 		highlight Identifier guifg=#FFD787
-		highlight Visual gui=bold guibg=#AF8700
+		highlight Visual guibg=#AF8700
 		highlight Special guifg=#FFFFFF
 		highlight Search gui=bold guifg=#000000 guibg=#FF87AF
 		highlight LineNr gui=none guifg=#FFFFFF guibg=#000000
 		highlight Pmenu gui=none guifg=#FFFFFF guibg=#FF00D7
 		highlight PmenuSel gui=bold guifg=#FFFFFF guibg=#FF00D7
 		highlight Include gui=bold guifg=#FFFFFF
-		highlight Define gui=bold ctermfg=14
-		highlight Macro gui=bold ctermfg=14
+		highlight Define gui=bold guifg=Yellow
+		highlight Macro gui=bold guifg=Yellow
 		highlight PreCondit gui=bold guifg=#0000FF
 		highlight diffAdded guifg=#000000  guibg=#0000FF
 	else
@@ -259,7 +265,6 @@ function! s:MyHighlight_Colors()
 		endif
 	endif
 endfunction
-autocmd VimEnter * nested call s:MyHighlight_Colors()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NeoBundle
@@ -422,7 +427,7 @@ augroup SessionAutocommands
 	autocmd!
 
 	autocmd VimEnter * nested call <SID>RestoreSessionWithConfirm()
-	autocmd VimEnter * nested call s:MyHighlight_Colors()
+	autocmd VimEnter * nested call <SID>MyHighlight_Colors()
 	autocmd VimLeave * execute 'SaveSession'
 augroup END
 
@@ -441,7 +446,7 @@ endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "バッファ切替と同時にディレクトリ移動
 "
-au BufRead * execute ":lcd " . expand("%:p:h")
+autocmd BufRead * execute ":lcd " . expand("%:p:h")
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PHPのSyntaxチェック
