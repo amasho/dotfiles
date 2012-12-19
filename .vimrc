@@ -173,14 +173,13 @@ if has('migemo')
 endif
 
 "カーソル行をハイライト"
-set cursorline
 "カレントバッファウィンドウだけ
+if &buftype != 'nofile' | set cursorline | endif
 augroup cursor_line
 	autocmd!
 	autocmd WinLeave * set nocursorline
-	autocmd WinEnter,BufRead * set cursorline
+	autocmd WinEnter,BufRead * if &buftype != 'nofile' | set cursorline | endif
 augroup END
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 色の設定
@@ -192,7 +191,7 @@ function! s:MyHighlight_Colors()
 	if has('gui')
 
 		"GUI用設定
-		set transparency=25
+		set transparency=18
 
 		set guifont=Ricty:h12
 		set guioptions+=i
@@ -407,13 +406,6 @@ if has('conceal')
     set conceallevel=2 concealcursor=i
 endif
 let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NERDTreeの設定
-"
-"デフォルトで表示
-"autocmd vimenter * if !argc() | NERDTree | endif    
-"nmap <F9> :NERDTreeToggle<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fugitiveの設定
