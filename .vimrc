@@ -24,6 +24,7 @@ endif
 "
 "シンタックス・ハイライトをON
 syntax on
+hi clear
 
 "set autochdir
 set directory=~
@@ -163,7 +164,7 @@ if &term == "screen"
     set ttymouse=xterm-256color
 endif
 
-" タグファイル
+"タグファイル
 set tags=~/.tags
 
 "C/Migemo
@@ -171,10 +172,23 @@ if has('migemo')
     set migemo
 endif
 
+"カーソル行をハイライト"
+set cursorline
+"カレントバッファウィンドウだけ
+augroup cursor_line
+	autocmd!
+	autocmd WinLeave * set nocursorline
+	autocmd WinEnter,BufRead * set cursorline
+augroup END
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 色の設定
 "
 function! s:MyHighlight_Colors()
+
+	hi clear CursorLine
+
 	if has('gui')
 
 		"GUI用設定
@@ -188,8 +202,8 @@ function! s:MyHighlight_Colors()
 		set guioptions-=R
 		set guioptions-=T
 
-		nnoremap <C-f> <Pagedown>
-		nnoremap <C-b> <Pageup>
+		nnoremap <C-f> <C-d>
+		nnoremap <C-b> <C-u>
 
 		augroup focus_group
 			autocmd!
@@ -197,71 +211,73 @@ function! s:MyHighlight_Colors()
 			autocmd FocusLost * set transparency=60
 		augroup END
 
-		highlight Normal guifg=#FFFFFF guibg=#000000
-		highlight NonText guifg=#FFFFFF guibg=#000000
-		highlight Directory gui=bold guifg=#FF5FD7
-		highlight Cursor guifg=#FFFFFF guibg=#FFFFFF
-		highlight CursorIM guifg=#000000 guibg=#FF5FD7
-		highlight Comment guifg=#87FF87
-		highlight String guifg=#FF0087
-		highlight Constant guifg=#FFFFFF
-		highlight Keyword guifg=#FF5F00
-		highlight Statement gui=bold guifg=#FFFFFF
-		highlight Identifier guifg=#FFD787
-		highlight Visual guibg=#AF8700
-		highlight Special guifg=#FFFFFF
-		highlight Search gui=bold guifg=#000000 guibg=#FF87AF
-		highlight LineNr gui=none guifg=#FFFFFF guibg=#000000
-		highlight Pmenu gui=none guifg=#FFFFFF guibg=#FF00D7
-		highlight PmenuSel gui=bold guifg=#FFFFFF guibg=#FF00D7
-		highlight Include gui=bold guifg=#FFFFFF
-		highlight Define gui=bold guifg=Yellow
-		highlight Macro gui=bold guifg=Yellow
-		highlight PreCondit gui=bold guifg=#0000FF
-		highlight diffAdded guifg=#000000  guibg=#0000FF
+		hi Normal guifg=#FFFFFF guibg=#000000
+		hi NonText guifg=#FFFFFF guibg=#000000
+		hi Directory gui=bold guifg=#FF5FD7
+		hi Cursor guifg=#FFFFFF guibg=#FFFFFF
+		hi CursorIM guifg=#000000 guibg=#FF5FD7
+		hi CursorLine gui=underline
+		hi Comment guifg=#87FF87
+		hi String guifg=#FF0087
+		hi Constant guifg=#FFFFFF
+		hi Keyword guifg=#FF5F00
+		hi Statement gui=bold guifg=#FFFFFF
+		hi Identifier guifg=#FFD787
+		hi Visual guibg=#AF8700
+		hi Special guifg=#FFFFFF
+		hi Search gui=bold guifg=#000000 guibg=#FF87AF
+		hi LineNr gui=none guifg=#FFFFFF guibg=#000000
+		hi Pmenu gui=none guifg=#FFFFFF guibg=#FF00D7
+		hi PmenuSel gui=bold guifg=#FFFFFF guibg=#FF00D7
+		hi Include gui=bold guifg=#FFFFFF
+		hi Define gui=bold guifg=Yellow
+		hi Macro gui=bold guifg=Yellow
+		hi PreCondit gui=bold guifg=#0000FF
+		hi diffAdded guifg=#000000  guibg=#0000FF
 	else
 		if &term =~ "xterm-256color"
 			"256色表示
 			set t_Co=256
 
-			highlight Normal ctermfg=255
-			highlight NonText ctermfg=255
-			highlight Directory cterm=bold ctermfg=206
-			highlight Cursor ctermfg=255 ctermbg=255
-			highlight CursorIM ctermfg=0 ctermbg=206
-			highlight Comment ctermfg=120
-			highlight String ctermfg=198
-			highlight Constant ctermfg=6
-			highlight Keyword ctermfg=202
-			highlight Statement cterm=bold ctermfg=255
-			highlight Identifier ctermfg=222
-			highlight Visual cterm=bold ctermbg=136
-			highlight Special ctermfg=255
-			highlight Search cterm=none ctermfg=88 ctermbg=211
-			highlight StatusLine cterm=bold ctermfg=255 ctermbg=21
-			highlight LineNr cterm=none ctermfg=255
-			highlight Pmenu cterm=none ctermfg=255 ctermbg=200
-			highlight PmenuSel cterm=bold ctermfg=255 ctermbg=21
-			highlight Include cterm=bold ctermfg=255
-			highlight Define cterm=bold ctermfg=14
-			highlight Macro cterm=bold ctermfg=14
-			highlight PreCondit cterm=bold ctermfg=21
-			highlight diffAdded ctermfg=21
+			hi Normal ctermfg=255
+			hi NonText ctermfg=255
+			hi Directory cterm=bold ctermfg=206
+			hi Cursor ctermfg=255 ctermbg=255
+			hi CursorIM ctermfg=0 ctermbg=206
+			hi CursorLine cterm=underline
+			hi Comment ctermfg=120
+			hi String ctermfg=198
+			hi Constant ctermfg=6
+			hi Keyword ctermfg=202
+			hi Statement cterm=bold ctermfg=255
+			hi Identifier ctermfg=222
+			hi Visual cterm=bold ctermbg=136
+			hi Special ctermfg=255
+			hi Search cterm=none ctermfg=88 ctermbg=211
+			hi StatusLine cterm=bold ctermfg=255 ctermbg=21
+			hi LineNr cterm=none ctermfg=255
+			hi Pmenu cterm=none ctermfg=255 ctermbg=200
+			hi PmenuSel cterm=bold ctermfg=255 ctermbg=21
+			hi Include cterm=bold ctermfg=255
+			hi Define cterm=bold ctermfg=14
+			hi Macro cterm=bold ctermfg=14
+			hi PreCondit cterm=bold ctermfg=21
+			hi diffAdded ctermfg=21
 		else
-			highlight Normal ctermfg=255
-			highlight NonText ctermfg=255
-			highlight Directory cterm=bold ctermfg=206 ctermbg=0
-			highlight Cursor ctermfg=255 ctermbg=255
-			highlight Comment ctermfg=120 ctermbg=0
-			highlight String ctermfg=198 ctermbg=0
-			highlight Constant ctermfg=6 ctermbg=0
-			highlight Keyword ctermfg=202 ctermbg=0
-			highlight Statement cterm=bold ctermfg=255 ctermbg=0
-			highlight Identifier ctermfg=222 ctermbg=0
-			highlight Visual cterm=bold ctermbg=136
-			highlight Special ctermfg=255 ctermbg=0
-			highlight Search cterm=none ctermfg=88 ctermbg=211
-			highlight StatusLine cterm=bold ctermfg=255 ctermbg=21
+			hi Normal ctermfg=255
+			hi NonText ctermfg=255
+			hi Directory cterm=bold ctermfg=206 ctermbg=0
+			hi Cursor ctermfg=255 ctermbg=255
+			hi Comment ctermfg=120 ctermbg=0
+			hi String ctermfg=198 ctermbg=0
+			hi Constant ctermfg=6 ctermbg=0
+			hi Keyword ctermfg=202 ctermbg=0
+			hi Statement cterm=bold ctermfg=255 ctermbg=0
+			hi Identifier ctermfg=222 ctermbg=0
+			hi Visual cterm=bold ctermbg=136
+			hi Special ctermfg=255 ctermbg=0
+			hi Search cterm=none ctermfg=88 ctermbg=211
+			hi StatusLine cterm=bold ctermfg=255 ctermbg=21
 		endif
 	endif
 endfunction
@@ -306,34 +322,23 @@ filetype indent on
 " キーマップ 
 "
 " Jで5行下へ
-:map J 5<C-d>
+map J 5<C-d>
 " Kで5行上へ
-:map K 5<C-u>
-" Alt+nでNext Tab
-":map <C-n> gt
-" Alt+pでPrev Tab
-":map <C-p> gT
+map K 5<C-u>
 "
 " tで:tabnewする
-:map t :tabnew 
+map t :tabnew 
 " Ctrl+nで次のバッファに移動
-:map <C-n> :bn!<CR>
+map <C-n> :bn!<CR>
 " Ctrl+pで前のバッファに移動
-:map <C-p>  :bp!<CR>
-
-" Bufferの移動
-:nmap B :ls<CR>:buf! 
+map <C-p>  :bp!<CR>
 
 " VCS Command
 nmap ,cd :VCSDiff<CR>
 nmap ,cv :VCSVimDiff<CR>
 
-"入力モード時、ステータスラインのカラーを変更
-"augroup InsertHook
-"autocmd!
-"autocmd InsertEnter * highlight StatusLine cterm=underline,bold ctermfg=White ctermbg=Magenta
-"autocmd InsertLeave * highlight StatusLine cterm=underline,bold ctermfg=White ctermbg=DarkBlue
-"augroup END
+" ESC 2回でハイライト消去
+nmap  :nohlsearch<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " モード
