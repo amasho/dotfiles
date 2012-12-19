@@ -174,7 +174,6 @@ endif
 
 "カーソル行をハイライト"
 "カレントバッファウィンドウだけ
-if &buftype != 'nofile' | set cursorline | endif
 augroup cursor_line
 	autocmd!
 	autocmd WinLeave * set nocursorline
@@ -207,7 +206,7 @@ function! s:MyHighlight_Colors()
 		augroup focus_group
 			autocmd!
 			autocmd FocusGained * call <SID>MyHighlight_Colors()
-			autocmd FocusLost * set transparency=60
+			autocmd FocusLost * set transparency=50
 		augroup END
 
 		hi Normal guifg=#FFFFFF guibg=#000000
