@@ -212,7 +212,7 @@ function! s:MyHighlight_Colors()
 		hi Normal guifg=#FFFFFF guibg=#000000
 		hi NonText guifg=#FFFFFF guibg=#000000
 		hi Directory gui=bold guifg=#FF5FD7
-		hi Cursor guifg=#FFFFFF guibg=#FFFFFF
+		hi Cursor guifg=#000000 guibg=#00FFFF
 		hi CursorIM guifg=#000000 guibg=#FF5FD7
 		hi CursorLine gui=underline
 		hi Comment guifg=#87FF87
@@ -311,6 +311,7 @@ NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'vim-scripts/javacomplete'
 NeoBundle 'vim-scripts/SQLUtilities'
 NeoBundle 'surround.vim'
+NeoBundle 'jcommenter.vim'
 NeoBundle 'ruby.vim'
 
 filetype plugin indent on
