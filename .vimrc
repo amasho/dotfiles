@@ -311,7 +311,7 @@ NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'vim-scripts/javacomplete'
 NeoBundle 'vim-scripts/SQLUtilities'
 NeoBundle 'surround.vim'
-NeoBundle 'jcommenter.vim'
+"NeoBundle 'jcommenter.vim'
 NeoBundle 'ruby.vim'
 
 filetype plugin indent on
@@ -497,18 +497,12 @@ autocmd BufWritePost *.java call s:java_compile()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " jcommenter.vim
 "
-autocmd FileType java map <reader>jc :call JCommentWriter()<CR>
+"autocmd FileType java map <reader>jc :call JCommentWriter()<CR>
 
-":let b:jcommenter_class_author = ""
-":let b:jcommenter_class_version = ""
-":let b:jcommenter_file_author = ""
-":let b:jcommenter_file_copyright = ""
-
-:let b:jcommenter_class_author = "作者名"
-:let b:jcommenter_class_version = "$Revision: 1.6 $"
-:let b:jcommenter_file_author = "作者名"
-:let b:jcommenter_file_copyright = "作者名"
-
+":let b:jcommenter_class_author = "作者名"
+":let b:jcommenter_class_version = "$Revision: 1.6 $"
+":let b:jcommenter_file_author = "作者名"
+":let b:jcommenter_file_copyright = "作者名"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Unite
