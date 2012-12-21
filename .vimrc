@@ -212,7 +212,7 @@ function! s:MyHighlight_Colors()
 		hi Normal guifg=#FFFFFF guibg=#000000
 		hi NonText guifg=#FFFFFF guibg=#000000
 		hi Directory gui=bold guifg=#FF5FD7
-		hi Cursor guibg=#00FFFF
+		hi Cursor guifg=#FFFFFF guibg=#00FFFF
 		hi CursorIM guifg=#000000 guibg=#FF5FD7
 		hi CursorLine gui=underline
 		hi Comment guifg=#87FF87
