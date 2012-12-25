@@ -297,6 +297,7 @@ NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'mattn/gist-vim'
+NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'honza/snipmate-snippets'
 NeoBundle 'h1mesuke/unite-outline'
@@ -563,6 +564,22 @@ if has("syntax")
         autocmd BufNew,BufRead * call SOLSpaceHilight()
     augroup END
 endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" memolist.vim
+"
+map ,mn  :MemoNew<CR>
+map ,ml  :MemoList<CR>
+map ,mg  :MemoGrep<CR>
+
+let g:memolist_memo_suffix = "txt"
+let g:memolist_memo_date = "%Y-%m-%d %H:%M"
+let g:memolist_memo_date = "epoch"
+let g:memolist_memo_date = "%D %T"
+let g:memolist_prompt_tags = 1
+let g:memolist_prompt_categories = 1
+let g:memolist_qfixgrep = 1
+let g:memolist_vimfiler = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-powerline
