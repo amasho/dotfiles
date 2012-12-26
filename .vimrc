@@ -1,30 +1,16 @@
-"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vimrc
 "
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 日本語入力に関する設定:
-"
-if has('multi_byte_ime') || has('xim')
-    " IME ON時のカーソルの色を設定(設定例:紫)
-    highlight CursorIM guibg=Purple guifg=NONE
-    " 挿入モード・検索モードでのデフォルトのIME状態設定
-    set iminsert=0 imsearch=0
-    if has('xim') && has('GUI_GTK')
-        " XIMの入力開始キーを設定:
-        " 下記の s-space はShift+Spaceの意味でkinput2+canna用設定
-        "set imactivatekey=s-space
-    endif
-    " 挿入モードでのIME状態を記憶させない場合、次行のコメントを解除
-    "inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
-endif
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 個別設定
+" Misc
 "
 "シンタックス・ハイライトをON
 syntax on
 hi clear
+
+"leaderを変更
+let mapleader = ","
 
 "set autochdir
 set directory=~
@@ -85,18 +71,16 @@ set smarttab
 "タブをスペースに置き換える
 "set expandtab
 
-"
 set viminfo=
 
 "ルーラー表示
 set ruler
 
 "行番号を表示
-"set number
+set number
 
 "編集時のバックアップを生成しない
 set nobackup
-
 
 "編集時のスワップファイルを生成しない
 set noswapfile
@@ -122,27 +106,21 @@ set showtabline=1
 
 "クリップボード連携
 set clipboard=unnamed
-vmap <silent> ,y "*y
+vmap <silent> <Leader>y "*y
 
-" ポップアップメニューをよしなに
+"ポップアップメニューをよしなに
 set completeopt=menu,preview,longest,menuone
 
-" 補完候補の設定
-set complete=.,w,b,u,k
-
-" ポップアップメニューをよしなに
-set completeopt=menu,preview,longest,menuone
-
-" 補完候補の設定
+"補完候補の設定
 set complete=.,w,b,u,k
 
 "Vi互換をオフ
 set nocompatible
 
-" 大文字/小文字を区別しない
+"大文字/小文字を区別しない
 set ignorecase
 
-" 検索語句に大文字が含まれている場合のみ大文字/小文字を区別する
+"検索語句に大文字が含まれている場合のみ大文字/小文字を区別する
 set smartcase
 
 "GREP時に使うプログラム
@@ -152,133 +130,64 @@ set grepprg=internal
 set laststatus=2
 
 "ステータス行に「ファイルエンコード」と「改行コード(fileformat)」を表示
-set statusline=%<%f\ %m%r%h%w%y\ %{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
+"set statusline=%<%f\ %m%r%h%w%y\ %{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 
 "Ctrl-X + Ctrl-Uでsyntax補完、Ctrl-X + Ctrl-OでOmni補完
 set completefunc=syntaxcomplete#Complete
 
-"コンソールでもマウス機能を
-set mouse=a
-" screen対応
-if &term == "screen"
-    set ttymouse=xterm-256color
-endif
-
 "タグファイル
 set tags=~/.tags
 
-"C/Migemo
-if has('migemo')
-    set migemo
-endif
+"コマンド実行中は再描画しない
+set lazyredraw
 
-"カーソル行をハイライト"
-"カレントバッファウィンドウだけ
+"高速ターミナル接続を行う
+"set ttyfast
+
+"コンソールでもマウス機能を
+set mouse=a
+set guioptions+=a
+"screen対応
+if &term == "screen" | set ttymouse=xterm-256color | endif
+
+"C/Migemo
+if has('migemo') | set migemo | endif
+
+"コマンド行の高さ
+set cmdheight=1
+
+"カーソル行をハイライト(カレントバッファウィンドウだけ)
 augroup cursor_line
 	autocmd!
 	autocmd WinLeave * set nocursorline
-	autocmd WinEnter,BufRead * if &buftype != 'nofile' | set cursorline | endif
+	autocmd WinEnter,BufRead * if &filetype == 'vimfiler' || &filetype == 'vimshell' | set nonumber | else | set cursorline | endif
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 色の設定
+" GUI用設定
 "
-function! s:MyHighlight_Colors()
+if has('gui_running')
+	set antialias
+	set transparency=15
+	set guifont=Ricty:h12
+	set guioptions+=i
+	set guioptions-=l
+	set guioptions-=L
+	set guioptions-=r
+	set guioptions-=R
+	set guioptions-=T
 
-	hi clear CursorLine
+	nnoremap <C-h> <Backspace>
+	nnoremap <C-f> <C-d>
+	nnoremap <C-b> <C-u>
 
-	if has('gui')
-
-		"GUI用設定
-		set transparency=18
-
-		set guifont=Ricty:h12
-		set guioptions+=i
-		set guioptions-=l
-		set guioptions-=L
-		set guioptions-=r
-		set guioptions-=R
-		set guioptions-=T
-
-		nnoremap <C-f> <C-d>
-		nnoremap <C-b> <C-u>
-
-		augroup focus_group
-			autocmd!
-			autocmd FocusGained * call <SID>MyHighlight_Colors()
-			autocmd FocusLost * set transparency=50
-		augroup END
-
-		hi Normal guifg=#FFFFFF guibg=#000000
-		hi NonText guifg=#FFFFFF guibg=#000000
-		hi Directory gui=bold guifg=#FF5FD7
-		hi Cursor guifg=#FFFFFF guibg=#00FFFF
-		hi CursorIM guifg=#000000 guibg=#FF5FD7
-		hi CursorLine gui=underline
-		hi Comment guifg=#87FF87
-		hi String guifg=#FF0087
-		hi Constant guifg=#FFFFFF
-		hi Keyword guifg=#FF5F00
-		hi Statement gui=bold guifg=#FFFFFF
-		hi Identifier guifg=#FFD787
-		hi Visual guibg=#AF8700
-		hi Special guifg=#FFFFFF
-		hi Search gui=bold guifg=#000000 guibg=#FF87AF
-		hi LineNr gui=none guifg=#FFFFFF guibg=#000000
-		hi Pmenu gui=none guifg=#FFFFFF guibg=#FF00D7
-		hi PmenuSel gui=bold guifg=#FFFFFF guibg=#FF00D7
-		hi Include gui=bold guifg=#FFFFFF
-		hi Define gui=bold guifg=Yellow
-		hi Macro gui=bold guifg=Yellow
-		hi PreCondit gui=bold guifg=#0000FF
-		hi diffAdded guifg=#000000  guibg=#0000FF
-	else
-		if &term =~ "xterm-256color"
-			"256色表示
-			set t_Co=256
-
-			hi Normal ctermfg=255
-			hi NonText ctermfg=255
-			hi Directory cterm=bold ctermfg=206
-			hi Cursor ctermfg=255 ctermbg=255
-			hi CursorIM ctermfg=0 ctermbg=206
-			hi CursorLine cterm=underline
-			hi Comment ctermfg=120
-			hi String ctermfg=198
-			hi Constant ctermfg=6
-			hi Keyword ctermfg=202
-			hi Statement cterm=bold ctermfg=255
-			hi Identifier ctermfg=222
-			hi Visual cterm=bold ctermbg=136
-			hi Special ctermfg=255
-			hi Search cterm=none ctermfg=88 ctermbg=211
-			hi StatusLine cterm=bold ctermfg=255 ctermbg=21
-			hi LineNr cterm=none ctermfg=255
-			hi Pmenu cterm=none ctermfg=255 ctermbg=200
-			hi PmenuSel cterm=bold ctermfg=255 ctermbg=21
-			hi Include cterm=bold ctermfg=255
-			hi Define cterm=bold ctermfg=14
-			hi Macro cterm=bold ctermfg=14
-			hi PreCondit cterm=bold ctermfg=21
-			hi diffAdded ctermfg=21
-		else
-			hi Normal ctermfg=255
-			hi NonText ctermfg=255
-			hi Directory cterm=bold ctermfg=206 ctermbg=0
-			hi Cursor ctermfg=255 ctermbg=255
-			hi Comment ctermfg=120 ctermbg=0
-			hi String ctermfg=198 ctermbg=0
-			hi Constant ctermfg=6 ctermbg=0
-			hi Keyword ctermfg=202 ctermbg=0
-			hi Statement cterm=bold ctermfg=255 ctermbg=0
-			hi Identifier ctermfg=222 ctermbg=0
-			hi Visual cterm=bold ctermbg=136
-			hi Special ctermfg=255 ctermbg=0
-			hi Search cterm=none ctermfg=88 ctermbg=211
-			hi StatusLine cterm=bold ctermfg=255 ctermbg=21
-		endif
-	endif
-endfunction
+	augroup focus_group
+		autocmd!
+		autocmd FocusGained * call <SID>MyHighlight_Colors()
+		autocmd FocusGained * set transparency=15
+		autocmd FocusLost * set transparency=50
+	augroup END
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NeoBundle
@@ -297,7 +206,6 @@ NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'mattn/gist-vim'
-NeoBundle 'glidenote/memolist.vim'
 NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'honza/snipmate-snippets'
 NeoBundle 'h1mesuke/unite-outline'
@@ -312,8 +220,10 @@ NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'vim-scripts/javacomplete'
 NeoBundle 'vim-scripts/SQLUtilities'
 NeoBundle 'surround.vim'
-"NeoBundle 'jcommenter.vim'
 NeoBundle 'ruby.vim'
+NeoBundle 'tyru/open-browser.vim'
+NeoBundle 'L9'
+NeoBundle 'tsukkee/lingr-vim'
 
 filetype plugin indent on
 filetype indent on
@@ -338,7 +248,8 @@ nmap ,cd :VCSDiff<CR>
 nmap ,cv :VCSVimDiff<CR>
 
 " ESC 2回でハイライト消去
-nmap  :nohlsearch<CR>
+nmap  :nohlsearch<Enter>
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " モード
@@ -372,7 +283,6 @@ autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 括弧/クォートを自動補完
@@ -496,16 +406,6 @@ endfunction
 autocmd BufWritePost *.java call s:java_compile()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" jcommenter.vim
-"
-"autocmd FileType java map <reader>jc :call JCommentWriter()<CR>
-
-":let b:jcommenter_class_author = "作者名"
-":let b:jcommenter_class_version = "$Revision: 1.6 $"
-":let b:jcommenter_file_author = "作者名"
-":let b:jcommenter_file_copyright = "作者名"
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Unite
 "
 let g:unite_data_directory = expand('~/.vim/tmp/plugin/.unite')
@@ -535,14 +435,22 @@ nnoremap <silent> ,uo :Unite outline<Enter>
 nnoremap <silent> <S-m> :Unite mark<Enter>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vimfiler
+" VimFiler
 "
+let g:vimfiler_as_default_explorer = 1
+let g:vimfiler_safe_mode_by_default = 0
 nnoremap <silent> fv :VimFiler -split -toggle -simple -winwidth=35 -no-quit<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VimShell
 "
 let g:vimshell_editor_command='/Applications/MacVim/MacVim.app/Contents/MacOS/Vim --servername=VIM --remote-tab-wait-silent'
+let g:vimshell_prompt = '$ '
+autocmd FileType vimshell
+\  call vimshell#altercmd#define('la', 'ls -la')
+\| call vimshell#altercmd#define('g', 'git')
+\| call vimshell#altercmd#define('gst', 'git status -s -b')
+
 nnoremap <silent> vs :VimShell<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -553,33 +461,17 @@ let g:quickrun_config['_'] = {}
 let g:quickrun_config['_']['runner'] = 'vimproc'
 let g:quickrun_config['_']['runner/vimproc/updatetime'] = 100
 
-" 先頭のスペースをカラー表示
-function! SOLSpaceHilight()
-    syntax match SOLSpace "^ \+" display containedin=ALL
-"   highlight SOLSpace term=underline ctermbg=DarkGray
-endfunction
-if has("syntax")
-    augroup invisible
-        autocmd! invisible
-        autocmd BufNew,BufRead * call SOLSpaceHilight()
-    augroup END
-endif
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" memolist.vim
+" open-blowser.vim
 "
-map ,mn  :MemoNew<CR>
-map ,ml  :MemoList<CR>
-map ,mg  :MemoGrep<CR>
-
-let g:memolist_memo_suffix = "txt"
-let g:memolist_memo_date = "%Y-%m-%d %H:%M"
-let g:memolist_memo_date = "epoch"
-let g:memolist_memo_date = "%D %T"
-let g:memolist_prompt_tags = 1
-let g:memolist_prompt_categories = 1
-let g:memolist_qfixgrep = 1
-let g:memolist_vimfiler = 1
+" カーソル下のURLをブラウザで開く
+nmap <Leader>fu <Plug>(openbrowser-open)
+vmap <Leader>fu <Plug>(openbrowser-open)
+" カーソル下のキーワードをググる
+nnoremap <Leader>fs :<C-u>OpenBrowserSearch<Space><C-r><C-w><Enter>
+" エイリアス
+nnoremap ,ob :<C-u>OpenBrowser http://
+nnoremap ,obs :<C-u>OpenBrowserSearch 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-powerline
@@ -712,4 +604,91 @@ let g:Powerline#Colorschemes#my#colorscheme = Pl#Colorscheme#Init([
     \ }),
   \ ])
 let g:Powerline_colorscheme='my'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 色の設定
+"
+function! s:MyHighlight_Colors()
+
+	hi clear CursorLine
+
+	if has('gui') || has('gui_macvim')
+		"GUI用設定
+		hi Normal guifg=#FFFFFF guibg=#000000
+		hi NonText guifg=#FFFFFF guibg=#000000
+		hi Directory gui=bold guifg=#FF5FD7
+		hi Cursor guifg=#FFFFFF guibg=#00FFFF
+		hi CursorIM guifg=#000000 guibg=#FF5FD7
+		hi CursorLine gui=underline
+		hi Comment guifg=#87FF87
+		hi String guifg=#FF0087
+		hi Constant guifg=#FFFFFF guibg=#000000
+		hi Keyword guifg=#FF5F00
+		hi Statement gui=bold guifg=#FFFFFF
+		hi Identifier guifg=#FFD787
+		hi Visual guibg=#AF8700
+		hi Special guifg=#FFFFFF guibg=#000000
+		hi Search gui=bold guifg=#000000 guibg=#FF87AF
+		hi LineNr gui=none guifg=#585858 guibg=#000000
+		hi CursorLineNr guifg=#FFFFFF guibg=#000000
+		hi Pmenu gui=none guifg=#FFFFFF guibg=#FF00D7
+		hi PmenuSel gui=bold guifg=#FFFFFF guibg=#FF00D7
+		hi Include gui=bold guifg=#FFFFFF
+		hi Define gui=bold guifg=Yellow
+		hi Macro gui=bold guifg=Yellow
+		hi PreCondit gui=bold guifg=#0000FF
+		hi diffAdded guifg=#000000  guibg=#0000FF
+	elseif &term =~ "xterm-256color"
+		"256色
+		set t_Co=256
+		set t_Sf=[3%dm
+		set t_Sb=[4%dm
+
+		hi Normal ctermfg=255
+		hi NonText ctermfg=255
+		hi Directory cterm=bold ctermfg=206
+		hi Cursor ctermfg=255 ctermbg=255
+		hi CursorIM ctermfg=0 ctermbg=206
+		hi CursorLine cterm=underline
+		hi Comment ctermfg=120
+		hi String ctermfg=198
+		hi Constant ctermfg=6
+		hi Keyword ctermfg=202
+		hi Statement cterm=bold ctermfg=255
+		hi Identifier ctermfg=222
+		hi Visual cterm=bold ctermbg=136
+		hi Special ctermfg=255
+		hi Search cterm=none ctermfg=88 ctermbg=211
+		hi StatusLine cterm=bold ctermfg=255 ctermbg=21
+		hi LineNr cterm=none ctermfg=240
+		hi CursorLineNr guifg=#FFFFFF guibg=#000000
+		hi Pmenu cterm=none ctermfg=255 ctermbg=200
+		hi PmenuSel cterm=bold ctermfg=255 ctermbg=21
+		hi Include cterm=bold ctermfg=255
+		hi Define cterm=bold ctermfg=14
+		hi Macro cterm=bold ctermfg=14
+		hi PreCondit cterm=bold ctermfg=21
+		hi diffAdded ctermfg=21
+	else
+		set t_Co=16
+		set t_Sf=[3%dm
+		set t_Sb=[4%dm
+
+		hi Normal ctermfg=255
+		hi NonText ctermfg=255
+		hi Directory cterm=bold ctermfg=206 ctermbg=0
+		hi Cursor ctermfg=255 ctermbg=255
+		hi Comment ctermfg=120 ctermbg=0
+		hi String ctermfg=198 ctermbg=0
+		hi Constant ctermfg=6 ctermbg=0
+		hi Keyword ctermfg=202 ctermbg=0
+		hi Statement cterm=bold ctermfg=255 ctermbg=0
+		hi Identifier ctermfg=222 ctermbg=0
+		hi Visual cterm=bold ctermbg=136
+		hi Special ctermfg=255 ctermbg=0
+		hi Search cterm=none ctermfg=88 ctermbg=211
+		hi StatusLine cterm=bold ctermfg=255 ctermbg=21
+	endif
+endfunction
+call <SID>MyHighlight_Colors()
 
