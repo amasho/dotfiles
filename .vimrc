@@ -156,7 +156,10 @@ if has('migemo') | set migemo | endif
 "コマンド行の高さ
 set cmdheight=1
 
-"カーソル行をハイライト(カレントバッファウィンドウだけ)
+"Backspace
+set backspace=indent,eol,start
+
+"行番号とカーソル行をハイライト(カレントバッファウィンドウだけ)
 augroup cursor_line
 	autocmd!
 	autocmd WinLeave * set nocursorline
@@ -236,8 +239,8 @@ map J 5<C-d>
 map K 5<C-u>
 
 " VCS Command
-nmap ,cd :VCSDiff<CR>
-nmap ,cv :VCSVimDiff<CR>
+nmap <Leader>cd :VCSDiff<CR>
+nmap <Leader>cv :VCSVimDiff<CR>
 
 " ESC 2回でハイライト消去
 nmap <silent> <ESC><ESC> :<C-u>nohlsearch<Enter>
@@ -312,12 +315,12 @@ let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fugitiveの設定
 "
-nnoremap ,gd :<C-u>Gdiff<Enter>
-nnoremap ,gs :<C-u>Gstatus<Enter>
-nnoremap ,gl :<C-u>Glog<Enter>
-nnoremap ,ga :<C-u>Gwrite<Enter>
-nnoremap ,gc :<C-u>Gcommit<Enter>
-nnoremap ,gC :<C-u>Git commit --amend<Enter>
+nnoremap <Leader>gd :<C-u>Gdiff<Enter>
+nnoremap <Leader>gs :<C-u>Gstatus<Enter>
+nnoremap <Leader>gl :<C-u>Glog<Enter>
+nnoremap <Leader>ga :<C-u>Gwrite<Enter>
+nnoremap <Leader>gc :<C-u>Gcommit<Enter>
+nnoremap <Leader>gC :<C-u>Git commit --amend<Enter>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 終了時のSession保存と起動時のautoload
@@ -356,7 +359,7 @@ augroup php_lint
 		let result = system( 'php' . ' -l ' . bufname(""))
 		if result !~ '^No.*' | echomsg result | endif
 	endfunction
-	autocmd FileType php,inc :nmap ,l :call PHPLint()<CR>
+	autocmd FileType php,inc :nmap <Leader>l :call PHPLint()<CR>
 	autocmd BufWritePost *.php,*.inc call PHPLint()
 augroup END
 
@@ -369,7 +372,7 @@ augroup ruby_lint
 		let result = system( 'ruby' . ' -c ' . bufname(""))
 		if result !~ '^Syntax OK.*' | echomsg result | endif
 	endfunction
-	autocmd FileType rb :nmap ,c :call RubyLint()<CR>
+	autocmd FileType rb :nmap <Leader>c :call RubyLint()<CR>
 	autocmd BufWritePost *.rb call RubyLint()
 augroup END
 
@@ -410,20 +413,20 @@ inoremap <silent> <C-l> <ESC>:<C-u>Unite buffer file file_mru vimshell/history<C
 " バッファ一覧
 nnoremap <silent> B :<C-u>Unite buffer<CR>
 " ファイル一覧
-nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> <Leader>uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 " レジスタ一覧
-nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> <Leader>ur :<C-u>Unite -buffer-name=register register<CR>
 " 最近使用したファイル一覧
-nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
+nnoremap <silent> <Leader>um :<C-u>Unite file_mru<CR>
 " 全部乗せ
-nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+nnoremap <silent> <Leader>ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
 " Bookmark
-nnoremap <silent> ,ub :<C-u>Unite bookmark<CR>
+nnoremap <silent> <Leader>ub :<C-u>Unite bookmark<CR>
 
 " Unite Help
-nnoremap <silent> ,uh :Unite help<Enter>
+nnoremap <silent> <Leader>uh :Unite help<Enter>
 " Unite Outline
-nnoremap <silent> ,uo :Unite outline<Enter>
+nnoremap <silent> <Leader>uo :Unite outline<Enter>
 " Unite Mark
 nnoremap <silent> <S-m> :Unite mark<Enter>
 
@@ -464,8 +467,8 @@ vmap <Leader>fu <Plug>(openbrowser-open)
 " カーソル下のキーワードをググる
 nnoremap <Leader>fs :<C-u>OpenBrowserSearch<Space><C-r><C-w><Enter>
 " エイリアス
-nnoremap ,ob :<C-u>OpenBrowser http://
-nnoremap ,obs :<C-u>OpenBrowserSearch 
+nnoremap <Leader>ob :<C-u>OpenBrowser http://
+nnoremap <Leader>obs :<C-u>OpenBrowserSearch 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " taglist.vim
@@ -642,7 +645,7 @@ function! s:MyHighlight_Colors()
 		hi Special guifg=#FFFFFF guibg=#000000
 		hi Search gui=bold guifg=#000000 guibg=#FF87AF
 		hi LineNr gui=none guifg=#626262 guibg=#000000
-		hi CursorLineNr gui=none guifg=#FFFFFF guibg=#000000
+		hi CursorLineNr gui=bold guifg=#D7005F guibg=#000000
 		hi Pmenu gui=none guifg=#FFFFFF guibg=#FF00D7
 		hi PmenuSel gui=bold guifg=#FFFFFF guibg=#FF00D7
 		hi Include gui=bold guifg=#FFFFFF
@@ -673,7 +676,7 @@ function! s:MyHighlight_Colors()
 		hi Search cterm=none ctermfg=88 ctermbg=211
 		hi StatusLine cterm=bold ctermfg=255 ctermbg=21
 		hi LineNr cterm=none ctermfg=241 ctermbg=0
-		hi CursorLineNr cterm=none ctermfg=255 ctermbg=0
+		hi CursorLineNr cterm=none ctermfg=161 ctermbg=0
 		hi Pmenu cterm=none ctermfg=255 ctermbg=200
 		hi PmenuSel cterm=bold ctermfg=255 ctermbg=21
 		hi Include cterm=bold ctermfg=255
