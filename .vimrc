@@ -31,8 +31,8 @@ set wildmode=longest,list
 "長い行は折り返さない
 set nowrap
 
-"検索をファイルの先頭へループしない
-set nowrapscan
+"検索をファイルの先頭へループ
+set wrapscan
 
 "日本語対応
 "set encoding=japan
@@ -412,16 +412,16 @@ let g:unite_data_directory = expand('~/.vim/tmp/plugin/.unite')
 
 " 入力モードで開始する
 let g:unite_enable_start_insert=1
+" 常用セット
+nnoremap <silent> U :<C-u>Unite buffer file file_mru<CR>
 " バッファ一覧
-nnoremap <silent> <S-b> :<C-u>Unite buffer<CR>
+nnoremap <silent> B :<C-u>Unite buffer<CR>
 " ファイル一覧
 nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 " レジスタ一覧
 nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
 " 最近使用したファイル一覧
 nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
-" 常用セット
-nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
 " 全部乗せ
 nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
 " Bookmark
@@ -629,7 +629,7 @@ function! s:MyHighlight_Colors()
 		hi Visual guibg=#AF8700
 		hi Special guifg=#FFFFFF guibg=#000000
 		hi Search gui=bold guifg=#000000 guibg=#FF87AF
-		hi LineNr gui=none guifg=#585858 guibg=#000000
+		hi LineNr gui=none guifg=#626262 guibg=#000000
 		hi CursorLineNr guifg=#FFFFFF guibg=#000000
 		hi Pmenu gui=none guifg=#FFFFFF guibg=#FF00D7
 		hi PmenuSel gui=bold guifg=#FFFFFF guibg=#FF00D7
@@ -660,7 +660,7 @@ function! s:MyHighlight_Colors()
 		hi Special ctermfg=255
 		hi Search cterm=none ctermfg=88 ctermbg=211
 		hi StatusLine cterm=bold ctermfg=255 ctermbg=21
-		hi LineNr cterm=none ctermfg=240
+		hi LineNr cterm=none ctermfg=241 ctermbg=0
 		hi CursorLineNr guifg=#FFFFFF guibg=#000000
 		hi Pmenu cterm=none ctermfg=255 ctermbg=200
 		hi PmenuSel cterm=bold ctermfg=255 ctermbg=21
