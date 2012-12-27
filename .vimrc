@@ -160,7 +160,7 @@ set cmdheight=1
 augroup cursor_line
 	autocmd!
 	autocmd WinLeave * set nocursorline
-	autocmd WinEnter,BufRead * if &filetype == 'vimfiler' || &filetype == 'vimshell' | set nonumber | else | set cursorline | endif
+	autocmd WinEnter,BufRead * if &filetype == 'vimfiler' || &filetype == 'vimshell' || &filetype == 'taglist' | set nonumber | else | set cursorline | endif
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -177,7 +177,6 @@ if has('gui_running')
 	set guioptions-=R
 	set guioptions-=T
 
-	nnoremap <C-h> <Backspace>
 	nnoremap <C-f> <C-d>
 	nnoremap <C-b> <C-u>
 
@@ -223,7 +222,7 @@ NeoBundle 'surround.vim'
 NeoBundle 'ruby.vim'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'L9'
-NeoBundle 'tsukkee/lingr-vim'
+NeoBundle 'taglist.vim'
 
 filetype plugin indent on
 filetype indent on
@@ -235,21 +234,13 @@ filetype indent on
 map J 5<C-d>
 " Kで5行上へ
 map K 5<C-u>
-"
-" tで:tabnewする
-map t :tabnew 
-" Ctrl+nで次のバッファに移動
-map <C-n> :bn!<CR>
-" Ctrl+pで前のバッファに移動
-map <C-p>  :bp!<CR>
 
 " VCS Command
 nmap ,cd :VCSDiff<CR>
 nmap ,cv :VCSVimDiff<CR>
 
 " ESC 2回でハイライト消去
-nmap  :nohlsearch<Enter>
-
+nmap <silent> <ESC><ESC> :<C-u>nohlsearch<Enter>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " モード
@@ -408,12 +399,14 @@ autocmd BufWritePost *.java call s:java_compile()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Unite
 "
+" コンフィグ用ディレクトリ
 let g:unite_data_directory = expand('~/.vim/tmp/plugin/.unite')
-
 " 入力モードで開始する
 let g:unite_enable_start_insert=1
+
 " 常用セット
-nnoremap <silent> U :<C-u>Unite buffer file file_mru<CR>
+nnoremap <silent> <C-l> :<C-u>Unite buffer file file_mru vimshell/history<CR>
+inoremap <silent> <C-l> <ESC>:<C-u>Unite buffer file file_mru vimshell/history<CR>
 " バッファ一覧
 nnoremap <silent> B :<C-u>Unite buffer<CR>
 " ファイル一覧
@@ -449,6 +442,7 @@ let g:vimshell_prompt = '$ '
 autocmd FileType vimshell
 \  call vimshell#altercmd#define('la', 'ls -la')
 \| call vimshell#altercmd#define('g', 'git')
+\| call vimshell#altercmd#define('gd', 'git diff ')
 \| call vimshell#altercmd#define('gst', 'git status -s -b')
 
 nnoremap <silent> vs :VimShell<CR>
@@ -472,6 +466,24 @@ nnoremap <Leader>fs :<C-u>OpenBrowserSearch<Space><C-r><C-w><Enter>
 " エイリアス
 nnoremap ,ob :<C-u>OpenBrowser http://
 nnoremap ,obs :<C-u>OpenBrowserSearch 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" taglist.vim
+"
+" ctagsのパス
+let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
+" 現在編集中のソースのタグしか表示しない
+let Tlist_Show_One_File = 1
+" taglistのウィンドーが最後のウィンドーならばVimを閉じる
+let Tlist_Exit_OnlyWindow = 1
+" 折りたたみ
+let Tlist_Enable_Fold_Column = 1
+" 自動表示
+let Tlist_Auto_Open = 1
+let Tlist_Auto_Update = 1
+let Tlist_WinWidth = 35
+" taglistを開くショットカットキー
+map <silent> <leader>tl :Tlist<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-powerline
@@ -630,7 +642,7 @@ function! s:MyHighlight_Colors()
 		hi Special guifg=#FFFFFF guibg=#000000
 		hi Search gui=bold guifg=#000000 guibg=#FF87AF
 		hi LineNr gui=none guifg=#626262 guibg=#000000
-		hi CursorLineNr guifg=#FFFFFF guibg=#000000
+		hi CursorLineNr gui=none guifg=#FFFFFF guibg=#000000
 		hi Pmenu gui=none guifg=#FFFFFF guibg=#FF00D7
 		hi PmenuSel gui=bold guifg=#FFFFFF guibg=#FF00D7
 		hi Include gui=bold guifg=#FFFFFF
@@ -661,7 +673,7 @@ function! s:MyHighlight_Colors()
 		hi Search cterm=none ctermfg=88 ctermbg=211
 		hi StatusLine cterm=bold ctermfg=255 ctermbg=21
 		hi LineNr cterm=none ctermfg=241 ctermbg=0
-		hi CursorLineNr guifg=#FFFFFF guibg=#000000
+		hi CursorLineNr cterm=none ctermfg=255 ctermbg=0
 		hi Pmenu cterm=none ctermfg=255 ctermbg=200
 		hi PmenuSel cterm=bold ctermfg=255 ctermbg=21
 		hi Include cterm=bold ctermfg=255
