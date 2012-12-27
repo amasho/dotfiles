@@ -490,7 +490,7 @@ let Tlist_Show_One_File = 1
 " taglistのウィンドーが最後のウィンドーならばVimを閉じる
 let Tlist_Exit_OnlyWindow = 1
 " 折りたたみ
-let Tlist_Enable_Fold_Column = 1
+let Tlist_Enable_Fold_Column = 0
 " 自動表示
 let Tlist_Auto_Open = 1
 let Tlist_Auto_Update = 1
