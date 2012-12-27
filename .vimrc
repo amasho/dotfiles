@@ -13,7 +13,7 @@ hi clear
 let mapleader = ","
 
 "set autochdir
-set directory=~
+set directory=$HOME
 
 "検索結果をハイライト
 set hlsearch
@@ -136,7 +136,7 @@ set laststatus=2
 set completefunc=syntaxcomplete#Complete
 
 "タグファイル
-set tags=~/.tags
+set tags=$HOME/.tags
 
 "コマンド実行中は再描画しない
 set lazyredraw
@@ -163,6 +163,7 @@ set backspace=indent,eol,start
 augroup cursor_line
 	autocmd!
 	autocmd WinLeave * set nocursorline
+	autocmd WinEnter * set number
 	autocmd WinEnter,BufRead * if &filetype == 'vimfiler' || &filetype == 'vimshell' || &filetype == 'taglist' | set nonumber | else | set cursorline | endif
 augroup END
 
@@ -197,8 +198,8 @@ endif
 set nocompatible
 filetype off
 if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/neobundle.vim
-    call neobundle#rc(expand('~/.vim/bundle/'))
+    set runtimepath+=$HOME/.vim/bundle/neobundle.vim
+    call neobundle#rc(expand($HOME.'/.vim/bundle/'))
 endif
 
 NeoBundle 'Shougo/vimproc', {'build' : {'mac' : 'make -f make_mac.mak', }, }
@@ -266,9 +267,9 @@ autocmd! BufRead,BufNewFile *.java set filetype=java
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType php :set dictionary=~/.vim/dict/php.dict
+autocmd FileType php :set dictionary=$HOME/.vim/dict/php.dict
 autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType perl :set dictionary=~/.vim/dict/perl.dict
+autocmd FileType perl :set dictionary=$HOME/.vim/dict/perl.dict
 autocmd FileType c set omnifunc=ccomplete#Complete
 autocmd FileType java :setlocal omnifunc=javacomplete#Complete
 autocmd FileType java :setlocal completefunc=javacomplete#CompleteParamsInfo
@@ -311,7 +312,7 @@ smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" 
 if has('conceal')
     set conceallevel=2 concealcursor=i
 endif
-let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets'
+let g:neosnippet#snippets_directory=$HOME.'/.vim/bundle/snipmate-snippets/snippets'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fugitiveの設定
@@ -334,8 +335,8 @@ augroup SessionAutocommands
 	autocmd VimLeave * execute 'SaveSession'
 augroup END
 
-command! RestoreSession :source ~/.vim/.session
-command! SaveSession    :mksession! ~/.vim/.session
+command! RestoreSession :source $HOME/.vim/.session
+command! SaveSession    :mksession! $HOME/.vim/.session
 
 "Restore session with confirm
 function! s:RestoreSessionWithConfirm()
@@ -404,7 +405,7 @@ autocmd BufWritePost *.java call s:java_compile()
 " Unite
 "
 " コンフィグ用ディレクトリ
-let g:unite_data_directory = expand('~/.vim/tmp/plugin/.unite')
+let g:unite_data_directory = expand($HOME.'/.vim/tmp/plugin/.unite')
 " 入力モードで開始する
 let g:unite_enable_start_insert=1
 
@@ -430,6 +431,14 @@ nnoremap <silent> <Leader>uh :Unite help<Enter>
 nnoremap <silent> <Leader>uo :Unite outline<Enter>
 " Unite Mark
 nnoremap <silent> <S-m> :Unite mark<Enter>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-ref
+"
+let g:ref_phpmanual_path = $HOME.'/Dropbox/manual/php-chunked-xhtml'
+nnoremap <Leader>php :Unite ref/phpmanual<Enter>
+nnoremap <Leader>pl :Unite ref/perldoc<Enter>
+nnoremap <Leader>py :Unite ref/pydoc<Enter>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VimFiler
