@@ -391,6 +391,20 @@ endfunction
 autocmd FileType javascript call s:javascript_filetype_settings()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ScalaのSyntaxチェック
+"
+augroup scala_lint
+	autocmd!
+	function! ScalaLint()
+		let ret = system( '/usr/local/bin/scalac' . ' -explaintypes ' . bufname(""))
+		if ret != ""
+			echohl ErrorMsg | echomsg ret | echohl None
+		endif
+	endfunction
+	autocmd FileType *.scala :nmap <Leader>sc :call ScalaLint()<Enter>
+augroup END
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " javaの保存時コンパイル
 "
 function! s:java_compile()
@@ -401,6 +415,18 @@ function! s:java_compile()
 	endif
 endfunction
 autocmd BufWritePost *.java call s:java_compile()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Scalaの保存時コンパイル
+"
+function! s:scala_compile()
+	let path = expand("%")
+	let ret = system("/usr/local/bin/scalac -J-Dfile.encoding=UTF8 " . path)
+	if ret != ""
+		echohl ErrorMsg | echomsg "Failure:" . ret | echohl None
+	endif
+endfunction
+autocmd BufWritePost *.scala call s:scala_compile()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Unite
