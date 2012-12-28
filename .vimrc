@@ -164,7 +164,7 @@ augroup cursor_line
 	autocmd!
 	autocmd WinLeave * set nocursorline
 	autocmd WinEnter * set number
-	autocmd WinEnter,BufRead * if &filetype == 'vimfiler' || &filetype == 'vimshell' || &filetype == 'taglist' | set nonumber | else | set cursorline | endif
+	autocmd WinEnter,BufRead * if &filetype == 'unite' || &filetype == 'vimfiler' || &filetype == 'vimshell' || &filetype == 'taglist' | set nonumber | else | set cursorline | endif
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -241,8 +241,8 @@ map J 5<C-d>
 map K 5<C-u>
 
 " VCS Command
-nmap <Leader>cd :VCSDiff<CR>
-nmap <Leader>cv :VCSVimDiff<CR>
+nmap <Leader>cd :VCSDiff<Enter>
+nmap <Leader>cv :VCSVimDiff<Enter>
 
 " ESC 2回でハイライト消去
 nmap <silent> <ESC><ESC> :<C-u>nohlsearch<Enter>
@@ -361,7 +361,7 @@ augroup php_lint
 		let result = system( 'php' . ' -l ' . bufname(""))
 		if result !~ '^No.*' | echomsg result | endif
 	endfunction
-	autocmd FileType php,inc :nmap <Leader>l :call PHPLint()<CR>
+	autocmd FileType php,inc :nmap <Leader>l :call PHPLint()<Enter>
 	autocmd BufWritePost *.php,*.inc call PHPLint()
 augroup END
 
@@ -374,7 +374,7 @@ augroup ruby_lint
 		let result = system( 'ruby' . ' -c ' . bufname(""))
 		if result !~ '^Syntax OK.*' | echomsg result | endif
 	endfunction
-	autocmd FileType rb :nmap <Leader>c :call RubyLint()<CR>
+	autocmd FileType rb :nmap <Leader>c :call RubyLint()<Enter>
 	autocmd BufWritePost *.rb call RubyLint()
 augroup END
 
@@ -410,20 +410,20 @@ let g:unite_data_directory = expand($HOME.'/.vim/tmp/plugin/.unite')
 let g:unite_enable_start_insert=1
 
 " 常用セット
-nnoremap <silent> <C-l> :<C-u>Unite buffer file file_mru vimshell/history<CR>
-inoremap <silent> <C-l> <ESC>:<C-u>Unite buffer file file_mru vimshell/history<CR>
+nnoremap <silent> <C-l> :<C-u>Unite buffer file file_mru vimshell/history<Enter>
+inoremap <silent> <C-l> <ESC>:<C-u>Unite buffer file file_mru vimshell/history<Enter>
 " バッファ一覧
-nnoremap <silent> B :<C-u>Unite buffer<CR>
+nnoremap <silent> B :<C-u>Unite buffer<Enter>
 " ファイル一覧
-nnoremap <silent> <Leader>uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> <Leader>uf :<C-u>UniteWithBufferDir -buffer-name=files file<Enter>
 " レジスタ一覧
-nnoremap <silent> <Leader>ur :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> <Leader>ur :<C-u>Unite -buffer-name=register register<Enter>
 " 最近使用したファイル一覧
-nnoremap <silent> <Leader>um :<C-u>Unite file_mru<CR>
+nnoremap <silent> <Leader>um :<C-u>Unite file_mru<Enter>
 " 全部乗せ
-nnoremap <silent> <Leader>ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+nnoremap <silent> <Leader>ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<Enter>
 " Bookmark
-nnoremap <silent> <Leader>ub :<C-u>Unite bookmark<CR>
+nnoremap <silent> <Leader>ub :<C-u>Unite bookmark<Enter>
 
 " Unite Help
 nnoremap <silent> <Leader>uh :Unite help<Enter>
@@ -445,7 +445,7 @@ nnoremap <Leader>py :Unite ref/pydoc<Enter>
 "
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_safe_mode_by_default = 0
-nnoremap <silent> fv :VimFiler -split -toggle -simple -winwidth=35 -no-quit<CR>
+nnoremap <silent> fv :VimFiler -split -toggle -simple -winwidth=35 -no-quit<Enter>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VimShell
@@ -458,7 +458,7 @@ autocmd FileType vimshell
 \| call vimshell#altercmd#define('gd', 'git diff ')
 \| call vimshell#altercmd#define('gst', 'git status -s -b')
 
-nnoremap <silent> vs :VimShell<CR>
+nnoremap <silent> vs :VimShell<Enter>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-quickrun
@@ -504,7 +504,7 @@ let Tlist_Auto_Update = 1
 " 横幅
 let Tlist_WinWidth = 35
 " taglistを開くショットカットキー
-map <silent> <leader>tl :Tlist<CR>
+map <silent> <leader>tl :Tlist<Enter>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-powerline
@@ -694,7 +694,7 @@ function! s:MyHighlight_Colors()
 		hi Search cterm=none ctermfg=88 ctermbg=211
 		hi StatusLine cterm=bold ctermfg=255 ctermbg=21
 		hi LineNr cterm=none ctermfg=241 ctermbg=0
-		hi CursorLineNr cterm=none ctermfg=161 ctermbg=0
+		hi CursorLineNr cterm=bold ctermfg=161 ctermbg=0
 		hi Pmenu cterm=none ctermfg=255 ctermbg=200
 		hi PmenuSel cterm=bold ctermfg=255 ctermbg=21
 		hi Include cterm=bold ctermfg=255
