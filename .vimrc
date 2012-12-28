@@ -1,4 +1,4 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
 " vimrc
 "
 
@@ -485,6 +485,12 @@ nnoremap <Leader>obs :<C-u>OpenBrowserSearch
 "
 " ctagsのパス
 let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
+" タグリストを開いた時にフォーカスを移す
+let Tlist_GainFocus_On_ToggleOpen = 1 
+" 余分な情報や空白を表示しない
+let Tlist_Compact_Format = 1
+" タグリストをハイライト
+let Tlist_Auto_Highlight_Tag = 1
 " 現在編集中のソースのタグしか表示しない
 let Tlist_Show_One_File = 1
 " taglistのウィンドーが最後のウィンドーならばVimを閉じる
@@ -493,7 +499,9 @@ let Tlist_Exit_OnlyWindow = 1
 let Tlist_Enable_Fold_Column = 0
 " 自動表示
 let Tlist_Auto_Open = 1
+" 新しくファイル開いた時は更新
 let Tlist_Auto_Update = 1
+" 横幅
 let Tlist_WinWidth = 35
 " taglistを開くショットカットキー
 map <silent> <leader>tl :Tlist<CR>
