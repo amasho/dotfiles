@@ -228,6 +228,7 @@ NeoBundle 'ruby.vim'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'L9'
 NeoBundle 'taglist.vim'
+NeoBundle 'derekwyatt/vim-scala'
 
 filetype plugin indent on
 filetype indent on
