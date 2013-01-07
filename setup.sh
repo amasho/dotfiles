@@ -23,10 +23,12 @@ ${GITCMD} clone https://github.com/hchbaw/auto-fu.zsh ${HOME}/.zsh/auto-fu/
 
 ### vim ###
 ${BREWCMD} install vim
-mkdir -p ${HOME}/.vim ${HOME}/.vim/bundle ${HOME}/.vim/tmp/plugin
+mkdir -p ${HOME}/.vim ${HOME}/.vim/bundle ${HOME}/.vim/tmp/plugin ${HOME}/.vim/tmp/plugin/.unite
 # NeoBundle
 ${GITCMD} clone https://github.com/Shougo/neobundle.vim ${HOME}/.vim/bundle/neobundle.vim
 ln -s ${HOME}/dotfiles/.vimrc ${HOME}/.vimrc
+VIMCMD=`which vim`
+${VIMCMD} -c NeoBundleInstall
 
 ### tmux ###
 ${BREWCMD} install tmux

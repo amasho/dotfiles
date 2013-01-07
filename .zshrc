@@ -15,7 +15,7 @@ export JLESSCHARSET=japanese
 export LC_ALL=ja_JP.UTF-8
 
 # Path
-export PATH=/usr/local/bin:/usr/local/sbin:/usr/share/pear/bin:$HOME/local/bin:$PATH
+export PATH=/usr/local/bin:/usr/local/sbin:/usr/share/pear/bin:${HOME}/local/bin:${PATH}
 
 # Screen session
 export SCREENDIR=${HOME}/.screen
@@ -112,15 +112,15 @@ else
 fi
 
 # z.sh
-if [ -f ~/z/z.sh ]; then
+if [ -f ${HOME}/.zsh/z/z.sh ]; then
 	_Z_CMD=j
-	source ~/z/z.sh
+	source ${HOME}/.zsh/z/z.sh
 	precmd() { _z --add "$(pwd -P)" }
 fi
 
 # auto-fu.zsh
-if [ -f ~/.zsh/auto-fu.zsh ]; then
-	source ~/.zsh/auto-fu.zsh
+if [ -f ${HOME}/.zsh/auto-fu/auto-fu.zsh ]; then
+	source ${HOME}/.zsh/auto-fu/auto-fu.zsh
 	function zle-line-init () {
 		auto-fu-init
 	}
@@ -138,9 +138,9 @@ setopt noflowcontrol
 bindkey 'M-q' show_buffer_stack''
 
 # nodebrew
-if [[ -f $HOME/.nodebrew/nodebrew ]]; then
-	export NODE_PATH=$HOME/.nodebrew/current/lib/node_modules
-	export PATH=$HOME/.nodebrew/current/bin:$PATH
+if [[ -f ${HOME}/.nodebrew/nodebrew ]]; then
+	export NODE_PATH=${HOME}/.nodebrew/current/lib/node_modules
+	export PATH=${HOME}/.nodebrew/current/bin:${PATH}
 	nodebrew use v0.8.4 > /dev/null
 	alias nb='nodebrew'
 fi
@@ -158,11 +158,11 @@ function chpwd() { ls }
 
 # RVM
 #if [[ -s ${HOME}/.rvm/scripts/rvm ]] ; then source ${HOME}/.rvm/scripts/rvm ; fi
-#PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+#PATH=${PATH}:${HOME}/.rvm/bin # Add RVM to PATH for scripting
 
 # rbenv
 if [[ -s ${HOME}/.rbenv/bin ]]; then
-	PATH=$PATH:$HOME/.rbenv/bin;
+	PATH=${PATH}:${HOME}/.rbenv/bin;
 	eval "$(rbenv init -)";
 fi
 
