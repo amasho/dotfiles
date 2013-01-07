@@ -522,6 +522,8 @@ let Tlist_Auto_Highlight_Tag = 1
 let Tlist_Show_One_File = 1
 " taglistのウィンドーが最後のウィンドーならばVimを閉じる
 let Tlist_Exit_OnlyWindow = 1
+" 右側表示
+let Tlist_Use_Right_Window = 1
 " 折りたたみ
 let Tlist_Enable_Fold_Column = 0
 " 自動表示
