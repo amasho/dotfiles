@@ -168,31 +168,6 @@ augroup cursor_line
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" GUI用設定
-"
-if has('gui_running')
-	set antialias
-	set transparency=15
-	set guifont=Ricty:h12
-	set guioptions+=i
-	set guioptions-=l
-	set guioptions-=L
-	set guioptions-=r
-	set guioptions-=R
-	set guioptions-=T
-
-	nnoremap <C-f> <C-d>
-	nnoremap <C-b> <C-u>
-
-	augroup focus_group
-		autocmd!
-		autocmd FocusGained * call <SID>MyHighlight_Colors()
-		autocmd FocusGained * set transparency=15
-		autocmd FocusLost * set transparency=50
-	augroup END
-endif
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NeoBundle
 "
 set nocompatible
@@ -234,6 +209,31 @@ NeoBundle 'fholgado/minibufexpl.vim'
 
 filetype plugin indent on
 filetype indent on
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" GUI用設定
+"
+if has('gui_running')
+	set antialias
+	set transparency=15
+	set guifont=Ricty:h12
+	set guioptions+=i
+	set guioptions-=l
+	set guioptions-=L
+	set guioptions-=r
+	set guioptions-=R
+	set guioptions-=T
+
+	nnoremap <C-f> <C-d>
+	nnoremap <C-b> <C-u>
+
+	augroup focus_group
+		autocmd!
+		autocmd FocusGained * call <SID>MyHighlight_Colors()
+		autocmd FocusGained * set transparency=15
+		autocmd FocusLost * set transparency=50
+	augroup END
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " キーマップ 
@@ -437,10 +437,8 @@ nnoremap <silent> <S-m> :Unite mark<Enter>
 " Unite Session
 let g:unite_source_session_enable_auto_save = 1
 let msg = 'Do you want to restore previous unite session?'
-if !argc() && confirm(msg, "&Yes\n&No", 1, 'Question') == 1
-	autocmd! VimEnter * nested UniteSessionLoad
-endif
-autocmd! VimLeave * nested UniteSessionSave
+autocmd VimEnter,GUIEnter * nested UniteSessionLoad
+autocmd VimLeave * nested UniteSessionSave
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-ref
@@ -671,6 +669,7 @@ let g:Powerline_colorscheme='my'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 色の設定
 "
+autocmd VimEnter,GUIEnter * nested call <SID>MyHighlight_Colors()
 function! s:MyHighlight_Colors()
 
 	hi clear CursorLine
@@ -763,5 +762,4 @@ function! s:MyHighlight_Colors()
 		hi StatusLine cterm=bold ctermfg=255 ctermbg=21
 	endif
 endfunction
-call <SID>MyHighlight_Colors()
 
