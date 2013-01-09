@@ -208,6 +208,7 @@ NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/unite-session'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'tpope/vim-fugitive'
@@ -229,6 +230,7 @@ NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'L9'
 NeoBundle 'taglist.vim'
 NeoBundle 'derekwyatt/vim-scala'
+NeoBundle 'fholgado/minibufexpl.vim'
 
 filetype plugin indent on
 filetype indent on
@@ -236,14 +238,10 @@ filetype indent on
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " キーマップ 
 "
-" Jで5行下へ
-map J 5<C-d>
-" Kで5行上へ
-map K 5<C-u>
-
-" VCS Command
-nmap <Leader>cd :VCSDiff<Enter>
-nmap <Leader>cv :VCSVimDiff<Enter>
+" 次のバッファ
+nmap K :<C-u>bn!<Enter>
+" 前のバッファ
+nmap J :<C-u>bp!<Enter>
 
 " ESC 2回でハイライト消去
 nmap <silent> <ESC><ESC> :<C-u>nohlsearch<Enter>
@@ -326,29 +324,6 @@ nnoremap <Leader>gc :<C-u>Gcommit<Enter>
 nnoremap <Leader>gC :<C-u>Git commit --amend<Enter>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 終了時のSession保存と起動時のautoload
-"
-augroup SessionAutocommands
-	autocmd!
-
-	autocmd VimEnter * nested call <SID>RestoreSessionWithConfirm()
-	autocmd VimEnter * nested call <SID>MyHighlight_Colors()
-	autocmd VimLeave * execute 'SaveSession'
-augroup END
-
-command! RestoreSession :source $HOME/.vim/.session
-command! SaveSession    :mksession! $HOME/.vim/.session
-
-"Restore session with confirm
-function! s:RestoreSessionWithConfirm()
-	let msg = 'Do you want to restore previous session?'
-
-	if !argc() && confirm(msg, "&Yes\n&No", 1, 'Question') == 1
-		execute 'RestoreSession'
-	endif
-endfunction
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "バッファ切替と同時にディレクトリ移動
 "
 autocmd BufRead * execute ":lcd " . expand("%:p:h")
@@ -408,11 +383,11 @@ augroup END
 " javaの保存時コンパイル
 "
 function! s:java_compile()
-	let path = expand("%")
-	let ret = system("/usr/bin/javac -J-Dfile.encoding=UTF8 " . path)
-	if ret != ""
-		echohl ErrorMsg | echomsg "Failure:" . ret | echohl None
-	endif
+"	let path = expand("%")
+"	let ret = system("/usr/bin/javac -J-Dfile.encoding=UTF8 " . path)
+"	if ret != ""
+"		echohl ErrorMsg | echomsg "Failure:" . ret | echohl None
+"	endif
 endfunction
 autocmd BufWritePost *.java call s:java_compile()
 
@@ -434,7 +409,8 @@ autocmd BufWritePost *.scala call s:scala_compile()
 " コンフィグ用ディレクトリ
 let g:unite_data_directory = expand($HOME.'/.vim/tmp/plugin/.unite')
 " 入力モードで開始する
-let g:unite_enable_start_insert=1
+let g:unite_enable_start_insert = 1
+let g:unite_kind_openable_lcd_command = 1
 
 " 常用セット
 nnoremap <silent> <C-l> :<C-u>Unite buffer file file_mru vimshell/history<Enter>
@@ -458,6 +434,13 @@ nnoremap <silent> <Leader>uh :Unite help<Enter>
 nnoremap <silent> <Leader>uo :Unite outline<Enter>
 " Unite Mark
 nnoremap <silent> <S-m> :Unite mark<Enter>
+" Unite Session
+let g:unite_source_session_enable_auto_save = 1
+let msg = 'Do you want to restore previous unite session?'
+if !argc() && confirm(msg, "&Yes\n&No", 1, 'Question') == 1
+	autocmd! VimEnter * nested UniteSessionLoad
+endif
+autocmd! VimLeave * nested UniteSessionSave
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-ref
@@ -471,21 +454,26 @@ nnoremap <Leader>py :Unite ref/pydoc<Enter>
 " VimFiler
 "
 let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_safe_mode_by_default = 0
-nnoremap <silent> fv :VimFiler -split -toggle -simple -winwidth=35 -no-quit<Enter>
+let g:vimfiler_execute_file_list={}
+let g:vimfiler_execute_file_list["_"]="vim"
+let g:vimfiler_directory_display_top = 1
+let g:vimfiler_safe_mode_by_default = 1
+let g:vimfiler_enable_auto_cd = 1
+nnoremap <silent> fv :VimFiler -quit<Enter>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VimShell
 "
-let g:vimshell_editor_command='/Applications/MacVim/MacVim.app/Contents/MacOS/Vim --servername=VIM --remote-tab-wait-silent'
+let g:vimshell_popup_command = "split"
+let g:vimshell_popup_height = 30
+let g:vimshell_editor_command = '/Applications/MacVim/MacVim.app/Contents/MacOS/Vim --servername=VIM --remote-tab-wait-silent'
 let g:vimshell_prompt = '$ '
 autocmd FileType vimshell
 \  call vimshell#altercmd#define('la', 'ls -la')
 \| call vimshell#altercmd#define('g', 'git')
 \| call vimshell#altercmd#define('gd', 'git diff ')
 \| call vimshell#altercmd#define('gst', 'git status -s -b')
-
-nnoremap <silent> vs :VimShell<Enter>
+nnoremap <silent> sv :VimShellPop<Enter>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-quickrun
@@ -508,6 +496,11 @@ nnoremap <Leader>ob :<C-u>OpenBrowser http://
 nnoremap <Leader>obs :<C-u>OpenBrowserSearch 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" minibufexpl.vim
+"
+let g:miniBufExplShowBufNumbers = 0
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " taglist.vim
 "
 " ctagsのパス
@@ -523,7 +516,7 @@ let Tlist_Show_One_File = 1
 " taglistのウィンドーが最後のウィンドーならばVimを閉じる
 let Tlist_Exit_OnlyWindow = 1
 " 右側表示
-let Tlist_Use_Right_Window = 1
+let Tlist_Use_Right_Window = 0
 " 折りたたみ
 let Tlist_Enable_Fold_Column = 0
 " 自動表示
@@ -534,6 +527,14 @@ let Tlist_Auto_Update = 1
 let Tlist_WinWidth = 40
 " taglistを開くショットカットキー
 map <silent> <leader>tl :Tlist<Enter>
+
+" vim終了時に不要なバッファを消す
+augroup BufRemoveCommands
+	autocmd!
+	autocmd VimLeavePre * bwipeout! vimfiler
+	autocmd VimLeavePre * bwipeout! vimshell
+	autocmd VimLeavePre * TlistClose
+augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-powerline
@@ -700,6 +701,11 @@ function! s:MyHighlight_Colors()
 		hi Macro gui=bold guifg=Yellow
 		hi PreCondit gui=bold guifg=#0000FF
 		hi diffAdded guifg=#000000  guibg=#0000FF
+
+		hi StatusLineNC gui=none guifg=#000000 guibg=#626262
+		hi MBENormal gui=none guifg=#626262 guibg=#000000
+		hi MBEVisibleNormal gui=none guifg=#626262 guibg=#000000
+		hi MBEVisibleActive gui=bold,underline guifg=#D7005F guibg=#000000
 	elseif &term =~ "xterm-256color"
 		"256色
 		set t_Co=256
@@ -731,6 +737,11 @@ function! s:MyHighlight_Colors()
 		hi Macro cterm=bold ctermfg=14
 		hi PreCondit cterm=bold ctermfg=21
 		hi diffAdded ctermfg=21
+
+		hi StatusLineNC cterm=none ctermfg=0 ctermbg=241
+		hi MBENormal cterm=none ctermfg=241 ctermbg=0
+		hi MBEVisibleNormal cterm=none ctermfg=241 ctermbg=0
+		hi MBEVisibleActive cterm=bold,underline ctermfg=161 ctermbg=0
 	else
 		set t_Co=16
 		set t_Sf=[3%dm
