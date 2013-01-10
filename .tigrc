@@ -9,8 +9,11 @@ set line-graphics = yes
 
 bind generic g none
 bind generic G none
+bind generic ^F none
+bind generic ^B none
 bind generic h none
 bind generic H none
+bind generic b none
 bind generic B none
 bind diff l none
 bind diff h none
@@ -18,6 +21,8 @@ bind diff h none
 bind generic ; view-next
 bind generic g move-first-line
 bind generic G move-last-line
+bind generic ^F move-page-down
+bind generic ^B move-page-up
 bind generic H view-help
 bind generic b view-branch
 
