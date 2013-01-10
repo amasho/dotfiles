@@ -147,6 +147,7 @@ fi
 
 # Git
 alias g='git'
+alias gd='git diff '
 alias gst='git status -s -b'
 export GIT_EDITOR=vim
 

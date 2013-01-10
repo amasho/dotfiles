@@ -436,7 +436,6 @@ nnoremap <silent> <Leader>uo :Unite outline<Enter>
 nnoremap <silent> <S-m> :Unite mark<Enter>
 " Unite Session
 let g:unite_source_session_enable_auto_save = 1
-let msg = 'Do you want to restore previous unite session?'
 autocmd VimEnter,GUIEnter * nested UniteSessionLoad
 autocmd VimLeave * nested UniteSessionSave
 
