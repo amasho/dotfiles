@@ -1,5 +1,5 @@
 #
-# .tmux.conf
+# .tigrc
 #
 ####################################################
 set show-date = relative
@@ -7,10 +7,20 @@ set show-refs = yes
 set show-rev-graph = yes
 set line-graphics = yes
 
+bind generic g none
+bind generic G none
+bind generic h none
+bind generic H none
+bind generic B none
+bind diff l none
+bind diff h none
+
 bind generic ; view-next
 bind generic g move-first-line
 bind generic G move-last-line
+bind generic H view-help
+bind generic b view-branch
 
-#bind diff l scroll-right
-#bind diff h scroll-left
+bind diff l scroll-right
+bind diff h scroll-left
 

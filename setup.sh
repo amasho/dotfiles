@@ -34,3 +34,6 @@ ${VIMCMD} -c NeoBundleInstall
 ${BREWCMD} install tmux
 ln -s ${HOME}/dotfiles/.tmux.conf ${HOME}/.tmux.conf
 
+### tig ###
+${BREWCMD} install tig
+ln -s ${HOME}/dotfiles/.tigrc ${HOME}/.tigrc
