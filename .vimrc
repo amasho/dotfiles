@@ -685,7 +685,7 @@ function! s:MyHighlight_Colors()
 		hi String guifg=#FF0087
 		hi Constant guifg=#FFFFFF guibg=#000000
 		hi Keyword guifg=#FF5F00
-		hi Statement gui=bold guifg=#FFFFFF
+		hi Statement gui=bold guifg=#D7AF87
 		hi Identifier guifg=#FFD787
 		hi Visual guibg=#AF8700
 		hi Special guifg=#FFFFFF guibg=#000000
@@ -694,7 +694,7 @@ function! s:MyHighlight_Colors()
 		hi CursorLineNr gui=bold guifg=#D7005F guibg=#000000
 		hi Pmenu gui=none guifg=#FFFFFF guibg=#FF00D7
 		hi PmenuSel gui=bold guifg=#FFFFFF guibg=#FF00D7
-		hi Include gui=bold guifg=#FFFFFF
+		hi Include gui=bold guifg=#FF0000
 		hi Define gui=bold guifg=Yellow
 		hi Macro gui=bold guifg=Yellow
 		hi PreCondit gui=bold guifg=#0000FF
@@ -720,7 +720,7 @@ function! s:MyHighlight_Colors()
 		hi String ctermfg=198
 		hi Constant ctermfg=6
 		hi Keyword ctermfg=202
-		hi Statement cterm=bold ctermfg=255
+		hi Statement cterm=bold ctermfg=180
 		hi Identifier ctermfg=222
 		hi Visual cterm=bold ctermbg=136
 		hi Special ctermfg=255
@@ -730,7 +730,7 @@ function! s:MyHighlight_Colors()
 		hi CursorLineNr cterm=bold ctermfg=161 ctermbg=0
 		hi Pmenu cterm=none ctermfg=255 ctermbg=200
 		hi PmenuSel cterm=bold ctermfg=255 ctermbg=21
-		hi Include cterm=bold ctermfg=255
+		hi Include cterm=bold ctermfg=9
 		hi Define cterm=bold ctermfg=14
 		hi Macro cterm=bold ctermfg=14
 		hi PreCondit cterm=bold ctermfg=21
@@ -741,24 +741,7 @@ function! s:MyHighlight_Colors()
 		hi MBEVisibleNormal cterm=none ctermfg=241 ctermbg=0
 		hi MBEVisibleActive cterm=bold,underline ctermfg=161 ctermbg=0
 	else
-		set t_Co=16
-		set t_Sf=[3%dm
-		set t_Sb=[4%dm
-
-		hi Normal ctermfg=255
-		hi NonText ctermfg=255
-		hi Directory cterm=bold ctermfg=206 ctermbg=0
-		hi Cursor ctermfg=255 ctermbg=255
-		hi Comment ctermfg=120 ctermbg=0
-		hi String ctermfg=198 ctermbg=0
-		hi Constant ctermfg=6 ctermbg=0
-		hi Keyword ctermfg=202 ctermbg=0
-		hi Statement cterm=bold ctermfg=255 ctermbg=0
-		hi Identifier ctermfg=222 ctermbg=0
-		hi Visual cterm=bold ctermbg=136
-		hi Special ctermfg=255 ctermbg=0
-		hi Search cterm=none ctermfg=88 ctermbg=211
-		hi StatusLine cterm=bold ctermfg=255 ctermbg=21
+		syntax off
 	endif
 endfunction
 
