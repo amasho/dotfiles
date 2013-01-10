@@ -162,7 +162,7 @@ function chpwd() { ls }
 #PATH=${PATH}:${HOME}/.rvm/bin # Add RVM to PATH for scripting
 
 # rbenv
-if [[ -s ${HOME}/.rbenv/bin ]]; then
+if [[ -s ${HOME}/.rbenv ]]; then
 	PATH=${PATH}:${HOME}/.rbenv/bin;
 	eval "$(rbenv init -)";
 fi
