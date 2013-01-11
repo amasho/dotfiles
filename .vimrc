@@ -335,7 +335,9 @@ augroup perl_lint
 	autocmd!
 	function! PerlLint()
 		let result = system( 'perl' . ' -c ' . bufname(""))
-		if result !~ '.* syntax OK' | echomsg result | endif
+		if result !~ '.* syntax OK'
+			echohl ErrorMsg | echomsg result | echohl None
+		endif
 	endfunction
 	autocmd FileType .pl,pm :nmap <Leader>p :call PerlLint()<Enter>
 	autocmd BufWritePost *.pl,*.pm call PerlLint()
@@ -348,7 +350,9 @@ augroup php_lint
 	autocmd!
 	function! PHPLint()
 		let result = system( 'php' . ' -l ' . bufname(""))
-		if result !~ '^No.*' | echomsg result | endif
+		if result !~ '^No.*'
+			echohl ErrorMsg | echomsg result | echohl None
+		endif
 	endfunction
 	autocmd FileType php,inc :nmap <Leader>l :call PHPLint()<Enter>
 	autocmd BufWritePost *.php,*.inc call PHPLint()
@@ -361,7 +365,9 @@ augroup ruby_lint
 	autocmd!
 	function! RubyLint()
 		let result = system( 'ruby' . ' -c ' . bufname(""))
-		if result !~ '^Syntax OK.*' | echomsg result | endif
+		if result !~ '^Syntax OK.*'
+			echohl ErrorMsg | echomsg result | echohl None
+		endif
 	endfunction
 	autocmd FileType rb :nmap <Leader>c :call RubyLint()<Enter>
 	autocmd BufWritePost *.rb call RubyLint()
