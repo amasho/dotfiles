@@ -329,6 +329,19 @@ nnoremap <Leader>gC :<C-u>Git commit --amend<Enter>
 autocmd BufRead * execute ":lcd " . expand("%:p:h")
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" PerlのSyntaxチェック
+"
+augroup perl_lint
+	autocmd!
+	function! PerlLint()
+		let result = system( 'perl' . ' -c ' . bufname(""))
+		if result !~ '.* syntax OK' | echomsg result | endif
+	endfunction
+	autocmd FileType .pl,pm :nmap <Leader>p :call PerlLint()<Enter>
+	autocmd BufWritePost *.pl,*.pm call PerlLint()
+augroup END
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PHPのSyntaxチェック
 "
 augroup php_lint
