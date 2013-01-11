@@ -521,7 +521,7 @@ let Tlist_Auto_Open = 1
 " 新しくファイル開いた時は更新
 let Tlist_Auto_Update = 1
 " 横幅
-let Tlist_WinWidth = 40
+let Tlist_WinWidth = 37
 " taglistを開くショットカットキー
 map <silent> <leader>tl :Tlist<Enter>
 
