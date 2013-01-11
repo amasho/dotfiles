@@ -339,7 +339,6 @@ augroup perl_lint
 			echohl ErrorMsg | echomsg result | echohl None
 		endif
 	endfunction
-	autocmd FileType .pl,pm :nmap <Leader>p :call PerlLint()<Enter>
 	autocmd BufWritePost *.pl,*.pm call PerlLint()
 augroup END
 
@@ -354,7 +353,6 @@ augroup php_lint
 			echohl ErrorMsg | echomsg result | echohl None
 		endif
 	endfunction
-	autocmd FileType php,inc :nmap <Leader>l :call PHPLint()<Enter>
 	autocmd BufWritePost *.php,*.inc call PHPLint()
 augroup END
 
@@ -369,7 +367,6 @@ augroup ruby_lint
 			echohl ErrorMsg | echomsg result | echohl None
 		endif
 	endfunction
-	autocmd FileType rb :nmap <Leader>c :call RubyLint()<Enter>
 	autocmd BufWritePost *.rb call RubyLint()
 augroup END
 
@@ -383,20 +380,6 @@ function! s:javascript_filetype_settings()
 	autocmd CursorMoved  <buffer> call jslint#message()
 endfunction
 autocmd FileType javascript call s:javascript_filetype_settings()
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ScalaのSyntaxチェック
-"
-augroup scala_lint
-	autocmd!
-	function! ScalaLint()
-		let ret = system( '/usr/local/bin/scalac' . ' -explaintypes ' . bufname(""))
-		if ret != ""
-			echohl ErrorMsg | echomsg ret | echohl None
-		endif
-	endfunction
-	autocmd FileType *.scala :nmap <Leader>sc :call ScalaLint()<Enter>
-augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " javaの保存時コンパイル
@@ -764,3 +747,10 @@ function! s:MyHighlight_Colors()
 	endif
 endfunction
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Marked
+"
+if has("mac")
+  " markdownをMarked.appで開く
+  autocmd FileType markdown :nnoremap <Leader>md :silent !open -a Marked.app '%:p'<Enter>:redraw!<Enter>
+endif
