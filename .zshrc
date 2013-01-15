@@ -104,6 +104,12 @@ alias javac="javac -J-Dfile.encoding=UTF8"
 alias s='screen -D -RR -q'
 alias tmux='tmux -2'
 
+# Git
+alias g='git'
+alias gd='git diff '
+alias gst='git status -s -b'
+export GIT_EDITOR=vim
+
 if [ `uname` = "Darwin" ]; then
 	stty erase  -ixon
 	export __CF_USER_TEXT_ENCODING="0x1F5:0x08000100:14"
@@ -137,20 +143,6 @@ zle -N show_buffer_stack
 setopt noflowcontrol
 bindkey 'M-q' show_buffer_stack''
 
-# nodebrew
-if [[ -f ${HOME}/.nodebrew/nodebrew ]]; then
-	export NODE_PATH=${HOME}/.nodebrew/current/lib/node_modules
-	export PATH=${HOME}/.nodebrew/current/bin:${PATH}
-	nodebrew use v0.8.4 > /dev/null
-	alias nb='nodebrew'
-fi
-
-# Git
-alias g='git'
-alias gd='git diff '
-alias gst='git status -s -b'
-export GIT_EDITOR=vim
-
 # Termcap
 export TERM=xterm-256color
 export TERMCAP="xterm-256color:Co#256:pa#256:AF=\E[38;5;%dm:AB=\E[48;5;%dm:tc=xterm-xfree86:"
@@ -162,8 +154,21 @@ function chpwd() { ls }
 #PATH=${PATH}:${HOME}/.rvm/bin # Add RVM to PATH for scripting
 
 # rbenv
-if [[ -s ${HOME}/.rbenv ]]; then
+if [[ -d ${HOME}/.rbenv ]]; then
 	PATH=${PATH}:${HOME}/.rbenv/bin;
 	eval "$(rbenv init -)";
 fi
 
+# perlbrew
+if [[ -d ${HOME}/.perlbrew ]]; then
+	PATH=${PATH}:${HOME}/.perlbrew/bin
+	export PERLBREW_ROOT=${HOME}/.perlbrew
+fi
+
+# nodebrew
+if [[ -f ${HOME}/.nodebrew/nodebrew ]]; then
+	export NODE_PATH=${HOME}/.nodebrew/current/lib/node_modules
+	export PATH=${HOME}/.nodebrew/current/bin:${PATH}
+	nodebrew use v0.8.4 > /dev/null
+	alias nb='nodebrew'
+fi
