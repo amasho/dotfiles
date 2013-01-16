@@ -216,7 +216,7 @@ filetype indent on
 if has('gui_running')
 	set antialias
 	set transparency=15
-	set guifont=Ricty:h12
+	set guifont=Ricty:h13
 	set guioptions+=i
 	set guioptions-=l
 	set guioptions-=L

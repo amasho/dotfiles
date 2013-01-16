@@ -161,6 +161,7 @@ fi
 
 # perlbrew
 if [[ -d ${HOME}/.perlbrew ]]; then
+	source $HOME/.perlbrew/etc/bashrc
 	PATH=${PATH}:${HOME}/.perlbrew/bin
 	export PERLBREW_ROOT=${HOME}/.perlbrew
 fi
