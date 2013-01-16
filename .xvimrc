@@ -1,0 +1,13 @@
+set incsearch
+set hlsearch
+set autoindent
+set smartindent
+set ignorecase
+set smartcase
+set number
+
+nmap <C-h> <Backspace>
+nmap <ESC><ESC> :nohlsearch<CR>
+
+nmap ,r :run<CR>
+nmap ,b :make<CR>
