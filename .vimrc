@@ -321,6 +321,7 @@ nnoremap <Leader>sa :<C-u>VCSAdd<Enter>
 nnoremap <Leader>sc :<C-u>VCSCommit<Enter>
 nnoremap <Leader>sd :<C-u>VCSDiff<Enter>
 nnoremap <Leader>sv :<C-u>VCSVimDiff<Enter>
+nnoremap <Leader>sr :<C-u>VCSRevert<Enter>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-fugitive
