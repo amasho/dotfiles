@@ -203,6 +203,7 @@ NeoBundle 'surround.vim'
 NeoBundle 'ruby.vim'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'L9'
+NeoBundle 'vcscommand.vim'
 NeoBundle 'taglist.vim'
 NeoBundle 'derekwyatt/vim-scala'
 NeoBundle 'fholgado/minibufexpl.vim'
@@ -314,7 +315,15 @@ endif
 let g:neosnippet#snippets_directory=$HOME.'/.vim/bundle/snipmate-snippets/snippets'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Fugitiveの設定
+" vcscommand.vim
+"
+nnoremap <Leader>sa :<C-u>VCSAdd<Enter>
+nnoremap <Leader>sc :<C-u>VCSCommit<Enter>
+nnoremap <Leader>sd :<C-u>VCSDiff<Enter>
+nnoremap <Leader>sv :<C-u>VCSVimDiff<Enter>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-fugitive
 "
 nnoremap <Leader>gd :<C-u>Gdiff<Enter>
 nnoremap <Leader>gs :<C-u>Gstatus<Enter>
@@ -754,3 +763,4 @@ if has("mac")
 	" markdownをMarked.appで開く
 	autocmd FileType markdown :nnoremap <Leader>md :silent !open -a Marked.app '%:p'<Enter>:redraw!<Enter>
 endif
+
