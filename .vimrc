@@ -136,7 +136,7 @@ set laststatus=2
 set completefunc=syntaxcomplete#Complete
 
 "タグファイル
-set tags=$HOME/.tags
+set tags=$HOME/.tags,$HOME/tags/spacyz.tags,$HOME/tags/amoadManage.tags
 
 "コマンド実行中は再描画しない
 set lazyredraw
@@ -739,8 +739,8 @@ function! s:MyHighlight_Colors()
 		hi Special ctermfg=255
 		hi Search cterm=none ctermfg=88 ctermbg=211
 		hi StatusLine cterm=bold ctermfg=255 ctermbg=21
-		hi LineNr cterm=none ctermfg=241 ctermbg=0
-		hi CursorLineNr cterm=bold ctermfg=161 ctermbg=0
+		hi LineNr cterm=none ctermfg=241
+		hi CursorLineNr cterm=bold ctermfg=161
 		hi Pmenu cterm=none ctermfg=255 ctermbg=200
 		hi PmenuSel cterm=bold ctermfg=255 ctermbg=21
 		hi Include cterm=bold ctermfg=9
