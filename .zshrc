@@ -102,7 +102,6 @@ alias which='/usr/bin/which'
 alias javac="javac -J-Dfile.encoding=UTF8"
 
 alias s='screen -D -RR -q'
-alias tmux='tmux -2'
 
 # Git
 alias g='git'
@@ -133,6 +132,9 @@ if [ -f ${HOME}/.zsh/auto-fu/auto-fu.zsh ]; then
 	zle -N zle-line-init
 	zstyle ':completion:*' completer _oldlist _complete
 fi
+
+# TMUX
+alias tmux='tmux -2'
 
 # command line stack
 show_buffer_stack() {
