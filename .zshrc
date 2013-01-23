@@ -134,14 +134,7 @@ if [ -f ${HOME}/.zsh/auto-fu/auto-fu.zsh ]; then
 fi
 
 # TMUX
-tmux start-server
 alias tmux='tmux -2'
-function show-current-dir-as-window-name() {
-    tmux set-window-option window-status-format "#I - ${PWD} " > /dev/null
-    tmux set-window-option window-status-current-format "#I * " > /dev/null
-}
-show-current-dir-as-window-name
-add-zsh-hook chpwd show-current-dir-as-window-name
 
 # command line stack
 show_buffer_stack() {
