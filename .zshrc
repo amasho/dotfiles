@@ -116,6 +116,9 @@ else
 	stty erase  -ixon
 fi
 
+# TMUX
+alias tmux='tmux -2'
+
 # z.sh
 if [ -f ${HOME}/.zsh/z/z.sh ]; then
 	_Z_CMD=j
@@ -132,9 +135,6 @@ if [ -f ${HOME}/.zsh/auto-fu/auto-fu.zsh ]; then
 	zle -N zle-line-init
 	zstyle ':completion:*' completer _oldlist _complete
 fi
-
-# TMUX
-alias tmux='tmux -2'
 
 # command line stack
 show_buffer_stack() {
@@ -175,3 +175,4 @@ if [[ -f ${HOME}/.nodebrew/nodebrew ]]; then
 	nodebrew use v0.8.4 > /dev/null
 	alias nb='nodebrew'
 fi
+

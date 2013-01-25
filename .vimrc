@@ -161,10 +161,10 @@ set backspace=indent,eol,start
 
 "行番号とカーソル行をハイライト(カレントバッファウィンドウだけ)
 augroup cursor_line
-	autocmd!
-	autocmd WinLeave * set nocursorline
-	autocmd WinEnter * set number
-	autocmd WinEnter,BufRead * if &filetype == 'unite' || &filetype == 'vimfiler' || &filetype == 'vimshell' || &filetype == 'taglist' | set nonumber | else | set cursorline | endif
+  autocmd!
+  autocmd WinLeave * set nocursorline
+  autocmd WinEnter * set number
+  autocmd WinEnter,BufRead * if &filetype == 'unite' || &filetype == 'vimfiler' || &filetype == 'vimshell' || &filetype == 'taglist' | set nonumber | else | set cursorline | endif
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -173,8 +173,8 @@ augroup END
 set nocompatible
 filetype off
 if has('vim_starting')
-    set runtimepath+=$HOME/.vim/bundle/neobundle.vim
-    call neobundle#rc(expand($HOME.'/.vim/bundle/'))
+  set runtimepath+=$HOME/.vim/bundle/neobundle.vim
+  call neobundle#rc(expand($HOME.'/.vim/bundle/'))
 endif
 
 NeoBundle 'Shougo/vimproc', {'build' : {'mac' : 'make -f make_mac.mak', }, }
@@ -216,25 +216,25 @@ filetype indent on
 " GUI用設定
 "
 if has('gui_running')
-	set antialias
-	set transparency=15
-	set guifont=Ricty:h13
-	set guioptions+=i
-	set guioptions-=l
-	set guioptions-=L
-	set guioptions-=r
-	set guioptions-=R
-	set guioptions-=T
+  set antialias
+  set transparency=15
+  set guifont=Ricty:h13
+  set guioptions+=i
+  set guioptions-=l
+  set guioptions-=L
+  set guioptions-=r
+  set guioptions-=R
+  set guioptions-=T
 
-	nnoremap <C-f> <C-d>
-	nnoremap <C-b> <C-u>
+  nnoremap <C-f> <C-d>
+  nnoremap <C-b> <C-u>
 
-	augroup focus_group
-		autocmd!
-		autocmd FocusGained * call <SID>MyHighlight_Colors()
-		autocmd FocusGained * set transparency=15
-		autocmd FocusLost * set transparency=50
-	augroup END
+  augroup focus_group
+    autocmd!
+    autocmd FocusGained * call <SID>MyHighlight_Colors()
+    autocmd FocusGained * set transparency=15
+    autocmd FocusLost * set transparency=50
+  augroup END
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -311,7 +311,7 @@ imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" 
 smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 if has('conceal')
-    set conceallevel=2 concealcursor=i
+  set conceallevel=2 concealcursor=i
 endif
 let g:neosnippet#snippets_directory=$HOME.'/.vim/bundle/snipmate-snippets/snippets'
 
@@ -343,42 +343,42 @@ autocmd BufRead * execute ":lcd " . expand("%:p:h")
 " PerlのSyntaxチェック
 "
 augroup perl_lint
-	autocmd!
-	function! PerlLint()
-		let result = system( 'perl' . ' -c ' . bufname(""))
-		if result !~ '.* syntax OK'
-			echohl ErrorMsg | echomsg result | echohl None
-		endif
-	endfunction
-	autocmd BufWritePost *.pl,*.pm call PerlLint()
+  autocmd!
+  function! PerlLint()
+    let result = system( 'perl' . ' -c ' . bufname(""))
+    if result !~ '.* syntax OK'
+      echohl ErrorMsg | echomsg result | echohl None
+    endif
+  endfunction
+  autocmd BufWritePost *.pl,*.pm call PerlLint()
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PHPのSyntaxチェック
 "
 augroup php_lint
-	autocmd!
-	function! PHPLint()
-		let result = system( 'php' . ' -l ' . bufname(""))
-		if result !~ '^No.*'
-			echohl ErrorMsg | echomsg result | echohl None
-		endif
-	endfunction
-	autocmd BufWritePost *.php,*.inc call PHPLint()
+  autocmd!
+  function! PHPLint()
+  	let result = system( 'php' . ' -l ' . bufname(""))
+  	if result !~ '^No.*'
+  		echohl ErrorMsg | echomsg result | echohl None
+  	endif
+  endfunction
+  autocmd BufWritePost *.php,*.inc call PHPLint()
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RubyのSyntaxチェック
 "
 augroup ruby_lint
-	autocmd!
-	function! RubyLint()
-		let result = system( 'ruby' . ' -c ' . bufname(""))
-		if result !~ '^Syntax OK.*'
-			echohl ErrorMsg | echomsg result | echohl None
-		endif
-	endfunction
-	autocmd BufWritePost *.rb call RubyLint()
+  autocmd!
+  function! RubyLint()
+  	let result = system( 'ruby' . ' -c ' . bufname(""))
+  	if result !~ '^Syntax OK.*'
+  		echohl ErrorMsg | echomsg result | echohl None
+  	endif
+  endfunction
+  autocmd BufWritePost *.rb call RubyLint()
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -386,9 +386,9 @@ augroup END
 " - jslint
 "
 function! s:javascript_filetype_settings()
-	autocmd BufLeave     <buffer> call jslint#clear()
-	autocmd BufWritePost <buffer> call jslint#check()
-	autocmd CursorMoved  <buffer> call jslint#message()
+  autocmd BufLeave     <buffer> call jslint#clear()
+  autocmd BufWritePost <buffer> call jslint#check()
+  autocmd CursorMoved  <buffer> call jslint#message()
 endfunction
 autocmd FileType javascript call s:javascript_filetype_settings()
 
@@ -408,11 +408,11 @@ autocmd BufWritePost *.java call s:java_compile()
 " Scalaの保存時コンパイル
 "
 function! s:scala_compile()
-	let path = expand("%")
-	let ret = system("/usr/local/bin/scalac -J-Dfile.encoding=UTF8 " . path)
-	if ret != ""
-		echohl ErrorMsg | echomsg "Failure:" . ret | echohl None
-	endif
+  let path = expand("%")
+  let ret = system("/usr/local/bin/scalac -J-Dfile.encoding=UTF8 " . path)
+  if ret != ""
+    echohl ErrorMsg | echomsg "Failure:" . ret | echohl None
+  endif
 endfunction
 autocmd BufWritePost *.scala call s:scala_compile()
 
@@ -448,9 +448,11 @@ nnoremap <silent> <Leader>uo :Unite outline<Enter>
 " Unite Mark
 nnoremap <silent> <S-m> :Unite mark<Enter>
 " Unite Session
-let g:unite_source_session_enable_auto_save = 1
-autocmd VimEnter,GUIEnter * nested UniteSessionLoad
-autocmd VimLeave * nested UniteSessionSave
+if !argc()
+  let g:unite_source_session_enable_auto_save = 1
+  autocmd VimEnter,GUIEnter * nested UniteSessionLoad
+  autocmd VimLeave * nested UniteSessionSave
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-ref
@@ -540,10 +542,10 @@ map <silent> <leader>tl :Tlist<Enter>
 
 " vim終了時に不要なバッファを消す
 augroup BufRemoveCommands
-	autocmd!
-	autocmd VimLeavePre * bwipeout! vimfiler
-	autocmd VimLeavePre * bwipeout! vimshell
-	autocmd VimLeavePre * TlistClose
+  autocmd!
+  autocmd VimLeavePre * bwipeout! vimfiler
+  autocmd VimLeavePre * bwipeout! vimshell
+  autocmd VimLeavePre * TlistClose
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -684,85 +686,84 @@ let g:Powerline_colorscheme='my'
 autocmd VimEnter,GUIEnter * nested call <SID>MyHighlight_Colors()
 function! s:MyHighlight_Colors()
 
-	hi clear CursorLine
+  hi clear CursorLine
 
-	if has('gui') || has('gui_macvim')
-		"GUI用設定
-		hi Normal guifg=#FFFFFF guibg=#000000
-		hi NonText guifg=#FFFFFF guibg=#000000
-		hi Directory gui=bold guifg=#FF5FD7
-		hi Cursor guifg=#FFFFFF guibg=#00FFFF
-		hi CursorIM guifg=#000000 guibg=#FF5FD7
-		hi CursorLine gui=underline
-		hi Comment guifg=#87FF87
-		hi String guifg=#FF0087
-		hi Constant guifg=#FFFFFF guibg=#000000
-		hi Keyword guifg=#FF5F00
-		hi Statement gui=bold guifg=#D7AF87
-		hi Identifier guifg=#FFD787
-		hi Visual guibg=#AF8700
-		hi Special guifg=#FFFFFF guibg=#000000
-		hi Search gui=bold guifg=#000000 guibg=#FF87AF
-		hi LineNr gui=none guifg=#626262 guibg=#000000
-		hi CursorLineNr gui=bold guifg=#D7005F guibg=#000000
-		hi Pmenu gui=none guifg=#FFFFFF guibg=#FF00D7
-		hi PmenuSel gui=bold guifg=#FFFFFF guibg=#FF00D7
-		hi Include gui=bold guifg=#FF0000
-		hi Define gui=bold guifg=Yellow
-		hi Macro gui=bold guifg=Yellow
-		hi PreCondit gui=bold guifg=#0000FF
-		hi diffAdded guifg=#000000  guibg=#0000FF
+  if has('gui') || has('gui_macvim')
+    "GUI用設定
+    hi Normal guifg=#FFFFFF guibg=#000000
+    hi NonText guifg=#FFFFFF guibg=#000000
+    hi Directory gui=bold guifg=#FF5FD7
+    hi Cursor guifg=#FFFFFF guibg=#00FFFF
+    hi CursorIM guifg=#000000 guibg=#FF5FD7
+    hi CursorLine gui=underline
+    hi Comment guifg=#87FF87
+    hi String guifg=#FF0087
+    hi Constant guifg=#FFFFFF guibg=#000000
+    hi Keyword guifg=#FF5F00
+    hi Statement gui=bold guifg=#D7AF87
+    hi Identifier guifg=#FFD787
+    hi Visual guibg=#AF8700
+    hi Special guifg=#FFFFFF guibg=#000000
+    hi Search gui=bold guifg=#000000 guibg=#FF87AF
+    hi LineNr gui=none guifg=#626262 guibg=#000000
+    hi CursorLineNr gui=bold guifg=#D7005F guibg=#000000
+    hi Pmenu gui=none guifg=#FFFFFF guibg=#FF00D7
+    hi PmenuSel gui=bold guifg=#FFFFFF guibg=#FF00D7
+    hi Include gui=bold guifg=#FF0000
+    hi Define gui=bold guifg=Yellow
+    hi Macro gui=bold guifg=Yellow
+    hi PreCondit gui=bold guifg=#0000FF
+    hi diffAdded guifg=#000000  guibg=#0000FF
 
-		hi StatusLineNC gui=none guifg=#000000 guibg=#626262
-		hi MBENormal gui=none guifg=#626262 guibg=#000000
-		hi MBEVisibleNormal gui=none guifg=#626262 guibg=#000000
-		hi MBEVisibleActive gui=bold,underline guifg=#D7005F guibg=#000000
-	elseif &term =~ "xterm-256color"
-		"256色
-		set t_Co=256
-		set t_Sf=[3%dm
-		set t_Sb=[4%dm
+    hi StatusLineNC gui=none guifg=#000000 guibg=#626262
+    hi MBENormal gui=none guifg=#626262 guibg=#000000
+    hi MBEVisibleNormal gui=none guifg=#626262 guibg=#000000
+    hi MBEVisibleActive gui=bold,underline guifg=#D7005F guibg=#000000
+  elseif &term =~ "xterm-256color"
+    "256色
+    set t_Co=256
+    set t_Sf=[3%dm
+    set t_Sb=[4%dm
 
-		hi Normal ctermfg=255
-		hi NonText ctermfg=255
-		hi Directory cterm=bold ctermfg=206
-		hi Cursor ctermfg=255 ctermbg=255
-		hi CursorIM ctermfg=0 ctermbg=206
-		hi CursorLine cterm=underline
-		hi Comment ctermfg=120
-		hi String ctermfg=198
-		hi Constant ctermfg=6
-		hi Keyword ctermfg=202
-		hi Statement cterm=bold ctermfg=180
-		hi Identifier ctermfg=222
-		hi Visual cterm=bold ctermbg=136
-		hi Special ctermfg=255
-		hi Search cterm=none ctermfg=88 ctermbg=211
-		hi StatusLine cterm=bold ctermfg=255 ctermbg=21
-		hi LineNr cterm=none ctermfg=241
-		hi CursorLineNr cterm=bold ctermfg=161
-		hi Pmenu cterm=none ctermfg=255 ctermbg=200
-		hi PmenuSel cterm=bold ctermfg=255 ctermbg=21
-		hi Include cterm=bold ctermfg=9
-		hi Define cterm=bold ctermfg=14
-		hi Macro cterm=bold ctermfg=14
-		hi PreCondit cterm=bold ctermfg=21
-		hi diffAdded ctermfg=21
+    hi Normal ctermfg=255
+    hi NonText ctermfg=255
+    hi Directory cterm=bold ctermfg=206
+    hi Cursor ctermfg=255 ctermbg=255
+    hi CursorIM ctermfg=0 ctermbg=206
+    hi CursorLine cterm=underline
+    hi Comment ctermfg=120
+    hi String ctermfg=198
+    hi Constant ctermfg=6
+    hi Keyword ctermfg=202
+    hi Statement cterm=bold ctermfg=180
+    hi Identifier ctermfg=222
+    hi Visual cterm=bold ctermbg=136
+    hi Special ctermfg=255
+    hi Search cterm=none ctermfg=88 ctermbg=211
+    hi StatusLine cterm=bold ctermfg=255 ctermbg=21
+    hi LineNr cterm=none ctermfg=241
+    hi CursorLineNr cterm=bold ctermfg=161
+    hi Pmenu cterm=none ctermfg=255 ctermbg=200
+    hi PmenuSel cterm=bold ctermfg=255 ctermbg=21
+    hi Include cterm=bold ctermfg=9
+    hi Define cterm=bold ctermfg=14
+    hi Macro cterm=bold ctermfg=14
+    hi PreCondit cterm=bold ctermfg=21
+    hi diffAdded ctermfg=21
 
-		hi StatusLineNC cterm=none ctermfg=0 ctermbg=241
-		hi MBENormal cterm=none ctermfg=241 ctermbg=0
-		hi MBEVisibleNormal cterm=none ctermfg=241 ctermbg=0
-		hi MBEVisibleActive cterm=bold,underline ctermfg=161 ctermbg=0
-	else
-		syntax off
-	endif
+    hi StatusLineNC cterm=none ctermfg=0 ctermbg=241
+    hi MBENormal cterm=none ctermfg=241 ctermbg=0
+    hi MBEVisibleNormal cterm=none ctermfg=241 ctermbg=0
+    hi MBEVisibleActive cterm=bold,underline ctermfg=161 ctermbg=0
+  else
+    syntax off
+  endif
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Marked
 "
 if has("mac")
-	" markdownをMarked.appで開く
-	autocmd FileType markdown :nnoremap <Leader>md :silent !open -a Marked.app '%:p'<Enter>:redraw!<Enter>
+  " markdownをMarked.appで開く
+  autocmd FileType markdown :nnoremap <Leader>md :silent !open -a Marked.app '%:p'<Enter>:redraw!<Enter>
 endif
-
