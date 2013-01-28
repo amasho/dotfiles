@@ -771,14 +771,12 @@ if has("mac")
 
   augroup browser_chrome_reload
     autocmd!
-	autocmd BufRead * ChromeReloadStart
 	nnoremap <silent> <Space>Cr :<C-u>ChromeReload<Enter>
 	nnoremap <silent> <Space>Cp :<C-u>ChromeReloadStop<Enter>
   augroup END
 
   augroup browser_firefox_reload
     autocmd!
-	autocmd BufRead * FirefoxReloadStart
 	nnoremap <silent> <Space>Fr :<C-u>FirefoxReload<Enter>
 	nnoremap <silent> <Space>Fp :<C-u>FirefoxReloadStop<Enter>
   augroup END
