@@ -190,7 +190,6 @@ NeoBundle 'thinca/vim-ref'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-rails'
 NeoBundle 'tpope/vim-endwise'
-NeoBundle 'mattn/gist-vim'
 NeoBundle 'honza/snipmate-snippets'
 NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'tsukkee/unite-help'
@@ -198,17 +197,14 @@ NeoBundle 'tacroe/unite-mark'
 NeoBundle 'basyura/jslint.vim'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'kana/vim-fakeclip'
-NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'taichouchou2/vim-rsense'
 NeoBundle 'derekwyatt/vim-scala'
-NeoBundle 'vim-scripts/endwise.vim'
+NeoBundle 'vim-ruby/vim-ruby', {'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
 NeoBundle 'vim-scripts/javacomplete'
 NeoBundle 'vim-scripts/SQLUtilities'
-NeoBundle 'vim-ruby/vim-ruby', {'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
-NeoBundle 'vim-scripts/ruby-matchit', {'autoload' : { 'filetypes': ['ruby', 'eruby'] } }
+NeoBundle 'vim-scripts/ruby-matchit', {'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
 NeoBundle 'vim-scripts/surround.vim'
 NeoBundle 'Lokaltog/vim-powerline'
-NeoBundle 'L9'
 NeoBundle 'ruby.vim'
 NeoBundle 'rails.vim'
 NeoBundle 'vcscommand.vim'
@@ -539,14 +535,6 @@ let Tlist_Auto_Update = 1
 let Tlist_WinWidth = 35
 " taglistを開くショットカットキー
 map <silent> <leader>tl :Tlist<Enter>
-
-" vim終了時に不要なバッファを消す
-augroup BufRemoveCommands
-  autocmd!
-  autocmd VimLeavePre * bwipeout! vimfiler
-  autocmd VimLeavePre * bwipeout! vimshell
-  autocmd VimLeavePre * TlistClose
-augroup END
 
 "------------------------------------
 "" endwise.vim
