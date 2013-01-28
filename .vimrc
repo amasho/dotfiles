@@ -159,6 +159,12 @@ set cmdheight=1
 "Backspace
 set backspace=indent,eol,start
 
+"Rubyのインデント
+if &filetype =~ 'ruby|eruby'
+  setlocal expandtab
+  setlocal ts=2 sw=2 st=2
+endif
+
 "行番号とカーソル行をハイライト(カレントバッファウィンドウだけ)
 augroup cursor_line
   autocmd!
@@ -199,6 +205,7 @@ NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'taichouchou2/vim-rsense'
 NeoBundle 'derekwyatt/vim-scala'
+NeoBundle 'tell-k/vim-browsereload-mac'
 NeoBundle 'vim-ruby/vim-ruby', {'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
 NeoBundle 'vim-scripts/javacomplete'
 NeoBundle 'vim-scripts/SQLUtilities'
@@ -756,9 +763,30 @@ function! s:MyHighlight_Colors()
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"vim-browsereload-mac
+"
+if has("mac")
+	let g:returnAppFlag = 1
+	let g:returnApp = "iTerm"
+
+  augroup browser_chrome_reload
+    autocmd!
+	nnoremap <silent> <Space>ct :<C-u>ChromeReloadStart<Enter>
+	nnoremap <silent> <Space>cp :<C-u>ChromeReloadStop<Enter>
+  augroup END
+
+  augroup browser_firefox_reload
+    autocmd!
+	nnoremap <silent> <Space>ft :<C-u>FirefoxReloadStart<Enter>
+	nnoremap <silent> <Space>fp :<C-u>FirefoxReloadStop<Enter>
+  augroup END
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Marked
 "
 if has("mac")
   " markdownをMarked.appで開く
   autocmd FileType markdown :nnoremap <Leader>md :silent !open -a Marked.app '%:p'<Enter>:redraw!<Enter>
 endif
+
