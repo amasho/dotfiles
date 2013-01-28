@@ -177,19 +177,20 @@ if has('vim_starting')
   call neobundle#rc(expand($HOME.'/.vim/bundle/'))
 endif
 
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/unite-session'
 NeoBundle 'Shougo/vimproc', {'build' : {'mac' : 'make -f make_mac.mak', }, }
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neocomplcache-rsense', {'depends' : 'Shougo/neocomplcache', 'autoload': { 'filetypes': 'ruby' } }
 NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/unite-session'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-rails'
+NeoBundle 'tpope/vim-endwise'
 NeoBundle 'mattn/gist-vim'
-NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'honza/snipmate-snippets'
 NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'tsukkee/unite-help'
@@ -197,16 +198,21 @@ NeoBundle 'tacroe/unite-mark'
 NeoBundle 'basyura/jslint.vim'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'kana/vim-fakeclip'
+NeoBundle 'tyru/open-browser.vim'
+NeoBundle 'taichouchou2/vim-rsense'
+NeoBundle 'derekwyatt/vim-scala'
+NeoBundle 'vim-scripts/endwise.vim'
 NeoBundle 'vim-scripts/javacomplete'
 NeoBundle 'vim-scripts/SQLUtilities'
-NeoBundle 'surround.vim'
+NeoBundle 'vim-ruby/vim-ruby', {'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
+NeoBundle 'vim-scripts/ruby-matchit', {'autoload' : { 'filetypes': ['ruby', 'eruby'] } }
+NeoBundle 'vim-scripts/surround.vim'
+NeoBundle 'Lokaltog/vim-powerline'
+NeoBundle 'L9'
 NeoBundle 'ruby.vim'
 NeoBundle 'rails.vim'
-NeoBundle 'tyru/open-browser.vim'
-NeoBundle 'L9'
 NeoBundle 'vcscommand.vim'
 NeoBundle 'taglist.vim'
-NeoBundle 'derekwyatt/vim-scala'
 
 filetype plugin indent on
 filetype indent on
@@ -470,7 +476,7 @@ let g:vimfiler_execute_file_list["_"]="vim"
 let g:vimfiler_directory_display_top = 1
 let g:vimfiler_safe_mode_by_default = 1
 let g:vimfiler_enable_auto_cd = 1
-nnoremap <silent> fv :VimFiler -quit<Enter>
+nnoremap <silent> ,fv :VimFiler -quit<Enter>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VimShell
@@ -484,7 +490,7 @@ autocmd FileType vimshell
 \| call vimshell#altercmd#define('g', 'git')
 \| call vimshell#altercmd#define('gd', 'git diff ')
 \| call vimshell#altercmd#define('gst', 'git status -s -b')
-nnoremap <silent> sv :VimShellPop<Enter>
+nnoremap <silent> ,sv :VimShellPop<Enter>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-quickrun
@@ -541,6 +547,13 @@ augroup BufRemoveCommands
   autocmd VimLeavePre * bwipeout! vimshell
   autocmd VimLeavePre * TlistClose
 augroup END
+
+"------------------------------------
+"" endwise.vim
+"------------------------------------
+"{{{
+let g:endwise_no_mappings=1
+"}}}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-powerline
