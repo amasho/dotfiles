@@ -207,7 +207,6 @@ NeoBundle 'L9'
 NeoBundle 'vcscommand.vim'
 NeoBundle 'taglist.vim'
 NeoBundle 'derekwyatt/vim-scala'
-NeoBundle 'fholgado/minibufexpl.vim'
 
 filetype plugin indent on
 filetype indent on
@@ -506,11 +505,6 @@ nnoremap <Leader>fs :<C-u>OpenBrowserSearch<Space><C-r><C-w><Enter>
 " エイリアス
 nnoremap <Leader>ob :<C-u>OpenBrowser http://
 nnoremap <Leader>obs :<C-u>OpenBrowserSearch 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" minibufexpl.vim
-"
-let g:miniBufExplShowBufNumbers = 0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " taglist.vim
