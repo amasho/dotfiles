@@ -136,7 +136,7 @@ set laststatus=2
 set completefunc=syntaxcomplete#Complete
 
 "タグファイル
-set tags=$HOME/.tags,$HOME/tags/spacyz.tags,$HOME/tags/amoadManage.tags
+set tags=$HOME/.tags
 
 "コマンド実行中は再描画しない
 set lazyredraw
@@ -226,7 +226,7 @@ filetype indent on
 if has('gui_running')
   set antialias
   set transparency=15
-  set guifont=Ricty:h13
+  set guifont=Ricty:h12
   set guioptions+=i
   set guioptions-=l
   set guioptions-=L
@@ -539,7 +539,7 @@ let Tlist_Auto_Open = 1
 " 新しくファイル開いた時は更新
 let Tlist_Auto_Update = 1
 " 横幅
-let Tlist_WinWidth = 35
+let Tlist_WinWidth = 38
 " taglistを開くショットカットキー
 map <silent> <leader>tl :Tlist<Enter>
 
