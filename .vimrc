@@ -142,7 +142,7 @@ set tags=$HOME/.tags
 set lazyredraw
 
 "高速ターミナル接続を行う
-"set ttyfast
+set ttyfast
 
 "コンソールでもマウス機能を
 set mouse=a
@@ -159,19 +159,21 @@ set cmdheight=1
 "Backspace
 set backspace=indent,eol,start
 
-"Rubyのインデント
-if &filetype =~ 'ruby|eruby'
-  setlocal expandtab
-  setlocal ts=2 sw=2 st=2
-endif
-
 "行番号とカーソル行をハイライト(カレントバッファウィンドウだけ)
 augroup cursor_line
   autocmd!
   autocmd WinLeave * set nocursorline
-  autocmd WinEnter * set number
-  autocmd WinEnter,BufRead * if &filetype == 'unite' || &filetype == 'vimfiler' || &filetype == 'vimshell' || &filetype == 'taglist' | set nonumber | else | set cursorline | endif
+  autocmd WinEnter,BufRead * set cursorline
 augroup END
+
+"特定のfiletypeはインデントを調整する
+if &filetype =~ 'ruby|eruby'
+  setlocal expandtab
+  setlocal tabstop=2
+  setlocal shiftwidth=2
+  setlocal softtabstop=2
+  setlocal tags=~/tags/ruby.tags
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NeoBundle
@@ -185,35 +187,74 @@ endif
 
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-session'
-NeoBundle 'Shougo/vimproc', {'build' : {'mac' : 'make -f make_mac.mak', }, }
+NeoBundle 'Shougo/vimproc', {
+  \  'build' : {
+  \    'mac'  : 'make -f make_mac.mak',
+  \	   'unix' : 'make -f make_unix.mak',
+  \  }}
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/vimfiler'
-NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/neocomplcache-rsense', {'depends' : 'Shougo/neocomplcache', 'autoload': { 'filetypes': 'ruby' } }
-NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neocomplcache', {
+  \  'autoload' : {
+  \    'insert' : 1,
+  \  }}
+NeoBundle 'Shougo/neocomplcache-rsense', {
+  \  'depends' : 'Shougo/neocomplcache',
+  \  'autoload': {
+  \    'filetypes': 'ruby'
+  \  }}
+NeoBundle 'Shougo/neosnippet', {
+  \  'autoload' : {
+  \    'insert' : 1,
+  \  }}
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-rails'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'honza/snipmate-snippets'
-NeoBundle 'h1mesuke/unite-outline'
-NeoBundle 'tsukkee/unite-help'
-NeoBundle 'tacroe/unite-mark'
+NeoBundle 'h1mesuke/unite-outline', {
+  \  'depends' : 'Shougo/unite.vim'
+  \  }
+NeoBundle 'tsukkee/unite-help', {
+  \  'depends' : 'Shougo/unite.vim'
+  \  }
+NeoBundle 'tacroe/unite-mark', {
+  \  'depends' : 'Shougo/unite.vim'
+  \  }
+NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'basyura/jslint.vim'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'kana/vim-fakeclip'
-NeoBundle 'taichouchou2/vim-rsense'
+NeoBundle 'taichouchou2/vim-rsense', {
+  \  'autoload' : {
+  \    'filetypes': ['ruby', 'eruby', 'haml']
+  \  }}
 NeoBundle 'derekwyatt/vim-scala'
 NeoBundle 'tell-k/vim-browsereload-mac'
-NeoBundle 'vim-ruby/vim-ruby', {'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
-NeoBundle 'vim-scripts/javacomplete'
-NeoBundle 'vim-scripts/SQLUtilities'
-NeoBundle 'vim-scripts/ruby-matchit', {'autoload' : { 'filetypes': ['ruby', 'eruby', 'haml'] } }
-NeoBundle 'vim-scripts/surround.vim'
-NeoBundle 'Lokaltog/vim-powerline'
-NeoBundle 'ruby.vim'
-NeoBundle 'rails.vim'
+NeoBundle 'vim-ruby/vim-ruby', {
+  \  'autoload' : {
+  \    'filetypes': ['ruby', 'eruby', 'haml']
+  \  }}
+NeoBundle 'skwp/vim-rspec', {
+  \  'autoload': {
+  \    'filetypes': ['ruby', 'eruby', 'haml']
+  \  }}
+NeoBundle 'javacomplete'
+NeoBundle 'SQLUtilities'
+NeoBundle 'ruby-matchit', {
+  \  'autoload' : {
+  \    'filetypes': ['ruby', 'eruby', 'haml']
+  \  }}
+NeoBundle 'surround.vim'
+NeoBundle 'ruby.vim', {
+  \  'autoload' : {
+  \    'filetypes': ['ruby', 'eruby', 'haml']
+  \  }}
+NeoBundle 'rails.vim', {
+  \  'autoload' : {
+  \    'filetypes': ['ruby', 'eruby', 'haml']
+  \  }}
 NeoBundle 'vcscommand.vim'
 NeoBundle 'taglist.vim'
 
@@ -539,7 +580,7 @@ let Tlist_Auto_Open = 1
 " 新しくファイル開いた時は更新
 let Tlist_Auto_Update = 1
 " 横幅
-let Tlist_WinWidth = 38
+let Tlist_WinWidth = 37
 " taglistを開くショットカットキー
 map <silent> <leader>tl :Tlist<Enter>
 
@@ -763,11 +804,20 @@ function! s:MyHighlight_Colors()
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"RSense
+"
+let g:rsenseHome = $RSENSE_HOME
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "vim-browsereload-mac
 "
 if has("mac")
-	let g:returnAppFlag = 1
+  let g:returnAppFlag = 1
+  if has('gui') || has('gui_macvim')
+    let g:returnApp = "MacVim"
+  else
 	let g:returnApp = "iTerm"
+  endif
 
   augroup browser_chrome_reload
     autocmd!
@@ -777,8 +827,8 @@ if has("mac")
 
   augroup browser_firefox_reload
     autocmd!
-	nnoremap <silent> <Space>Fr :<C-u>FirefoxReload<Enter>
-	nnoremap <silent> <Space>Fp :<C-u>FirefoxReloadStop<Enter>
+    nnoremap <silent> <Space>Fr :<C-u>FirefoxReload<Enter>
+    nnoremap <silent> <Space>Fp :<C-u>FirefoxReloadStop<Enter>
   augroup END
 endif
 
@@ -789,4 +839,3 @@ if has("mac")
   " markdownをMarked.appで開く
   autocmd FileType markdown :nnoremap <Leader>md :silent !open -a Marked.app '%:p'<Enter>:redraw!<Enter>
 endif
-
