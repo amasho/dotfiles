@@ -90,7 +90,7 @@ set shellslash
 
 "ファイル内の <Tab> が対応する空白の数
 set tabstop=4
-"set softtabstop=4
+set softtabstop=4
 
 "シフト移動幅
 set shiftwidth=4
@@ -136,7 +136,7 @@ set laststatus=2
 set completefunc=syntaxcomplete#Complete
 
 "タグファイル
-set tags=$HOME/.tags
+set tags=$HOME/.tags,$HOME/tags/ruby.tags
 
 "コマンド実行中は再描画しない
 set lazyredraw
@@ -172,7 +172,7 @@ if &filetype =~ 'ruby|eruby'
   setlocal tabstop=2
   setlocal shiftwidth=2
   setlocal softtabstop=2
-  setlocal tags=~/tags/ruby.tags
+  setlocal tags+=$HOME/tags/ruby.tags
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -738,7 +738,7 @@ function! s:MyHighlight_Colors()
     hi Directory gui=bold guifg=#FF5FD7
     hi Cursor guifg=#FFFFFF guibg=#00FFFF
     hi CursorIM guifg=#000000 guibg=#FF5FD7
-    hi CursorLine gui=underline
+    hi CursorLine gui=none
     hi Comment guifg=#87FF87
     hi String guifg=#FF0087
     hi Constant guifg=#FFFFFF guibg=#000000
@@ -773,7 +773,7 @@ function! s:MyHighlight_Colors()
     hi Directory cterm=bold ctermfg=206
     hi Cursor ctermfg=255 ctermbg=255
     hi CursorIM ctermfg=0 ctermbg=206
-    hi CursorLine cterm=underline
+    hi CursorLine cterm=none
     hi Comment ctermfg=120
     hi String ctermfg=198
     hi Constant ctermfg=6
