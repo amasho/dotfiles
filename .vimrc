@@ -261,6 +261,13 @@ NeoBundle 'taglist.vim'
 filetype plugin indent on
 filetype indent on
 
+let java_highlight_all=1
+let java_highlight_function="style"
+let java_allow_cpp_keywords=1
+
+let g:rails_level = 4
+let g:rails_default_database="mysql"
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GUI用設定
 "
