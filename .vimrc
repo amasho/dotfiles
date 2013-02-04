@@ -187,76 +187,74 @@ endif
 
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-session'
+NeoBundle 'Shougo/vimshell'
+NeoBundle 'Shougo/vimfiler'
+
 NeoBundle 'Shougo/vimproc', {
   \  'build' : {
   \    'mac'  : 'make -f make_mac.mak',
   \	   'unix' : 'make -f make_unix.mak',
   \  }}
-NeoBundle 'Shougo/vimshell'
-NeoBundle 'Shougo/vimfiler'
+
 NeoBundle 'Shougo/neocomplcache', {
   \  'autoload' : {
   \    'insert' : 1,
   \  }}
-NeoBundle 'Shougo/neocomplcache-rsense', {
-  \  'depends' : 'Shougo/neocomplcache',
-  \  'autoload': {
-  \    'filetypes': 'ruby'
-  \  }}
+
 NeoBundle 'Shougo/neosnippet', {
   \  'autoload' : {
   \    'insert' : 1,
   \  }}
+
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-rails'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'honza/snipmate-snippets'
+
 NeoBundle 'h1mesuke/unite-outline', {
   \  'depends' : 'Shougo/unite.vim'
   \  }
+
 NeoBundle 'tsukkee/unite-help', {
   \  'depends' : 'Shougo/unite.vim'
   \  }
+
 NeoBundle 'tacroe/unite-mark', {
   \  'depends' : 'Shougo/unite.vim'
   \  }
+
 NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'basyura/jslint.vim'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'kana/vim-fakeclip'
-NeoBundle 'taichouchou2/vim-rsense', {
-  \  'autoload' : {
-  \    'filetypes': ['ruby', 'eruby', 'haml']
-  \  }}
+NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'derekwyatt/vim-scala'
 NeoBundle 'tell-k/vim-browsereload-mac'
+NeoBundle 'surround.vim'
+NeoBundle 'vcscommand.vim'
+NeoBundle 'taglist.vim'
+
 NeoBundle 'vim-ruby/vim-ruby', {
   \  'autoload' : {
   \    'filetypes': ['ruby', 'eruby', 'haml']
   \  }}
+
 NeoBundle 'skwp/vim-rspec', {
   \  'autoload': {
   \    'filetypes': ['ruby', 'eruby', 'haml']
   \  }}
-NeoBundle 'javacomplete'
-NeoBundle 'SQLUtilities'
-NeoBundle 'ruby-matchit', {
-  \  'autoload' : {
-  \    'filetypes': ['ruby', 'eruby', 'haml']
-  \  }}
-NeoBundle 'surround.vim'
+
 NeoBundle 'ruby.vim', {
   \  'autoload' : {
   \    'filetypes': ['ruby', 'eruby', 'haml']
   \  }}
+
 NeoBundle 'rails.vim', {
   \  'autoload' : {
   \    'filetypes': ['ruby', 'eruby', 'haml']
   \  }}
-NeoBundle 'vcscommand.vim'
-NeoBundle 'taglist.vim'
 
 filetype plugin indent on
 filetype indent on
@@ -334,7 +332,7 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+"autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -811,9 +809,13 @@ function! s:MyHighlight_Colors()
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"RSense
+" Lokaltog/vim-easymotion
 "
-let g:rsenseHome = $RSENSE_HOME
+let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
+let g:EasyMotion_leader_key="<Space>"
+let g:EasyMotion_grouping=1
+hi EasyMotionTarget ctermbg=none ctermfg=red guibg=none guifg=red
+hi EasyMotionShade  ctermbg=none ctermfg=yellow guibg=none guifg=yellow
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "vim-browsereload-mac
@@ -828,14 +830,14 @@ if has("mac")
 
   augroup browser_chrome_reload
     autocmd!
-	nnoremap <silent> <Space>Cr :<C-u>ChromeReload<Enter>
-	nnoremap <silent> <Space>Cp :<C-u>ChromeReloadStop<Enter>
+	nnoremap <silent> <Leader>cr :<C-u>ChromeReload<Enter>
+	nnoremap <silent> <Leader>cp :<C-u>ChromeReloadStop<Enter>
   augroup END
 
   augroup browser_firefox_reload
     autocmd!
-    nnoremap <silent> <Space>Fr :<C-u>FirefoxReload<Enter>
-    nnoremap <silent> <Space>Fp :<C-u>FirefoxReloadStop<Enter>
+    nnoremap <silent> <Leader>fr :<C-u>FirefoxReload<Enter>
+    nnoremap <silent> <Leader>fp :<C-u>FirefoxReloadStop<Enter>
   augroup END
 endif
 
