@@ -253,23 +253,8 @@ endif
 nmap K :<C-u>bn!<Enter>
 " 前のバッファ
 nmap J :<C-u>bp!<Enter>
-
 " ESC 2回でハイライト消去
 nmap <silent> <ESC><ESC> :<C-u>nohlsearch<Enter>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" モード
-"
-filetype plugin indent on
-autocmd! BufRead,BufNewFile *.(sh|bash) set filetype=sh
-autocmd! BufRead,BufNewFile *.php[34]? set filetype=php
-autocmd! BufRead,BufNewFile *.inc set filetype=php
-autocmd! BufRead,BufNewFile *.phtml set filetype=php
-autocmd! BufRead,BufNewFile *.html set filetype=html
-autocmd! BufRead,BufNewFile *.(t|pl|pm) set filetype=perl
-autocmd! BufRead,BufNewFile *.(js|as|json|jsn) set filetype=javascript
-autocmd! BufRead,BufNewFile *.tpl set filetype=smarty
-autocmd! BufRead,BufNewFile *.java set filetype=java
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " コード補完
@@ -326,9 +311,7 @@ augroup php_lint
   autocmd!
   function! PHPLint()
     let result = system( 'php' . ' -l ' . bufname(""))
-    if result !~ '^No.*'
-      echohl ErrorMsg | echomsg result | echohl None
-    endif
+    if result !~ '^No.*' | echohl ErrorMsg | echomsg result | echohl None | endif
   endfunction
   autocmd BufWritePost *.php,*.inc call PHPLint()
 augroup END
