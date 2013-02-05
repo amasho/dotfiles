@@ -728,9 +728,3 @@ if has("mac")
   autocmd FileType markdown :nnoremap <Leader>md :silent !open -a Marked.app '%:p'<Enter>:redraw!<Enter>
 endif
 
-let java_highlight_all=1
-let java_highlight_function="style"
-let java_allow_cpp_keywords=1
-
-let g:rails_level = 4
-let g:rails_default_database="mysql"
