@@ -1,6 +1,4 @@
-"
-" vimrc
-"
+" .vimrc
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Misc
@@ -68,9 +66,6 @@ set smartindent
 "行頭の余白内で Tab を打ち込むと、'shiftwidth' の数だけインデントする。
 set smarttab
 
-"タブをスペースに置き換える
-"set expandtab
-
 set viminfo=
 
 "ルーラー表示
@@ -88,12 +83,6 @@ set noswapfile
 "ファイル名の展開にスラッシュを使う。
 set shellslash
 
-"ファイル内の <Tab> が対応する空白の数
-set tabstop=4
-set softtabstop=4
-
-"シフト移動幅
-set shiftwidth=4
 
 "listで表示される文字のフォーマットを指定する
 set listchars=eol:<,tab:\|>,extends:<
@@ -166,14 +155,9 @@ augroup cursor_line
   autocmd WinEnter,BufRead * set cursorline
 augroup END
 
-"特定のfiletypeはインデントを調整する
-if &filetype =~ 'ruby|eruby'
-  setlocal expandtab
-  setlocal tabstop=2
-  setlocal shiftwidth=2
-  setlocal softtabstop=2
-  setlocal tags+=$HOME/tags/ruby.tags
-endif
+"インデント周り
+set noet ts=4 sw=4 sts=4
+autocmd FileType vim,ruby,eruby,javascript setlocal et ts=2 sw=2 sts=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NeoBundle
@@ -189,52 +173,26 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-session'
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/vimfiler'
-
 NeoBundle 'Shougo/vimproc', {
-  \  'build' : {
-  \    'mac'  : 'make -f make_mac.mak',
-  \	   'unix' : 'make -f make_unix.mak',
-  \  }}
-
+  \   'build' : {
+  \     'mac'  : 'make -f make_mac.mak',
+  \     'unix' : 'make -f make_unix.mak',
+  \   }}
 NeoBundle 'Shougo/neocomplcache', {
   \  'autoload' : {
   \    'insert' : 1,
   \  }}
 
-NeoBundle 'Shougo/neosnippet', {
-  \  'autoload' : {
-  \    'insert' : 1,
-  \  }}
-
 NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'thinca/vim-ref'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-rails'
-NeoBundle 'tpope/vim-endwise'
-NeoBundle 'honza/snipmate-snippets'
-
-NeoBundle 'h1mesuke/unite-outline', {
-  \  'depends' : 'Shougo/unite.vim'
-  \  }
-
-NeoBundle 'tsukkee/unite-help', {
-  \  'depends' : 'Shougo/unite.vim'
-  \  }
-
-NeoBundle 'tacroe/unite-mark', {
-  \  'depends' : 'Shougo/unite.vim'
-  \  }
-
 NeoBundle 'Lokaltog/vim-powerline'
+NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'basyura/jslint.vim'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'kana/vim-fakeclip'
-NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'derekwyatt/vim-scala'
 NeoBundle 'tell-k/vim-browsereload-mac'
-NeoBundle 'surround.vim'
-NeoBundle 'vcscommand.vim'
-NeoBundle 'taglist.vim'
 
 NeoBundle 'vim-ruby/vim-ruby', {
   \  'autoload' : {
@@ -256,15 +214,12 @@ NeoBundle 'rails.vim', {
   \    'filetypes': ['ruby', 'eruby', 'haml']
   \  }}
 
+NeoBundle 'surround.vim'
+NeoBundle 'vcscommand.vim'
+NeoBundle 'taglist.vim'
+
 filetype plugin indent on
 filetype indent on
-
-let java_highlight_all=1
-let java_highlight_function="style"
-let java_allow_cpp_keywords=1
-
-let g:rails_level = 4
-let g:rails_default_database="mysql"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GUI用設定
@@ -346,49 +301,6 @@ inoremap " ""<LEFT>
 inoremap ' ''<LEFT>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" neocomplcache.vimの設定
-"
-let g:neocomplcache_enable_at_startup = 1
-imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-smap <C-k>     <Plug>(neocomplcache_snippets_expand)
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string()
-imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" snippets
-"
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-
-imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
-let g:neosnippet#snippets_directory=$HOME.'/.vim/bundle/snipmate-snippets/snippets'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vcscommand.vim
-"
-nnoremap <Leader>sa :<C-u>VCSAdd<Enter>
-nnoremap <Leader>sc :<C-u>VCSCommit<Enter>
-nnoremap <Leader>sd :<C-u>VCSDiff<Enter>
-nnoremap <Leader>sv :<C-u>VCSVimDiff<Enter>
-nnoremap <Leader>sr :<C-u>VCSRevert<Enter>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim-fugitive
-"
-nnoremap <Leader>gd :<C-u>Gdiff<Enter>
-nnoremap <Leader>gs :<C-u>Gstatus<Enter>
-nnoremap <Leader>gl :<C-u>Glog<Enter>
-nnoremap <Leader>ga :<C-u>Gwrite<Enter>
-nnoremap <Leader>gc :<C-u>Gcommit<Enter>
-nnoremap <Leader>gC :<C-u>Git commit --amend<Enter>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "バッファ切替と同時にディレクトリ移動
 "
 autocmd BufRead * execute ":lcd " . expand("%:p:h")
@@ -413,10 +325,10 @@ augroup END
 augroup php_lint
   autocmd!
   function! PHPLint()
-  	let result = system( 'php' . ' -l ' . bufname(""))
-  	if result !~ '^No.*'
-  		echohl ErrorMsg | echomsg result | echohl None
-  	endif
+    let result = system( 'php' . ' -l ' . bufname(""))
+    if result !~ '^No.*'
+      echohl ErrorMsg | echomsg result | echohl None
+    endif
   endfunction
   autocmd BufWritePost *.php,*.inc call PHPLint()
 augroup END
@@ -427,10 +339,10 @@ augroup END
 augroup ruby_lint
   autocmd!
   function! RubyLint()
-  	let result = system( 'ruby' . ' -c ' . bufname(""))
-  	if result !~ '^Syntax OK.*'
-  		echohl ErrorMsg | echomsg result | echohl None
-  	endif
+    let result = system( 'ruby' . ' -c ' . bufname(""))
+    if result !~ '^Syntax OK.*'
+      echohl ErrorMsg | echomsg result | echohl None
+    endif
   endfunction
   autocmd BufWritePost *.rb call RubyLint()
 augroup END
@@ -447,28 +359,30 @@ endfunction
 autocmd FileType javascript call s:javascript_filetype_settings()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" javaの保存時コンパイル
+" neocomplcache.vimの設定
 "
-function! s:java_compile()
-"	let path = expand("%")
-"	let ret = system("/usr/bin/javac -J-Dfile.encoding=UTF8 " . path)
-"	if ret != ""
-"		echohl ErrorMsg | echomsg "Failure:" . ret | echohl None
-"	endif
-endfunction
-autocmd BufWritePost *.java call s:java_compile()
+let g:neocomplcache_enable_at_startup = 1
+inoremap <expr><C-g>     neocomplcache#undo_completion()
+inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Scalaの保存時コンパイル
+" vcscommand.vim
 "
-function! s:scala_compile()
-  let path = expand("%")
-  let ret = system("/usr/local/bin/scalac -J-Dfile.encoding=UTF8 " . path)
-  if ret != ""
-    echohl ErrorMsg | echomsg "Failure:" . ret | echohl None
-  endif
-endfunction
-autocmd BufWritePost *.scala call s:scala_compile()
+nnoremap <Leader>sa :<C-u>VCSAdd<Enter>
+nnoremap <Leader>sc :<C-u>VCSCommit<Enter>
+nnoremap <Leader>sd :<C-u>VCSDiff<Enter>
+nnoremap <Leader>sv :<C-u>VCSVimDiff<Enter>
+nnoremap <Leader>sr :<C-u>VCSRevert<Enter>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-fugitive
+"
+nnoremap <Leader>gd :<C-u>Gdiff<Enter>
+nnoremap <Leader>gs :<C-u>Gstatus<Enter>
+nnoremap <Leader>gl :<C-u>Glog<Enter>
+nnoremap <Leader>ga :<C-u>Gwrite<Enter>
+nnoremap <Leader>gc :<C-u>Gcommit<Enter>
+nnoremap <Leader>gC :<C-u>Git commit --amend<Enter>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Unite
@@ -495,26 +409,12 @@ nnoremap <silent> <Leader>ua :<C-u>UniteWithBufferDir -buffer-name=files buffer 
 " Bookmark
 nnoremap <silent> <Leader>ub :<C-u>Unite bookmark<Enter>
 
-" Unite Help
-nnoremap <silent> <Leader>uh :Unite help<Enter>
-" Unite Outline
-nnoremap <silent> <Leader>uo :Unite outline<Enter>
-" Unite Mark
-nnoremap <silent> <S-m> :Unite mark<Enter>
 " Unite Session
 if !argc()
   let g:unite_source_session_enable_auto_save = 1
   autocmd VimEnter,GUIEnter * nested UniteSessionLoad
   autocmd VimLeave * nested UniteSessionSave
 endif
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim-ref
-"
-let g:ref_phpmanual_path = $HOME.'/Dropbox/manual/php-chunked-xhtml'
-nnoremap <Leader>php :Unite ref/phpmanual<Enter>
-nnoremap <Leader>pl :Unite ref/perldoc<Enter>
-nnoremap <Leader>py :Unite ref/pydoc<Enter>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VimFiler
@@ -550,24 +450,12 @@ let g:quickrun_config['_']['runner'] = 'vimproc'
 let g:quickrun_config['_']['runner/vimproc/updatetime'] = 100
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" open-blowser.vim
-"
-" カーソル下のURLをブラウザで開く
-nmap <Leader>fu <Plug>(openbrowser-open)
-vmap <Leader>fu <Plug>(openbrowser-open)
-" カーソル下のキーワードをググる
-nnoremap <Leader>fs :<C-u>OpenBrowserSearch<Space><C-r><C-w><Enter>
-" エイリアス
-nnoremap <Leader>ob :<C-u>OpenBrowser http://
-nnoremap <Leader>obs :<C-u>OpenBrowserSearch 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " taglist.vim
 "
 " ctagsのパス
 let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
 " タグリストを開いた時にフォーカスを移す
-let Tlist_GainFocus_On_ToggleOpen = 1 
+let Tlist_GainFocus_On_ToggleOpen = 0
 " 余分な情報や空白を表示しない
 let Tlist_Compact_Format = 1
 " タグリストをハイライト
@@ -585,16 +473,9 @@ let Tlist_Auto_Open = 1
 " 新しくファイル開いた時は更新
 let Tlist_Auto_Update = 1
 " 横幅
-let Tlist_WinWidth = 37
+let Tlist_WinWidth = 35
 " taglistを開くショットカットキー
 map <silent> <leader>tl :Tlist<Enter>
-
-"------------------------------------
-"" endwise.vim
-"------------------------------------
-"{{{
-let g:endwise_no_mappings=1
-"}}}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-powerline
@@ -814,8 +695,8 @@ endfunction
 let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
 let g:EasyMotion_leader_key="<Space>"
 let g:EasyMotion_grouping=1
-hi EasyMotionTarget ctermbg=none ctermfg=red guibg=none guifg=red
-hi EasyMotionShade  ctermbg=none ctermfg=yellow guibg=none guifg=yellow
+hi EasyMotionTarget ctermbg=none ctermfg=yellow guifg=yellow
+hi EasyMotionShade  ctermbg=none ctermfg=cyan guifg=cyan
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "vim-browsereload-mac
@@ -825,19 +706,17 @@ if has("mac")
   if has('gui') || has('gui_macvim')
     let g:returnApp = "MacVim"
   else
-	let g:returnApp = "iTerm"
+    let g:returnApp = "iTerm"
   endif
 
   augroup browser_chrome_reload
     autocmd!
-	nnoremap <silent> <Leader>cr :<C-u>ChromeReload<Enter>
-	nnoremap <silent> <Leader>cp :<C-u>ChromeReloadStop<Enter>
+    nnoremap <silent> <Leader>cr :<C-u>ChromeReload<Enter>
   augroup END
 
   augroup browser_firefox_reload
     autocmd!
     nnoremap <silent> <Leader>fr :<C-u>FirefoxReload<Enter>
-    nnoremap <silent> <Leader>fp :<C-u>FirefoxReloadStop<Enter>
   augroup END
 endif
 
@@ -848,3 +727,10 @@ if has("mac")
   " markdownをMarked.appで開く
   autocmd FileType markdown :nnoremap <Leader>md :silent !open -a Marked.app '%:p'<Enter>:redraw!<Enter>
 endif
+
+let java_highlight_all=1
+let java_highlight_function="style"
+let java_allow_cpp_keywords=1
+
+let g:rails_level = 4
+let g:rails_default_database="mysql"
