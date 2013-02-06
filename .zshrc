@@ -105,7 +105,7 @@ alias s='screen -D -RR -q'
 
 # Git
 alias g='git'
-alias gd='git diff '
+alias gd='git diff --color'
 alias gst='git status -s -b'
 export GIT_EDITOR=vim
 

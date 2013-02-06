@@ -125,7 +125,7 @@ set laststatus=2
 set completefunc=syntaxcomplete#Complete
 
 "タグファイル
-set tags=$HOME/.tags,$HOME/tags/ruby.tags
+set tags=$HOME/.tags
 
 "コマンド実行中は再描画しない
 set lazyredraw
@@ -259,16 +259,16 @@ nmap <silent> <ESC><ESC> :<C-u>nohlsearch<Enter>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " コード補完
 "
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType php :set dictionary=$HOME/.vim/dict/php.dict
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType perl :set dictionary=$HOME/.vim/dict/perl.dict
-autocmd FileType c set omnifunc=ccomplete#Complete
-autocmd FileType java :setlocal omnifunc=javacomplete#Complete
-autocmd FileType java :setlocal completefunc=javacomplete#CompleteParamsInfo
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+"autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+"autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+"autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+"autocmd FileType php :set dictionary=$HOME/.vim/dict/php.dict
+"autocmd FileType python set omnifunc=pythoncomplete#Complete
+"autocmd FileType perl :set dictionary=$HOME/.vim/dict/perl.dict
+"autocmd FileType c set omnifunc=ccomplete#Complete
+"autocmd FileType java :setlocal omnifunc=javacomplete#Complete
+"autocmd FileType java :setlocal completefunc=javacomplete#CompleteParamsInfo
+"autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
@@ -344,7 +344,31 @@ autocmd FileType javascript call s:javascript_filetype_settings()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " neocomplcache.vimの設定
 "
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplcache.
 let g:neocomplcache_enable_at_startup = 1
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+" Use camel case completion.
+let g:neocomplcache_enable_camel_case_completion = 1
+" Use underbar completion.
+let g:neocomplcache_enable_underbar_completion = 1
+" Set minimum syntax keyword length.
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplcache_dictionary_filetype_lists = {
+  \   'default' : '',
+  \   'vimshell' : $HOME.'/.vim/.vimshell_hist',
+  \   'scheme' : $HOME.'/.vim/.gosh_completions'
+  \ }
+" Define keyword.
+if !exists('g:neocomplcache_keyword_patterns')
+  let g:neocomplcache_keyword_patterns = {}
+endif
+let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
@@ -377,7 +401,7 @@ let g:unite_enable_start_insert = 1
 let g:unite_kind_openable_lcd_command = 1
 
 " 常用セット
-nnoremap <silent> <C-l> :<C-u>Unite buffer file file_mru vimshell/history<Enter>
+nnoremap <silent> <C-l> <ESC>:<C-u>Unite buffer file file_mru vimshell/history<Enter>
 inoremap <silent> <C-l> <ESC>:<C-u>Unite buffer file file_mru vimshell/history<Enter>
 " バッファ一覧
 nnoremap <silent> B :<C-u>Unite buffer<Enter>
