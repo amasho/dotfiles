@@ -2,14 +2,14 @@
 
 BREWCMD=`which brew`;
 if [ ${BREWCMD} == "" ]; then
-	echo "No such brew command";
-	echo "Please retry after homebrew install.";
-	exit 1;
+  echo "No such brew command";
+  echo "Please retry after homebrew install.";
+  exit 1;
 fi
 
 if [ `which git` == "" ]; then
-	echo "No such git command";
-	${BREWCMD} install git
+  echo "No such git command";
+  ${BREWCMD} install git
 fi
 
 GITCMD=`which git`;
