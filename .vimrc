@@ -157,7 +157,7 @@ augroup END
 
 "インデント周り
 set noet ts=4 sw=4 sts=4
-autocmd FileType vim,sh,javascript,perl,ruby,eruby,scala,lua setlocal et ts=2 sw=2 sts=2
+autocmd FileType vim,sh,javascript,coffee,perl,ruby,eruby,scala,lua setlocal et ts=2 sw=2 sts=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NeoBundle
@@ -193,6 +193,7 @@ NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'derekwyatt/vim-scala'
 NeoBundle 'tell-k/vim-browsereload-mac'
+NeoBundle 'kchmck/vim-coffee-script'
 
 NeoBundle 'vim-ruby/vim-ruby', {
   \  'autoload' : {
@@ -371,6 +372,13 @@ endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-coffee-script
+"
+nnoremap <Leader>cfm :<C-u>CoffeeMake<Enter>
+nnoremap <Leader>cfr :<C-u>CoffeeRun<Enter>
+nnoremap <Leader>cfc :<C-u>CoffeeCompile<Enter>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vcscommand.vim
