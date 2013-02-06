@@ -44,3 +44,7 @@ cp reattach-to-user-namespace ${HOME}/bin
 ### tig ###
 ${BREWCMD} install tig
 ln -s ${HOME}/dotfiles/.tigrc ${HOME}/.tigrc
+
+### ctags ###
+${BREWCMD} install ctags
+ln -s ${HOME}/dotfiles/.ctags ${HOME}/.ctags
