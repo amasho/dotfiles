@@ -157,7 +157,7 @@ augroup END
 
 "インデント周り
 set noet ts=4 sw=4 sts=4
-autocmd FileType vim,ruby,eruby,javascript setlocal et ts=2 sw=2 sts=2
+autocmd FileType vim,sh,javascript,perl,ruby,eruby,scala,lua setlocal et ts=2 sw=2 sts=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NeoBundle
