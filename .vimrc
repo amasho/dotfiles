@@ -256,6 +256,8 @@ nmap K :<C-u>bn!<Enter>
 nmap J :<C-u>bp!<Enter>
 " ESC 2回でハイライト消去
 nmap <silent> <ESC><ESC> :<C-u>nohlsearch<Enter>
+" C-tころす
+nnoremap <C-t> <silent>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " コード補完
@@ -705,7 +707,7 @@ function! s:MyHighlight_Colors()
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Lokaltog/vim-easymotion
+" vim-easymotion
 "
 let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
 let g:EasyMotion_leader_key="<Space>"
@@ -714,7 +716,7 @@ hi EasyMotionTarget ctermbg=none ctermfg=yellow guifg=yellow
 hi EasyMotionShade  ctermbg=none ctermfg=cyan guifg=cyan
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"vim-browsereload-mac
+" vim-browsereload-mac
 "
 if has("mac")
   let g:returnAppFlag = 1
