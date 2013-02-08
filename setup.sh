@@ -20,6 +20,8 @@ ln -s ${HOME}/dotfiles/.zshrc ${HOME}/.zshrc
 mkdir -p ${HOME}/.zsh/z/ ${HOME}/.zsh/auto-fu/
 ${GITCMD} clone https://github.com/rupa/z/ ${HOME}/.zsh/z/
 ${GITCMD} clone https://github.com/hchbaw/auto-fu.zsh ${HOME}/.zsh/auto-fu/
+# brew completion
+ln -s /usr/local/Library/Contributions/brew_zsh_completion.zsh ${HOME}/.zsh/_brew
 
 ### vim ###
 ${BREWCMD} install vim
