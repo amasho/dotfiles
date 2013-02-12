@@ -35,7 +35,7 @@ set wrapscan
 "日本語対応
 "set encoding=japan
 
-"TERMの文字コード
+"let twitvim_count = 100TERMの文字コード
 set termencoding=utf-8
 
 "デフォルト文字コード
@@ -195,8 +195,6 @@ NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'derekwyatt/vim-scala'
 NeoBundle 'tell-k/vim-browsereload-mac'
 NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle "mattn/googlereader-vim"
-source $HOME/.vim/googlereader_accounts.vim
 
 NeoBundle 'vim-ruby/vim-ruby', {
   \  'autoload' : {
@@ -221,6 +219,14 @@ NeoBundle 'rails.vim', {
 NeoBundle 'surround.vim'
 NeoBundle 'vcscommand.vim'
 NeoBundle 'taglist.vim'
+
+" Google Reader
+NeoBundle "mattn/googlereader-vim"
+source $HOME/.vim/googlereader_accounts.vim
+
+" Twitter
+NeoBundle "TwitVim"
+source $HOME/.vim/twitter_account.vim
 
 filetype plugin indent on
 filetype indent on
@@ -407,6 +413,8 @@ nnoremap <Leader>gC :<C-u>Git commit --amend<Enter>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Unite
 "
+" file_mru拡張
+let g:unite_source_file_mru_limit = 200
 " コンフィグ用ディレクトリ
 let g:unite_data_directory = expand($HOME.'/.vim/tmp/plugin/.unite')
 " 入力モードで開始する
@@ -739,6 +747,16 @@ if has("mac")
     nnoremap <silent> <Leader>fr :<C-u>FirefoxReload<Enter>
   augroup END
 endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" TwitVim
+"
+let twitvim_count = 100
+nnoremap <Leader>ft :<C-u>FriendsTwitter<Enter>
+nnoremap <Leader>rt :<C-u>RepliesTwitter<Enter>
+nnoremap <Leader>dt :<C-u>DMTwitter<Enter>
+nnoremap <Leader>pt :<C-u>PosttoTwitter<Enter>
+nnoremap <Leader>lt :<C-u>ListTwitter
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Marked
