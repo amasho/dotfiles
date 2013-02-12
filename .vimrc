@@ -96,6 +96,7 @@ set showtabline=1
 "クリップボード連携
 set clipboard=unnamed
 vmap <silent> <Leader>y "*y
+if has('gui') | set clipboard= | endif
 
 "ポップアップメニューをよしなに
 set completeopt=menu,preview,longest,menuone
@@ -194,6 +195,8 @@ NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'derekwyatt/vim-scala'
 NeoBundle 'tell-k/vim-browsereload-mac'
 NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle "mattn/googlereader-vim"
+source $HOME/.vim/googlereader_accounts.vim
 
 NeoBundle 'vim-ruby/vim-ruby', {
   \  'autoload' : {
