@@ -766,4 +766,3 @@ if has("mac")
   " markdownをMarked.appで開く
   autocmd FileType markdown :nnoremap <Leader>md :silent !open -a Marked.app '%:p'<Enter>:redraw!<Enter>
 endif
-
