@@ -268,6 +268,9 @@ nmap J :<C-u>bp!<Enter>
 nmap <silent> <ESC><ESC> :<C-u>nohlsearch<Enter>
 " C-tころす
 nnoremap <C-t> <silent>
+" 入力モードでの行頭行末移動
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " コード補完
@@ -748,6 +751,11 @@ if has("mac")
     nnoremap <silent> <Leader>fr :<C-u>FirefoxReload<Enter>
   augroup END
 endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" yankring.vim
+"
+let g:yankring_history_dir = "/tmp/"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " TwitVim
