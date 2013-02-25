@@ -158,7 +158,7 @@ augroup END
 
 "インデント周り
 set noet ts=4 sw=4 sts=4
-autocmd FileType vim,sh,javascript,coffee,perl,ruby,eruby,scala,lua setlocal et ts=2 sw=2 sts=2
+autocmd FileType vim,sh,html,xhtml,javascript,coffee,perl,ruby,eruby,scala,lua setlocal et ts=2 sw=2 sts=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NeoBundle
@@ -219,6 +219,7 @@ NeoBundle 'rails.vim', {
 NeoBundle 'surround.vim'
 NeoBundle 'vcscommand.vim'
 NeoBundle 'taglist.vim'
+NeoBundle 'YankRing.vim'
 
 " Google Reader
 NeoBundle "mattn/googlereader-vim"
