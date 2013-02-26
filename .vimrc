@@ -187,6 +187,7 @@ NeoBundle 'Shougo/neocomplcache', {
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-rails'
+NeoBundle 'tpope/vim-endwise'
 NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'basyura/jslint.vim'
@@ -195,6 +196,7 @@ NeoBundle 'basyura/unite-rails', {
   \   'filetypes': ['ruby', 'eruby', 'haml']
   \ }}
 
+NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'derekwyatt/vim-scala'
@@ -225,6 +227,8 @@ NeoBundle 'surround.vim'
 NeoBundle 'vcscommand.vim'
 NeoBundle 'taglist.vim'
 NeoBundle 'YankRing.vim'
+NeoBundle 'matchit.zip'
+NeoBundle 'ruby-matchit'
 
 " Google Reader
 NeoBundle "mattn/googlereader-vim"
@@ -524,6 +528,57 @@ let Tlist_WinWidth = 35
 map <silent> <leader>tl :Tlist<Enter>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" zencoding.vim
+"
+let g:user_zen_mode='a'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-easymotion
+"
+let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
+let g:EasyMotion_leader_key="<Space>"
+let g:EasyMotion_grouping=1
+hi EasyMotionTarget ctermbg=none ctermfg=yellow guifg=yellow
+hi EasyMotionShade  ctermbg=none ctermfg=cyan guifg=cyan
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-browsereload-mac
+"
+if has("mac")
+  let g:returnAppFlag = 1
+  if has('gui') || has('gui_macvim')
+    let g:returnApp = "MacVim"
+  else
+    let g:returnApp = "iTerm"
+  endif
+
+  augroup browser_chrome_reload
+    autocmd!
+    nnoremap <silent> <Leader>cr :<C-u>ChromeReload<Enter>
+  augroup END
+
+  augroup browser_firefox_reload
+    autocmd!
+    nnoremap <silent> <Leader>fr :<C-u>FirefoxReload<Enter>
+  augroup END
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" yankring.vim
+"
+let g:yankring_history_dir = "/tmp/"
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" TwitVim
+"
+let twitvim_count = 100
+nnoremap <Leader>ft :<C-u>FriendsTwitter<Enter>
+nnoremap <Leader>rt :<C-u>RepliesTwitter<Enter>
+nnoremap <Leader>dt :<C-u>DMTwitter<Enter>
+nnoremap <Leader>pt :<C-u>PosttoTwitter<Enter>
+nnoremap <Leader>lt :<C-u>ListTwitter
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-powerline
 "
 let g:Powerline_symbols='fancy'
@@ -734,52 +789,6 @@ function! s:MyHighlight_Colors()
     syntax off
   endif
 endfunction
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim-easymotion
-"
-let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
-let g:EasyMotion_leader_key="<Space>"
-let g:EasyMotion_grouping=1
-hi EasyMotionTarget ctermbg=none ctermfg=yellow guifg=yellow
-hi EasyMotionShade  ctermbg=none ctermfg=cyan guifg=cyan
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim-browsereload-mac
-"
-if has("mac")
-  let g:returnAppFlag = 1
-  if has('gui') || has('gui_macvim')
-    let g:returnApp = "MacVim"
-  else
-    let g:returnApp = "iTerm"
-  endif
-
-  augroup browser_chrome_reload
-    autocmd!
-    nnoremap <silent> <Leader>cr :<C-u>ChromeReload<Enter>
-  augroup END
-
-  augroup browser_firefox_reload
-    autocmd!
-    nnoremap <silent> <Leader>fr :<C-u>FirefoxReload<Enter>
-  augroup END
-endif
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" yankring.vim
-"
-let g:yankring_history_dir = "/tmp/"
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" TwitVim
-"
-let twitvim_count = 100
-nnoremap <Leader>ft :<C-u>FriendsTwitter<Enter>
-nnoremap <Leader>rt :<C-u>RepliesTwitter<Enter>
-nnoremap <Leader>dt :<C-u>DMTwitter<Enter>
-nnoremap <Leader>pt :<C-u>PosttoTwitter<Enter>
-nnoremap <Leader>lt :<C-u>ListTwitter
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Marked
