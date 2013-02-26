@@ -190,6 +190,11 @@ NeoBundle 'tpope/vim-rails'
 NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'basyura/jslint.vim'
+NeoBundle 'basyura/unite-rails', {
+  \ 'autoload' : {
+  \   'filetypes': ['ruby', 'eruby', 'haml']
+  \ }}
+
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'derekwyatt/vim-scala'
@@ -447,6 +452,15 @@ if !argc()
   autocmd VimEnter,GUIEnter * nested UniteSessionLoad
   autocmd VimLeave * nested UniteSessionSave
 endif
+
+" unite-rails
+nnoremap <silent> <Leader>vR :<C-u>Unite rails/view<Enter>
+nnoremap <silent> <Leader>mR :<C-u>Unite rails/model<Enter>
+nnoremap <silent> <Leader>cR :<C-u>Unite rails/controller<Enter>
+nnoremap <silent> <Leader>sR :<C-u>Unite rails/spec<Enter>
+nnoremap <silent> <Leader>CR :<C-u>Unite rails/config<Enter>
+nnoremap <silent> <Leader>JR :<C-u>Unite rails/javascript<Enter>
+nnoremap <silent> <Leader>SR :<C-u>Unite rails/stylesheet<Enter>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VimFiler
