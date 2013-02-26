@@ -42,7 +42,6 @@ setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_ALL_DUPS
 setopt SHARE_HISTORY
 setopt NO_HUP
-setopt complete_aliases
 
 # Use prompt color
 autoload -U colors; colors
