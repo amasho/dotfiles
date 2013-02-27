@@ -458,13 +458,21 @@ if !argc()
 endif
 
 " unite-rails
-nnoremap <silent> <Leader>vR :<C-u>Unite rails/view<Enter>
-nnoremap <silent> <Leader>mR :<C-u>Unite rails/model<Enter>
-nnoremap <silent> <Leader>cR :<C-u>Unite rails/controller<Enter>
-nnoremap <silent> <Leader>sR :<C-u>Unite rails/spec<Enter>
-nnoremap <silent> <Leader>CR :<C-u>Unite rails/config<Enter>
-nnoremap <silent> <Leader>JR :<C-u>Unite rails/javascript<Enter>
-nnoremap <silent> <Leader>SR :<C-u>Unite rails/stylesheet<Enter>
+autocmd FileType ruby,eruby,haml :nnoremap <silent> <Leader>R :<C-u>Unite
+  \ rails/view
+  \ rails/model
+  \ rails/controller
+  \ rails/spec
+  \ rails/config
+  \ rails/javascript
+  \ rails/stylesheet<Enter>
+autocmd FileType ruby,eruby,haml :nnoremap <silent> <Leader>vR :<C-u>Unite rails/view<Enter>
+autocmd FileType ruby,eruby,haml :nnoremap <silent> <Leader>mR :<C-u>Unite rails/model<Enter>
+autocmd FileType ruby,eruby,haml :nnoremap <silent> <Leader>cR :<C-u>Unite rails/controller<Enter>
+autocmd FileType ruby,eruby,haml :nnoremap <silent> <Leader>sR :<C-u>Unite rails/spec<Enter>
+autocmd FileType ruby,eruby,haml :nnoremap <silent> <Leader>CR :<C-u>Unite rails/config<Enter>
+autocmd FileType ruby,eruby,haml :nnoremap <silent> <Leader>JR :<C-u>Unite rails/javascript<Enter>
+autocmd FileType ruby,eruby,haml :nnoremap <silent> <Leader>SR :<C-u>Unite rails/stylesheet<Enter>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VimFiler
