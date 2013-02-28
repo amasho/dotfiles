@@ -105,6 +105,17 @@ alias javac="javac -J-Dfile.encoding=UTF8"
 
 alias s='screen -D -RR -q'
 
+# suffix
+alias -s js=node
+alias -s coffee=coffee
+alias -s rb=ruby
+alias -s pl=perl
+alias -s lua=lua
+alias -s java=javac
+alias -s scala=scalac
+alias -s c=gcc
+alias -s gradle=gradle
+
 # Git
 alias g='git'
 alias gd='git diff --color'
