@@ -113,7 +113,7 @@ alias -s pl=perl
 alias -s lua=lua
 alias -s java=javac
 alias -s scala=scalac
-alias -s c=gcc
+alias -s {c,cpp}=g++
 alias -s gradle=gradle
 
 # Git
