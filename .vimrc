@@ -364,7 +364,7 @@ function! s:javascript_filetype_settings()
   autocmd BufWritePost <buffer> call jslint#check()
   autocmd CursorMoved  <buffer> call jslint#message()
 endfunction
-autocmd FileType javascript call s:javascript_filetype_settings()
+"autocmd FileType javascript call s:javascript_filetype_settings()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " neocomplcache.vimの設定
@@ -451,7 +451,7 @@ nnoremap <silent> <Leader>ua :<C-u>UniteWithBufferDir -buffer-name=files buffer 
 nnoremap <silent> <Leader>ub :<C-u>Unite bookmark<Enter>
 
 " Unite Session
-if !argc()
+if !argc() && !has('gui')
   let g:unite_source_session_enable_auto_save = 1
   autocmd VimEnter,GUIEnter * nested UniteSessionLoad
   autocmd VimLeave * nested UniteSessionSave
@@ -527,7 +527,7 @@ let Tlist_Use_Right_Window = 0
 " 折りたたみ
 let Tlist_Enable_Fold_Column = 0
 " 自動表示
-let Tlist_Auto_Open = 1
+let Tlist_Auto_Open = 0
 " 新しくファイル開いた時は更新
 let Tlist_Auto_Update = 1
 " 横幅
