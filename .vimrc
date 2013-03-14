@@ -527,11 +527,11 @@ let Tlist_Use_Right_Window = 0
 " 折りたたみ
 let Tlist_Enable_Fold_Column = 0
 " 自動表示
-let Tlist_Auto_Open = 0
+let Tlist_Auto_Open = 1
 " 新しくファイル開いた時は更新
 let Tlist_Auto_Update = 1
 " 横幅
-let Tlist_WinWidth = 35
+let Tlist_WinWidth = 32
 " taglistを開くショットカットキー
 map <silent> <leader>tl :Tlist<Enter>
 
