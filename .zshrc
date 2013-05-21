@@ -30,7 +30,7 @@ autoload -Uz VCS_INFO_get_data_git; VCS_INFO_get_data_git 2> /dev/null
 
 # Options
 setopt PROMPT_SUBST
-setopt CORRECT_ALL
+#setopt CORRECT_ALL
 setopt AUTO_CD
 setopt AUTO_PUSHD
 setopt NO_FLOW_CONTROL
