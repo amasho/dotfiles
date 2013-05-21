@@ -202,6 +202,7 @@ NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'derekwyatt/vim-scala'
 NeoBundle 'tell-k/vim-browsereload-mac'
 NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'terryma/vim-multiple-cursors'
 
 NeoBundle 'vim-ruby/vim-ruby', {
   \  'autoload' : {
@@ -229,14 +230,6 @@ NeoBundle 'taglist.vim'
 NeoBundle 'YankRing.vim'
 NeoBundle 'matchit.zip'
 NeoBundle 'ruby-matchit'
-
-" Google Reader
-NeoBundle "mattn/googlereader-vim"
-source $HOME/.vim/googlereader_accounts.vim
-
-" Twitter
-NeoBundle "TwitVim"
-source $HOME/.vim/twitter_account.vim
 
 filetype plugin indent on
 filetype indent on
@@ -273,6 +266,8 @@ endif
 nmap K :<C-u>bn!<Enter>
 " 前のバッファ
 nmap J :<C-u>bp!<Enter>
+" バッファの行き来
+nmap <C-j> <C-^>
 " ESC 2回でハイライト消去
 nmap <silent> <ESC><ESC> :<C-u>nohlsearch<Enter>
 " C-tころす
@@ -364,7 +359,7 @@ function! s:javascript_filetype_settings()
   autocmd BufWritePost <buffer> call jslint#check()
   autocmd CursorMoved  <buffer> call jslint#message()
 endfunction
-"autocmd FileType javascript call s:javascript_filetype_settings()
+autocmd FileType javascript call s:javascript_filetype_settings()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " neocomplcache.vimの設定
@@ -435,8 +430,8 @@ let g:unite_enable_start_insert = 1
 let g:unite_kind_openable_lcd_command = 1
 
 " 常用セット
-nnoremap <silent> <C-l> <ESC>:<C-u>Unite buffer file file_mru vimshell/history<Enter>
-inoremap <silent> <C-l> <ESC>:<C-u>Unite buffer file file_mru vimshell/history<Enter>
+nnoremap <silent> <C-l> <ESC>:<C-u>Unite buffer file file_mru directory_mru vimshell/history<Enter>
+inoremap <silent> <C-l> <ESC>:<C-u>Unite buffer file file_mru directory_mru vimshell/history<Enter>
 " バッファ一覧
 nnoremap <silent> B :<C-u>Unite buffer<Enter>
 " ファイル一覧
@@ -451,11 +446,11 @@ nnoremap <silent> <Leader>ua :<C-u>UniteWithBufferDir -buffer-name=files buffer 
 nnoremap <silent> <Leader>ub :<C-u>Unite bookmark<Enter>
 
 " Unite Session
-if !argc() && !has('gui')
+"if !has('gui') && !argc()
   let g:unite_source_session_enable_auto_save = 1
   autocmd VimEnter,GUIEnter * nested UniteSessionLoad
   autocmd VimLeave * nested UniteSessionSave
-endif
+"endif
 
 " unite-rails
 autocmd FileType ruby,eruby,haml :nnoremap <silent> <Leader>R :<C-u>Unite
@@ -531,7 +526,7 @@ let Tlist_Auto_Open = 1
 " 新しくファイル開いた時は更新
 let Tlist_Auto_Update = 1
 " 横幅
-let Tlist_WinWidth = 32
+let Tlist_WinWidth = 38
 " taglistを開くショットカットキー
 map <silent> <leader>tl :Tlist<Enter>
 
@@ -748,8 +743,8 @@ function! s:MyHighlight_Colors()
     hi Pmenu gui=none guifg=#FFFFFF guibg=#FF00D7
     hi PmenuSel gui=bold guifg=#FFFFFF guibg=#FF00D7
     hi Include gui=bold guifg=#FF0000
-    hi Define gui=bold guifg=Yellow
-    hi Macro gui=bold guifg=Yellow
+    hi Define gui=bold guifg=Cyan
+    hi Macro gui=bold guifg=Cyan
     hi PreCondit gui=bold guifg=#0000FF
     hi diffAdded guifg=#000000  guibg=#0000FF
 
