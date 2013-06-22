@@ -1,13 +1,13 @@
 #!/bin/sh -x
 
 BREWCMD=`which brew`;
-if [ ${BREWCMD} == "" ]; then
+if [ ${BREWCMD} eq "" ]; then
   echo "No such brew command";
   echo "Please retry after homebrew install.";
   exit 1;
 fi
 
-if [ `which git` == "" ]; then
+if [ `which git` eq "" ]; then
   echo "No such git command";
   ${BREWCMD} install git
 fi
@@ -24,6 +24,7 @@ ${GITCMD} clone https://github.com/hchbaw/auto-fu.zsh ${HOME}/.zsh/auto-fu/
 ln -s /usr/local/Library/Contributions/brew_zsh_completion.zsh ${HOME}/.zsh/_brew
 
 ### vim ###
+${BREWCMD} install mercurial
 ${BREWCMD} install vim
 mkdir -p ${HOME}/.vim ${HOME}/.vim/bundle ${HOME}/.vim/tmp/plugin ${HOME}/.vim/tmp/plugin/.unite
 # NeoBundle
@@ -37,11 +38,12 @@ ${BREWCMD} install tmux
 ln -s ${HOME}/dotfiles/.tmux.conf ${HOME}/.tmux.conf
 
 ### reattach-to-user-namespace ###
-mkdir ${HOME}/local/bin && echo "PATH=${HOME}/local/bin:${PATH}" >> ${HOME}/.zshrc
+mkdir -p ${HOME}/local/bin && echo "PATH=${HOME}/local/bin:${PATH}" >> ${HOME}/.zshrc
 git clone git://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard.git
-cd ${HOME}/tmux-MacOSX-pasteboard
+cd tmux-MacOSX-pasteboard
 make reattach-to-user-namespace
 cp reattach-to-user-namespace ${HOME}/local/bin
+rm -rf reattach-to-user-namespace
 
 ### tig ###
 ${BREWCMD} install tig
