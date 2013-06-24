@@ -156,6 +156,11 @@ augroup cursor_line
   autocmd WinEnter,BufRead * set cursorline
 augroup END
 
+"GUIの場合は81桁目から色を変える
+if has('gui')
+  execute "set colorcolumn=" . join(range(81, 9999), ',')
+endif
+
 "インデント周り
 set noet ts=4 sw=4 sts=4
 autocmd FileType vim,sh,html,xhtml,javascript,coffee,perl,ruby,eruby,scala,lua setlocal et ts=2 sw=2 sts=2
@@ -239,8 +244,8 @@ filetype indent on
 "
 if has('gui_running')
   set antialias
-  set transparency=15
-  set guifont=Ricty:h12
+  set transparency=0
+  set guifont=Ricty:h14
   set guioptions+=i
   set guioptions-=l
   set guioptions-=L
@@ -254,7 +259,7 @@ if has('gui_running')
   augroup focus_group
     autocmd!
     autocmd FocusGained * call <SID>MyHighlight_Colors()
-    autocmd FocusGained * set transparency=15
+    autocmd FocusGained * set transparency=0
     autocmd FocusLost * set transparency=50
   augroup END
 endif
@@ -430,8 +435,8 @@ let g:unite_enable_start_insert = 1
 let g:unite_kind_openable_lcd_command = 1
 
 " 常用セット
-nnoremap <silent> <C-l> <ESC>:<C-u>Unite buffer file file_mru directory_mru vimshell/history<Enter>
-inoremap <silent> <C-l> <ESC>:<C-u>Unite buffer file file_mru directory_mru vimshell/history<Enter>
+nnoremap <silent> <C-l> <ESC>:<C-u>Unite buffer file file_mru vimshell/history<Enter>
+inoremap <silent> <C-l> <ESC>:<C-u>Unite buffer file file_mru vimshell/history<Enter>
 " バッファ一覧
 nnoremap <silent> B :<C-u>Unite buffer<Enter>
 " ファイル一覧
@@ -446,11 +451,11 @@ nnoremap <silent> <Leader>ua :<C-u>UniteWithBufferDir -buffer-name=files buffer 
 nnoremap <silent> <Leader>ub :<C-u>Unite bookmark<Enter>
 
 " Unite Session
-"if !has('gui') && !argc()
+if !argc()
   let g:unite_source_session_enable_auto_save = 1
   autocmd VimEnter,GUIEnter * nested UniteSessionLoad
   autocmd VimLeave * nested UniteSessionSave
-"endif
+endif
 
 " unite-rails
 autocmd FileType ruby,eruby,haml :nnoremap <silent> <Leader>R :<C-u>Unite
@@ -522,7 +527,7 @@ let Tlist_Use_Right_Window = 0
 " 折りたたみ
 let Tlist_Enable_Fold_Column = 0
 " 自動表示
-let Tlist_Auto_Open = 1
+let Tlist_Auto_Open = 0
 " 新しくファイル開いた時は更新
 let Tlist_Auto_Update = 1
 " 横幅
@@ -747,6 +752,7 @@ function! s:MyHighlight_Colors()
     hi Macro gui=bold guifg=Cyan
     hi PreCondit gui=bold guifg=#0000FF
     hi diffAdded guifg=#000000  guibg=#0000FF
+    hi ColorColumn guibg=#202020
 
     hi StatusLineNC gui=none guifg=#000000 guibg=#626262
     hi MBENormal gui=none guifg=#626262 guibg=#000000
