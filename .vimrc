@@ -162,8 +162,8 @@ if has('gui')
 endif
 
 "インデント周り
-set noet ts=4 sw=4 sts=4
-autocmd FileType vim,sh,html,xhtml,javascript,coffee,perl,ruby,eruby,scala,lua setlocal et ts=2 sw=2 sts=2
+set et ts=4 sw=4 sts=4
+autocmd FileType vim,sh,html,xhtml,javascript,coffee,ruby,eruby,scala,lua setlocal et ts=2 sw=2 sts=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NeoBundle
@@ -245,7 +245,7 @@ filetype indent on
 if has('gui_running')
   set antialias
   set transparency=0
-  set guifont=Ricty:h14
+  set guifont=Ricty:h15
   set guioptions+=i
   set guioptions-=l
   set guioptions-=L
@@ -299,6 +299,8 @@ autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 "autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+
+autocmd BufRead,BufNewFile *.gradle set filetype=groovy
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 括弧/クォートを自動補完
@@ -531,7 +533,7 @@ let Tlist_Auto_Open = 0
 " 新しくファイル開いた時は更新
 let Tlist_Auto_Update = 1
 " 横幅
-let Tlist_WinWidth = 38
+let Tlist_WinWidth = 45
 " taglistを開くショットカットキー
 map <silent> <leader>tl :Tlist<Enter>
 
