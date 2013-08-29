@@ -83,7 +83,6 @@ set noswapfile
 "ファイル名の展開にスラッシュを使う。
 set shellslash
 
-
 "listで表示される文字のフォーマットを指定する
 set listchars=eol:<,tab:\|>,extends:<
 
@@ -145,6 +144,7 @@ if has('migemo') | set migemo | endif
 
 "コマンド行の高さ
 set cmdheight=1
+set cmdwinheight=1
 
 "Backspace
 set backspace=indent,eol,start
@@ -156,14 +156,34 @@ augroup cursor_line
   autocmd WinEnter,BufRead * set cursorline
 augroup END
 
-"GUIの場合は81桁目から色を変える
-if has('gui')
-  execute "set colorcolumn=" . join(range(81, 9999), ',')
-endif
-
 "インデント周り
 set et ts=4 sw=4 sts=4
 autocmd FileType vim,sh,html,xhtml,javascript,coffee,ruby,eruby,scala,lua setlocal et ts=2 sw=2 sts=2
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" GUI用設定
+"
+if has('gui') || has('gui_macvim')
+  set antialias
+  set transparency=0
+  set guifont=Ricty-Regular:h14
+  set guioptions+=i
+  set guioptions-=l
+  set guioptions-=L
+  set guioptions-=r
+  set guioptions-=R
+  set guioptions-=T
+
+  nnoremap <C-f> <C-d>
+  nnoremap <C-b> <C-u>
+
+  augroup focus_group
+    autocmd!
+    autocmd FocusGained * call <SID>MyHighlight_Colors()
+    autocmd FocusGained * set transparency=0
+    autocmd FocusLost * set transparency=50
+  augroup END
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NeoBundle
@@ -173,6 +193,7 @@ filetype off
 if has('vim_starting')
   set runtimepath+=$HOME/.vim/bundle/neobundle.vim
   call neobundle#rc(expand($HOME.'/.vim/bundle/'))
+  set guifont=Ricty-Regular:h14
 endif
 
 NeoBundle 'Shougo/unite.vim'
@@ -184,16 +205,11 @@ NeoBundle 'Shougo/vimproc', {
   \     'mac'  : 'make -f make_mac.mak',
   \     'unix' : 'make -f make_unix.mak',
   \   }}
-NeoBundle 'Shougo/neocomplcache', {
-  \  'autoload' : {
-  \    'insert' : 1,
-  \  }}
 
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-rails'
 NeoBundle 'tpope/vim-endwise'
-NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'basyura/jslint.vim'
 NeoBundle 'basyura/unite-rails', {
@@ -232,37 +248,11 @@ NeoBundle 'rails.vim', {
 NeoBundle 'surround.vim'
 NeoBundle 'vcscommand.vim'
 NeoBundle 'taglist.vim'
-NeoBundle 'YankRing.vim'
 NeoBundle 'matchit.zip'
 NeoBundle 'ruby-matchit'
 
 filetype plugin indent on
 filetype indent on
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" GUI用設定
-"
-if has('gui_running')
-  set antialias
-  set transparency=0
-  set guifont=Ricty:h15
-  set guioptions+=i
-  set guioptions-=l
-  set guioptions-=L
-  set guioptions-=r
-  set guioptions-=R
-  set guioptions-=T
-
-  nnoremap <C-f> <C-d>
-  nnoremap <C-b> <C-u>
-
-  augroup focus_group
-    autocmd!
-    autocmd FocusGained * call <SID>MyHighlight_Colors()
-    autocmd FocusGained * set transparency=0
-    autocmd FocusLost * set transparency=50
-  augroup END
-endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " キーマップ 
@@ -529,11 +519,11 @@ let Tlist_Use_Right_Window = 0
 " 折りたたみ
 let Tlist_Enable_Fold_Column = 0
 " 自動表示
-let Tlist_Auto_Open = 0
+let Tlist_Auto_Open = (has('gui') || has('gui_macvim')) ? 1 : 0
 " 新しくファイル開いた時は更新
 let Tlist_Auto_Update = 1
 " 横幅
-let Tlist_WinWidth = 45
+let Tlist_WinWidth = 35
 " taglistを開くショットカットキー
 map <silent> <leader>tl :Tlist<Enter>
 
@@ -574,151 +564,22 @@ if has("mac")
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" yankring.vim
+" lightline
 "
-let g:yankring_history_dir = "/tmp/"
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" TwitVim
-"
-let twitvim_count = 100
-nnoremap <Leader>ft :<C-u>FriendsTwitter<Enter>
-nnoremap <Leader>rt :<C-u>RepliesTwitter<Enter>
-nnoremap <Leader>dt :<C-u>DMTwitter<Enter>
-nnoremap <Leader>pt :<C-u>PosttoTwitter<Enter>
-nnoremap <Leader>lt :<C-u>ListTwitter
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim-powerline
-"
-let g:Powerline_symbols='fancy'
-let g:Powerline_mode_n = 'NORMAL'
-call Pl#Hi#Allocate({
-  \ 'black'          : 16,
-  \ 'white'          : 231,
-  \
-  \ 'darkestgreen'   : 22,
-  \ 'darkgreen'      : 28,
-  \
-  \ 'darkestcyan'    : 21,
-  \ 'mediumcyan'     : 117,
-  \
-  \ 'darkestblue'    : 24,
-  \ 'darkblue'       : 31,
-  \
-  \ 'darkestred'     : 52,
-  \ 'darkred'        : 88,
-  \ 'mediumred'      : 124,
-  \ 'brightred'      : 160,
-  \ 'brightestred'   : 196,
-  \
-  \ 'darkestyellow'  : 59,
-  \ 'darkyellow'     : 100,
-  \ 'darkestpurple'  : 57,
-  \ 'mediumpurple'   : 98,
-  \ 'brightpurple'   : 189,
-  \
-  \ 'brightorange'   : 208,
-  \ 'brightestorange': 214,
-  \
-  \ 'gray0'          : 233,
-  \ 'gray1'          : 235,
-  \ 'gray2'          : 236,
-  \ 'gray3'          : 239,
-  \ 'gray4'          : 240,
-  \ 'gray5'          : 241,
-  \ 'gray6'          : 244,
-  \ 'gray7'          : 245,
-  \ 'gray8'          : 247,
-  \ 'gray9'          : 250,
-  \ 'gray10'         : 252,
-  \ })
-
-" 'n': normal mode
-" 'i': insert mode
-" 'v': visual mode
-" 'r': replace mode
-" 'N': not active
-let g:Powerline#Colorschemes#my#colorscheme = Pl#Colorscheme#Init([
-  \ Pl#Hi#Segments(['SPLIT'], {
-    \ 'n': ['white', 'gray2'],
-    \ 'N': ['gray0', 'gray0'],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['mode_indicator'], {
-    \ 'i': ['darkestgreen', 'white', ['bold']],
-    \ 'n': ['darkestcyan', 'white', ['bold']],
-    \ 'v': ['darkestpurple', 'white', ['bold']],
-    \ 'r': ['mediumred', 'white', ['bold']],
-    \ 's': ['white', 'gray5', ['bold']],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['fileinfo', 'filename'], {
-    \ 'i': ['white', 'darkestgreen', ['bold']],
-    \ 'n': ['white', 'darkestcyan', ['bold']],
-    \ 'v': ['white', 'darkestpurple', ['bold']],
-    \ 'r': ['white', 'mediumred', ['bold']],
-    \ 'N': ['gray0', 'gray2', ['bold']],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['branch', 'scrollpercent', 'raw', 'filesize'], {
-    \ 'n': ['gray2', 'gray7'],
-    \ 'N': ['gray0', 'gray2'],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['fileinfo.filepath', 'status'], {
-    \ 'n': ['gray10'],
-    \ 'N': ['gray5'],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['static_str'], {
-    \ 'n': ['white', 'gray4'],
-    \ 'N': ['gray1', 'gray1'],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['fileinfo.flags'], {
-    \ 'n': ['white'],
-    \ 'N': ['gray4'],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['currenttag', 'fileformat', 'fileencoding', 'pwd', 'filetype', 'charcode', 'currhigroup'], {
-    \ 'n': ['gray9', 'gray4'],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['lineinfo'], {
-    \ 'n': ['gray2', 'gray10'],
-    \ 'N': ['gray2', 'gray4'],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['errors'], {
-    \ 'n': ['white', 'gray2'],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['lineinfo.line.tot'], {
-    \ 'n': ['gray2'],
-    \ 'N': ['gray2'],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['paste_indicator', 'ws_marker'], {
-    \ 'n': ['white', 'brightred', ['bold']],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['gundo:static_str.name'], {
-    \ 'n': ['white', 'mediumred', ['bold']],
-    \ 'N': ['brightred', 'darkestred', ['bold']],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['gundo:static_str.buffer'], {
-    \ 'n': ['white', 'darkred'],
-    \ 'N': ['brightred', 'darkestred'],
-    \ }),
-  \
-  \ Pl#Hi#Segments(['gundo:SPLIT'], {
-    \ 'n': ['white', 'gray2'],
-    \ 'N': ['white', 'gray0'],
-    \ }),
-  \ ])
-let g:Powerline_colorscheme='my'
+NeoBundle 'itchyny/lightline.vim', {'type': 'nosync'}
+let g:lightline = {
+    \   'colorscheme': 'wombat',
+    \   'component': {
+    \       'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
+    \       'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}'
+    \   },
+    \   'component_visible_condition': {
+    \       'readonly': '(&filetype!="help"&& &readonly)',
+    \       'modified': '(&filetype!="help"&&(&modified||!&modifiable))'
+    \   },
+    \   'separator': { 'left': '⮀', 'right': '⮂' },
+    \   'subseparator': { 'left': '⮁', 'right': '⮃' }
+    \ }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 色の設定
@@ -730,23 +591,23 @@ function! s:MyHighlight_Colors()
 
   if has('gui') || has('gui_macvim')
     "GUI用設定
-    hi Normal guifg=#FFFFFF guibg=#000000
-    hi NonText guifg=#FFFFFF guibg=#000000
+    hi Normal guifg=#FFFFFF guibg=#252525
+    hi NonText guifg=#FFFFFF guibg=#252525
     hi Directory gui=bold guifg=#FF5FD7
     hi Cursor guifg=#FFFFFF guibg=#00FFFF
     hi CursorIM guifg=#000000 guibg=#FF5FD7
     hi CursorLine gui=none
     hi Comment guifg=#87FF87
     hi String guifg=#FF0087
-    hi Constant guifg=#FFFFFF guibg=#000000
+    hi Constant guifg=#FFFFFF guibg=#252525
     hi Keyword guifg=#FF5F00
     hi Statement gui=bold guifg=#D7AF87
     hi Identifier guifg=#FFD787
     hi Visual guibg=#AF8700
-    hi Special guifg=#FFFFFF guibg=#000000
+    hi Special guifg=#FFFFFF guibg=#252525
     hi Search gui=bold guifg=#000000 guibg=#FF87AF
-    hi LineNr gui=none guifg=#626262 guibg=#000000
-    hi CursorLineNr gui=bold guifg=#D7005F guibg=#000000
+    hi LineNr gui=none guifg=#626262 guibg=#252525
+    hi CursorLineNr gui=bold guifg=#D7005F guibg=#252525
     hi Pmenu gui=none guifg=#FFFFFF guibg=#FF00D7
     hi PmenuSel gui=bold guifg=#FFFFFF guibg=#FF00D7
     hi Include gui=bold guifg=#FF0000
@@ -754,12 +615,12 @@ function! s:MyHighlight_Colors()
     hi Macro gui=bold guifg=Cyan
     hi PreCondit gui=bold guifg=#0000FF
     hi diffAdded guifg=#000000  guibg=#0000FF
-    hi ColorColumn guibg=#202020
+    hi ColorColumn guibg=#252525
 
     hi StatusLineNC gui=none guifg=#000000 guibg=#626262
-    hi MBENormal gui=none guifg=#626262 guibg=#000000
-    hi MBEVisibleNormal gui=none guifg=#626262 guibg=#000000
-    hi MBEVisibleActive gui=bold,underline guifg=#D7005F guibg=#000000
+    hi MBENormal gui=none guifg=#626262 guibg=#252525
+    hi MBEVisibleNormal gui=none guifg=#626262 guibg=#252525
+    hi MBEVisibleActive gui=bold,underline guifg=#D7005F guibg=#252525
   elseif &term =~ "xterm-256color"
     "256色
     set t_Co=256
