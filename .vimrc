@@ -212,6 +212,7 @@ NeoBundle 'tpope/vim-rails'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'basyura/jslint.vim'
+NeoBundle 'scrooloose/syntastic'
 NeoBundle 'basyura/unite-rails', {
   \ 'autoload' : {
   \   'filetypes': ['ruby', 'eruby', 'haml']
@@ -580,6 +581,15 @@ let g:lightline = {
     \   'separator': { 'left': '⮀', 'right': '⮂' },
     \   'subseparator': { 'left': '⮁', 'right': '⮃' }
     \ }
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" syntastic
+"
+let g:syntastic_mode_map = { 'mode': 'active',
+  \ 'active_filetypes': [],
+  \ 'passive_filetypes': ['html'] }
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_javascript_checker = 'jshint'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 色の設定
