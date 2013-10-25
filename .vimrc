@@ -166,7 +166,7 @@ autocmd FileType vim,sh,html,xhtml,javascript,coffee,ruby,eruby,scala,lua setloc
 if has('gui') || has('gui_macvim')
   set antialias
   set transparency=0
-  set guifont=Ricty-Regular:h14
+  set guifont=Ricty-Regular:h13
   set guioptions+=i
   set guioptions-=l
   set guioptions-=L
