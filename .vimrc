@@ -166,7 +166,7 @@ autocmd FileType vim,sh,html,xhtml,javascript,coffee,ruby,eruby,scala,lua setloc
 if has('gui') || has('gui_macvim')
   set antialias
   set transparency=0
-  set guifont=Ricty-Regular:h13
+  set guifont=Ricty-Regular:h15
   set guioptions+=i
   set guioptions-=l
   set guioptions-=L
@@ -193,7 +193,6 @@ filetype off
 if has('vim_starting')
   set runtimepath+=$HOME/.vim/bundle/neobundle.vim
   call neobundle#rc(expand($HOME.'/.vim/bundle/'))
-  set guifont=Ricty-Regular:h14
 endif
 
 NeoBundle 'Shougo/unite.vim'
@@ -201,10 +200,13 @@ NeoBundle 'Shougo/unite-session'
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Shougo/vimproc', {
-  \   'build' : {
-  \     'mac'  : 'make -f make_mac.mak',
-  \     'unix' : 'make -f make_unix.mak',
-  \   }}
+  \ 'build' : {
+  \   'mac'  : 'make -f make_mac.mak',
+  \   'unix' : 'make -f make_unix.mak',
+  \ }}
+NeoBundle 'Shougo/neomru.vim', {
+  \ 'depends' : 'Shougo/unite.vim'
+  \ }
 
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'tpope/vim-fugitive'
@@ -417,10 +419,15 @@ nnoremap <Leader>gc :<C-u>Gcommit<Enter>
 nnoremap <Leader>gC :<C-u>Git commit --amend<Enter>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" neomru
+"
+let g:neomru#file_mru_limit = 200
+let g:neomru#file_mru_path=expand($HOME.'/.vim/tmp/plugin/.unite/file_mru')
+let g:neomru#directory_mru_path=expand($HOME.'/.vim/tmp/plugin/.unite/directory_mru')
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Unite
 "
-" file_mru拡張
-let g:unite_source_file_mru_limit = 200
 " コンフィグ用ディレクトリ
 let g:unite_data_directory = expand($HOME.'/.vim/tmp/plugin/.unite')
 " 入力モードで開始する
@@ -589,7 +596,7 @@ let g:syntastic_mode_map = { 'mode': 'active',
   \ 'active_filetypes': [],
   \ 'passive_filetypes': ['html'] }
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_javascript_checker = 'jshint'
+" let g:syntastic_javascript_checker = 'jshint'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 色の設定
@@ -679,3 +686,4 @@ if has("mac")
   " markdownをMarked.appで開く
   autocmd FileType markdown :nnoremap <Leader>md :silent !open -a Marked.app '%:p'<Enter>:redraw!<Enter>
 endif
+

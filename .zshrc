@@ -15,7 +15,8 @@ export JLESSCHARSET=japanese
 export LC_ALL=ja_JP.UTF-8
 
 # Path
-export PATH="`brew  --prefix coreutils`/libexec/gnubin":/usr/local/bin:/usr/local/sbin:/usr/share/pear/bin:${HOME}/local/bin:${PATH}
+#export PATH="/usr/local/bin:`/usr/local/bin/brew --prefix coreutils`/libexec/gnubin:${PATH}:/usr/local/sbin:/usr/share/pear/bin:${HOME}/local/bin"
+export PATH="/usr/local/bin:${PATH}:/usr/local/sbin:/usr/share/pear/bin:${HOME}/local/bin"
 fpath=($HOME/.zsh/ $fpath)
 
 # Screen session
@@ -73,15 +74,38 @@ function rprompt-git-current-branch {
 
 	echo "$color$name$action%f%b: "
 }
-local DEFAULT=$'%{\e[1;m%}'
-local GREEN=$'%{\e[1;32m%}'
-local YELLOW=$'%{\e[1;33m%}'
-local BLUE=$'%{\e[1;34m%}'
-local CYAN=$'%{\e[1;36m%}'
-local WHITE=$'%{\e[1;37m%}'
-PROMPT=$CYAN"[%n@%m${WINDOW:+[$WINDOW]}]$ "$WHITE
+# see also
+# for c in {000..255}; do echo -n "\e[38;5;${c}m $c" ; [ $(($c%16)) -eq 15 ] && echo;done;echo
+P_COLOR=$((22 + RANDOM % (231 - 1 + 1)))
+PROMPT=%F$'%{\e[38;5;'$P_COLOR'm%}'"[%n@%m${WINDOW:+[$WINDOW]}]$ "%f
 RPROMPT='[`rprompt-git-current-branch`%~]'
 PROMPT2="%_%% "
+
+# push enter-key
+function do_enter() {
+    P_COLOR=$((22 + RANDOM % (231 - 1 + 1)))
+    PROMPT=%F$'%{\e[38;5;'$P_COLOR'm%}'"[%n@%m${WINDOW:+[$WINDOW]}]$ "%f
+    if [ -n "$BUFFER" ]; then
+        zle accept-line
+        return 0
+    fi
+
+    echo
+    if [ `ls |wc -l` -gt 0 ]; then
+        echo -e "\e[0;33m--- files ---\e[0m"
+        ls
+    fi
+
+    if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = 'true' ]; then
+        echo
+        echo -e "\e[0;33m--- git status ---\e[0m"
+        git status -s -b
+    fi
+#    zle reset-prompt
+    return 0
+}
+zle -N do_enter
+bindkey '^m' do_enter
 
 # Command history configuration
 HISTFILE=~/.zsh_history
@@ -142,9 +166,7 @@ fi
 # auto-fu.zsh
 if [ -f ${HOME}/.zsh/auto-fu/auto-fu.zsh ]; then
 	source ${HOME}/.zsh/auto-fu/auto-fu.zsh
-	function zle-line-init () {
-		auto-fu-init
-	}
+	function zle-line-init () {auto-fu-init}
 	zle -N zle-line-init
 	zstyle ':completion:*' completer _oldlist _complete
 fi
@@ -164,20 +186,16 @@ export TERMCAP="xterm-256color:Co#256:pa#256:AF=\E[38;5;%dm:AB=\E[48;5;%dm:tc=xt
 
 function chpwd() { ls }
 
-# RVM
-#if [[ -s ${HOME}/.rvm/scripts/rvm ]] ; then source ${HOME}/.rvm/scripts/rvm ; fi
-#PATH=${PATH}:${HOME}/.rvm/bin # Add RVM to PATH for scripting
-
-# rbenv
+#rbenv
 if [[ -d ${HOME}/.rbenv ]]; then
-	PATH=${PATH}:${HOME}/.rbenv/bin;
+	export PATH=${PATH}:${HOME}/.rbenv/bin;
 	eval "$(rbenv init -)";
 fi
 
 # perlbrew
 if [[ -d ${HOME}/.perlbrew ]]; then
 	source $HOME/.perlbrew/etc/bashrc
-	PATH=${PATH}:${HOME}/.perlbrew/bin
+	export PATH=${PATH}:${HOME}/.perlbrew/bin
 	export PERLBREW_ROOT=${HOME}/.perlbrew
 	alias pb='perlbrew'
 fi
@@ -185,8 +203,9 @@ fi
 # nodebrew
 if [[ -f ${HOME}/.nodebrew/nodebrew ]]; then
 	export NODE_PATH=${HOME}/.nodebrew/current/lib/node_modules
-	export PATH=${HOME}/.nodebrew/current/bin:${PATH}
+	export PATH=${PATH}:${HOME}/.nodebrew/current/bin
 	nodebrew use v0.8.4 > /dev/null
 	alias nb='nodebrew'
 fi
 
+PATH=/Users/CH0018/local/bin:/Users/CH0018/.perlbrew/bin:/Users/CH0018/.perlbrew/perls/perl-5.16.0/bin:/Users/CH0018/.rbenv/shims:/usr/local/opt/coreutils/libexec/gnubin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/Users/CH0018/.rbenv/shims:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/sbin:/usr/share/pear/bin:/Users/CH0018/local/bin:/Users/CH0018/.rbenv/bin:/Users/CH0018/.nodebrew/current/bin:/Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home/bin:/usr/local/tomcat/bin:/usr/local/nginx/sbin:/usr/local/Cellar/scala/2.10.2/libexec/bin:/usr/local/hadoop/bin:/usr/local/hbase/bin:/usr/local/hive/bin:/usr/local/bin:/usr/local/sbin:/usr/share/pear/bin:/Users/CH0018/local/bin:/Users/CH0018/.rbenv/bin:/Users/CH0018/.perlbrew/bin:/Users/CH0018/.nodebrew/current/bin:/Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home/bin:/usr/local/tomcat/bin:/usr/local/nginx/sbin:/usr/local/Cellar/scala/2.10.2/libexec/bin:/usr/local/nginx/sbin:/usr/local/hadoop/bin:/usr/local/hbase/bin:/usr/local/hive/bin
