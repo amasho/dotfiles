@@ -220,12 +220,15 @@ NeoBundle 'basyura/unite-rails', {
   \   'filetypes': ['ruby', 'eruby', 'haml']
   \ }}
 
-NeoBundle 'mattn/zencoding-vim'
+NeoBundle 'mattn/emmet-vim'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'derekwyatt/vim-scala'
 NeoBundle 'tell-k/vim-browsereload-mac'
 NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'claco/jasmine.vim'
+NeoBundle 'nathanaelkane/vim-indent-guides'
+
 NeoBundle 'terryma/vim-multiple-cursors'
 
 NeoBundle 'vim-ruby/vim-ruby', {
@@ -536,9 +539,22 @@ let Tlist_WinWidth = 35
 map <silent> <leader>tl :Tlist<Enter>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" zencoding.vim
+" emmet.vim
 "
-let g:user_zen_mode='a'
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
+let g:user_emmet_mode = 'a'
+let g:user_emmet_leader_key = '<C-y>'
+let g:user_emmet_settings = {
+  \   'lang' : 'ja',
+  \   'html' : {
+  \     'filters' : 'html',
+  \     'indentation' : '  '
+  \   },
+  \   'css' : {
+  \     'filters' : 'fc',
+  \   },
+  \ }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-easymotion
@@ -597,6 +613,20 @@ let g:syntastic_mode_map = { 'mode': 'active',
   \ 'passive_filetypes': ['html'] }
 let g:syntastic_auto_loc_list = 1
 " let g:syntastic_javascript_checker = 'jshint'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" jasmine.vim 
+"
+function! JasmineSetting()
+  au BufRead,BufNewFile *Helper.js,*Spec.js  set filetype=jasmine.javascript
+  au BufRead,BufNewFile *Helper.coffee,*Spec.coffee  set filetype=jasmine.coffee
+  au BufRead,BufNewFile,BufReadPre *Helper.coffee,*Spec.coffee  let b:quickrun_config = {'type' : 'coffee'}
+  call jasmine#load_snippets()
+  map <buffer> <leader>m :JasmineRedGreen<CR>
+  command! JasmineRedGreen :call jasmine#redgreen()
+  command! JasmineMake :call jasmine#make()
+endfunction
+au BufRead,BufNewFile,BufReadPre *.coffee,*.js call JasmineSetting()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 色の設定
@@ -678,6 +708,19 @@ function! s:MyHighlight_Colors()
     syntax off
   endif
 endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-indent-guides
+"
+let g:indent_guides_start_level=2
+let g:indent_guides_auto_colors=0
+let g:indent_guides_enable_on_vim_startup=1
+let g:indent_guides_color_change_percent=20
+let g:indent_guides_guide_size=1
+let g:indent_guides_space_guides=1
+hi IndentGuidesOdd  ctermbg=235
+hi IndentGuidesEven ctermbg=237
+nmap <silent><Leader>ig <Plug>IndentGuidesToggle
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Marked
