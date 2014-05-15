@@ -17,7 +17,6 @@ export LC_ALL=ja_JP.UTF-8
 # Path
 #export PATH="/usr/local/bin:`/usr/local/bin/brew --prefix coreutils`/libexec/gnubin:${PATH}:/usr/local/sbin:/usr/share/pear/bin:${HOME}/local/bin"
 export PATH="/usr/local/bin:${PATH}:/usr/local/sbin:/usr/share/pear/bin:${HOME}/local/bin"
-fpath=($HOME/.zsh/ $fpath)
 
 # Screen session
 export SCREENDIR=${HOME}/.screen
@@ -161,6 +160,11 @@ if [ -f ${HOME}/.zsh/z/z.sh ]; then
 	_Z_CMD=j
 	source ${HOME}/.zsh/z/z.sh
 	precmd() { _z --add "$(pwd -P)" }
+fi
+
+# bd.zsh
+if [ -f ${HOME}/.zsh/zsh-bd/bd.zsh ]; then
+	source ${HOME}/.zsh/zsh-bd/bd.zsh
 fi
 
 # auto-fu.zsh
