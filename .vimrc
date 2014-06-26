@@ -207,7 +207,7 @@ NeoBundle 'Shougo/vimproc', {
 NeoBundle 'Shougo/neomru.vim', {
   \ 'depends' : 'Shougo/unite.vim'
   \ }
-
+NeoBundle 'Shougo/neocomplcache.vim'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-rails'
@@ -367,6 +367,9 @@ autocmd FileType javascript call s:javascript_filetype_settings()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " neocomplcache.vimの設定
 "
+let g:neocomplcache_force_overwrite_completefunc=1
+let g:neocomplcache_enable_force_overwrite_completefunc=1
+
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 " Use neocomplcache.
@@ -387,13 +390,42 @@ let g:neocomplcache_dictionary_filetype_lists = {
   \   'vimshell' : $HOME.'/.vim/.vimshell_hist',
   \   'scheme' : $HOME.'/.vim/.gosh_completions'
   \ }
+
 " Define keyword.
 if !exists('g:neocomplcache_keyword_patterns')
   let g:neocomplcache_keyword_patterns = {}
 endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+
 inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
+
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplcache#smart_close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+endfunction
+
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-coffee-script
