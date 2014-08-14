@@ -230,6 +230,7 @@ NeoBundle 'claco/jasmine.vim'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 
 NeoBundle 'terryma/vim-multiple-cursors'
+NeoBundle 'rking/ag.vim'
 
 NeoBundle 'vim-ruby/vim-ruby', {
   \  'autoload' : {
@@ -256,6 +257,7 @@ NeoBundle 'vcscommand.vim'
 NeoBundle 'taglist.vim'
 NeoBundle 'matchit.zip'
 NeoBundle 'ruby-matchit'
+NeoBundle 'dbext.vim'
 
 filetype plugin indent on
 filetype indent on
@@ -659,6 +661,14 @@ function! JasmineSetting()
   command! JasmineMake :call jasmine#make()
 endfunction
 au BufRead,BufNewFile,BufReadPre *.coffee,*.js call JasmineSetting()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" dbext.vim
+"
+let dbext_default_buffer_lines = 18
+if filereadable(expand($HOME."/.vim/dbext.profile"))
+  source $HOME/.vim/dbext.profile
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 色の設定
