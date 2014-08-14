@@ -14,10 +14,6 @@ export LESSCHARSET=UTF-8
 export JLESSCHARSET=japanese
 export LC_ALL=ja_JP.UTF-8
 
-# Path
-#export PATH="/usr/local/bin:`/usr/local/bin/brew --prefix coreutils`/libexec/gnubin:${PATH}:/usr/local/sbin:/usr/share/pear/bin:${HOME}/local/bin"
-export PATH="/usr/local/bin:${PATH}:/usr/local/sbin:/usr/share/pear/bin:${HOME}/local/bin"
-
 # Screen session
 export SCREENDIR=${HOME}/.screen
 
@@ -25,6 +21,10 @@ export SCREENDIR=${HOME}/.screen
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*' menu select=1
 autoload -U compinit; compinit -u
+
+autoload predict-on
+
+fpath=($HOME/.zsh/**/ $fpath)
 
 autoload -Uz VCS_INFO_get_data_git; VCS_INFO_get_data_git 2> /dev/null
 
@@ -175,6 +175,11 @@ if [ -f ${HOME}/.zsh/auto-fu/auto-fu.zsh ]; then
 	zstyle ':completion:*' completer _oldlist _complete
 fi
 
+# ssh-multi
+if [ -f ${HOME}/.zsh/ssh-multi/ssh-multi.sh ]; then
+    alias ssh-multi="${HOME}/.zsh/ssh-multi/ssh-multi.sh"
+fi
+
 # command line stack
 show_buffer_stack() {
 	POSTDISPLAY="stack: $LBUFFER"
@@ -212,4 +217,4 @@ if [[ -f ${HOME}/.nodebrew/nodebrew ]]; then
 	alias nb='nodebrew'
 fi
 
-PATH=/Users/CH0018/local/bin:/Users/CH0018/.perlbrew/bin:/Users/CH0018/.perlbrew/perls/perl-5.16.0/bin:/Users/CH0018/.rbenv/shims:/usr/local/opt/coreutils/libexec/gnubin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/Users/CH0018/.rbenv/shims:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/sbin:/usr/share/pear/bin:/Users/CH0018/local/bin:/Users/CH0018/.rbenv/bin:/Users/CH0018/.nodebrew/current/bin:/Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home/bin:/usr/local/tomcat/bin:/usr/local/nginx/sbin:/usr/local/Cellar/scala/2.10.2/libexec/bin:/usr/local/hadoop/bin:/usr/local/hbase/bin:/usr/local/hive/bin:/usr/local/bin:/usr/local/sbin:/usr/share/pear/bin:/Users/CH0018/local/bin:/Users/CH0018/.rbenv/bin:/Users/CH0018/.perlbrew/bin:/Users/CH0018/.nodebrew/current/bin:/Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home/bin:/usr/local/tomcat/bin:/usr/local/nginx/sbin:/usr/local/Cellar/scala/2.10.2/libexec/bin:/usr/local/nginx/sbin:/usr/local/hadoop/bin:/usr/local/hbase/bin:/usr/local/hive/bin
+export PATH=${HOME}/local/bin:${HOME}.perlbrew/bin:${HOME}.perlbrew/perls/perl-5.16.0/bin:${HOME}/.rbenv/shims:/usr/local/opt/coreutils/libexec/gnubin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:/opt/X11/bin:/usr/share/pear/bin:${HOME}/.nodebrew/current/bin:/Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home/bin:/usr/local/tomcat/bin:/usr/local/nginx/sbin:/usr/local/Cellar/scala/2.10.2/libexec/bin:/usr/local/hadoop/bin:/usr/local/hbase/bin:/usr/local/hive/bin
