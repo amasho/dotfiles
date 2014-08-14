@@ -772,3 +772,7 @@ if has("mac")
   autocmd FileType markdown :nnoremap <Leader>md :silent !open -a Marked.app '%:p'<Enter>:redraw!<Enter>
 endif
 
+command! SQL  edit $HOME/Dropbox/Memo/Sql.txt
+command! Memo edit $HOME/Dropbox/Memo/Memo.txt
+command! Todo edit $HOME/Dropbox/Memo/Todo.txt
+
