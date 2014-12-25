@@ -158,7 +158,7 @@ augroup END
 
 "インデント周り
 set et ts=4 sw=4 sts=4
-autocmd FileType vim,sh,html,xhtml,javascript,coffee,ruby,eruby,scala,lua setlocal et ts=2 sw=2 sts=2
+autocmd FileType vim,html,xhtml,javascript,coffee,ruby,eruby,scala,lua setlocal et ts=2 sw=2 sts=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GUI用設定
@@ -224,13 +224,14 @@ NeoBundle 'mattn/emmet-vim'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'derekwyatt/vim-scala'
-NeoBundle 'tell-k/vim-browsereload-mac'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'claco/jasmine.vim'
 NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'tmhedberg/matchit'
 
 NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'rking/ag.vim'
+NeoBundle 'gregsexton/gitv'
 
 NeoBundle 'vim-ruby/vim-ruby', {
   \  'autoload' : {
@@ -255,9 +256,7 @@ NeoBundle 'rails.vim', {
 NeoBundle 'surround.vim'
 NeoBundle 'vcscommand.vim'
 NeoBundle 'taglist.vim'
-NeoBundle 'matchit.zip'
 NeoBundle 'ruby-matchit'
-NeoBundle 'dbext.vim'
 
 filetype plugin indent on
 filetype indent on
@@ -456,6 +455,13 @@ nnoremap <Leader>gc :<C-u>Gcommit<Enter>
 nnoremap <Leader>gC :<C-u>Git commit --amend<Enter>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" gitv
+"
+autocmd FileType gitv call s:my_gitv_settings()
+function! s:my_gitv_settings()
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " neomru
 "
 let g:neomru#file_mru_limit = 200
@@ -564,7 +570,8 @@ let Tlist_Use_Right_Window = 0
 " 折りたたみ
 let Tlist_Enable_Fold_Column = 0
 " 自動表示
-let Tlist_Auto_Open = (has('gui') || has('gui_macvim')) ? 1 : 0
+"let Tlist_Auto_Open = (has('gui') || has('gui_macvim')) ? 1 : 0
+let Tlist_Auto_Open = 0
 " 新しくファイル開いた時は更新
 let Tlist_Auto_Update = 1
 " 横幅
@@ -593,33 +600,11 @@ let g:user_emmet_settings = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-easymotion
 "
-let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
+let g:EasyMotion_keys='0123456789hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
 let g:EasyMotion_leader_key="<Space>"
 let g:EasyMotion_grouping=1
 hi EasyMotionTarget ctermbg=none ctermfg=yellow guifg=yellow
 hi EasyMotionShade  ctermbg=none ctermfg=cyan guifg=cyan
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim-browsereload-mac
-"
-if has("mac")
-  let g:returnAppFlag = 1
-  if has('gui') || has('gui_macvim')
-    let g:returnApp = "MacVim"
-  else
-    let g:returnApp = "iTerm"
-  endif
-
-  augroup browser_chrome_reload
-    autocmd!
-    nnoremap <silent> <Leader>cr :<C-u>ChromeReload<Enter>
-  augroup END
-
-  augroup browser_firefox_reload
-    autocmd!
-    nnoremap <silent> <Leader>fr :<C-u>FirefoxReload<Enter>
-  augroup END
-endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " lightline
