@@ -600,11 +600,13 @@ let g:user_emmet_settings = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-easymotion
 "
-let g:EasyMotion_keys='0123456789hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
-let g:EasyMotion_leader_key="<Space>"
-let g:EasyMotion_grouping=1
-hi EasyMotionTarget ctermbg=none ctermfg=yellow guifg=yellow
-hi EasyMotionShade  ctermbg=none ctermfg=cyan guifg=cyan
+let g:EasyMotion_keys = ';HJKLASDFGYUIOPQWERTNMZXCVB'
+let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_smartcase = 1
+let g:EasyMotion_enter_jump_first = 1
+let g:EasyMotion_space_jump_first = 1
+nmap s <Plug>(easymotion-sn)
+hi EasyMotionTarget ctermfg=yellow guifg=yellow
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " lightline
@@ -756,8 +758,4 @@ if has("mac")
   " markdownをMarked.appで開く
   autocmd FileType markdown :nnoremap <Leader>md :silent !open -a Marked.app '%:p'<Enter>:redraw!<Enter>
 endif
-
-command! SQL  edit $HOME/Dropbox/Memo/Sql.txt
-command! Memo edit $HOME/Dropbox/Memo/Memo.txt
-command! Todo edit $HOME/Dropbox/Memo/Todo.txt
 
