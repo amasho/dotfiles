@@ -93,7 +93,7 @@ set nolist
 set showtabline=1
 
 "クリップボード連携
-set clipboard=unnamed
+"set clipboard=unnamed
 vmap <silent> <Leader>y "*y
 if has('gui') | set clipboard= | endif
 
@@ -158,7 +158,7 @@ augroup END
 
 "インデント周り
 set et ts=4 sw=4 sts=4
-autocmd FileType vim,html,xhtml,javascript,coffee,ruby,eruby,scala,lua setlocal et ts=2 sw=2 sts=2
+autocmd FileType vim,html,xhtml,javascript,coffee,typescript,ruby,eruby,scala,lua setlocal et ts=2 sw=2 sts=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GUI用設定
@@ -225,13 +225,15 @@ NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'derekwyatt/vim-scala'
 NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'leafgarland/typescript-vim'
+NeoBundle 'clausreinke/typescript-tools'
 NeoBundle 'claco/jasmine.vim'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'tmhedberg/matchit'
 
-NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'rking/ag.vim'
 NeoBundle 'gregsexton/gitv'
+NeoBundle 'jiangmiao/auto-pairs'
 
 NeoBundle 'vim-ruby/vim-ruby', {
   \  'autoload' : {
@@ -255,7 +257,6 @@ NeoBundle 'rails.vim', {
 
 NeoBundle 'surround.vim'
 NeoBundle 'vcscommand.vim'
-NeoBundle 'taglist.vim'
 NeoBundle 'ruby-matchit'
 NeoBundle 'dbext.vim'
 
@@ -299,16 +300,11 @@ autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 
 autocmd BufRead,BufNewFile *.gradle set filetype=groovy
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 括弧/クォートを自動補完
-"
-inoremap { {}<LEFT>
-inoremap [ []<LEFT>
-inoremap ( ()<LEFT>
-inoremap < <><LEFT>
-inoremap " ""<LEFT>
-inoremap ' ''<LEFT>
+au BufRead,BufNewFile *.js set tags+=$HOME/js.tags
+au BufRead,BufNewFile *.coffee set tags+=$HOME/coffee.tags
+au BufRead,BufNewFile *.ts set tags+=$HOME/ts.tags
+au BufRead,BufNewFile *.scala set tags+=$HOME/scala.tags
+au BufRead,BufNewFile *.php,*.inc set tags+=$HOME/php.tags
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "バッファ切替と同時にディレクトリ移動
@@ -474,8 +470,8 @@ let g:neomru#directory_mru_path=expand($HOME.'/.vim/tmp/plugin/.unite/directory_
 "
 " コンフィグ用ディレクトリ
 let g:unite_data_directory = expand($HOME.'/.vim/tmp/plugin/.unite')
-" 入力モードで開始する
-let g:unite_enable_start_insert = 1
+" 入力モードで開始しない
+let g:unite_enable_start_insert = 0
 let g:unite_kind_openable_lcd_command = 1
 
 " 常用セット
@@ -527,7 +523,7 @@ let g:vimfiler_execute_file_list["_"]="vim"
 let g:vimfiler_directory_display_top = 1
 let g:vimfiler_safe_mode_by_default = 1
 let g:vimfiler_enable_auto_cd = 1
-nnoremap <silent> ,fv :VimFiler -quit<Enter>
+nnoremap <silent> ,fv :VimFiler -split -simple -winwidth=35 -no-quit<Enter>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VimShell
@@ -552,35 +548,6 @@ let g:quickrun_config['_']['runner'] = 'vimproc'
 let g:quickrun_config['_']['runner/vimproc/updatetime'] = 100
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" taglist.vim
-"
-" ctagsのパス
-let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
-" タグリストを開いた時にフォーカスを移す
-let Tlist_GainFocus_On_ToggleOpen = 0
-" 余分な情報や空白を表示しない
-let Tlist_Compact_Format = 1
-" タグリストをハイライト
-let Tlist_Auto_Highlight_Tag = 1
-" 現在編集中のソースのタグしか表示しない
-let Tlist_Show_One_File = 1
-" taglistのウィンドーが最後のウィンドーならばVimを閉じる
-let Tlist_Exit_OnlyWindow = 1
-" 右側表示
-let Tlist_Use_Right_Window = 0
-" 折りたたみ
-let Tlist_Enable_Fold_Column = 0
-" 自動表示
-"let Tlist_Auto_Open = (has('gui') || has('gui_macvim')) ? 1 : 0
-let Tlist_Auto_Open = 0
-" 新しくファイル開いた時は更新
-let Tlist_Auto_Update = 1
-" 横幅
-let Tlist_WinWidth = 35
-" taglistを開くショットカットキー
-map <silent> <leader>tl :Tlist<Enter>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " emmet.vim
 "
 let g:user_emmet_install_global = 0
@@ -601,7 +568,8 @@ let g:user_emmet_settings = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-easymotion
 "
-let g:EasyMotion_keys = ';HJKLASDFGYUIOPQWERTNMZXCVB'
+" let g:EasyMotion_keys = ';HJKLASDFGYUIOPQWERTNMZXCVB'
+let g:EasyMotion_keys = ';hjklasdfgyuiopqwertnmzxcvb'
 let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
 let g:EasyMotion_enter_jump_first = 1
@@ -649,6 +617,7 @@ function! JasmineSetting()
   command! JasmineMake :call jasmine#make()
 endfunction
 au BufRead,BufNewFile,BufReadPre *.coffee,*.js call JasmineSetting()
+au BufCreate *.ts :TSSstarthere
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " dbext.vim
