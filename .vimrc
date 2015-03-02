@@ -214,7 +214,6 @@ NeoBundle 'tpope/vim-rails'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'basyura/jslint.vim'
-NeoBundle 'scrooloose/syntastic'
 NeoBundle 'basyura/unite-rails', {
   \ 'autoload' : {
   \   'filetypes': ['ruby', 'eruby', 'haml']
