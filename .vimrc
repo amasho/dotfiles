@@ -273,8 +273,6 @@ nmap J :<C-u>bp!<Enter>
 nmap <C-j> <C-^>
 " ESC 2回でハイライト消去
 nmap <silent> <ESC><ESC> :<C-u>nohlsearch<Enter>
-" C-tころす
-nnoremap <C-t> <silent>
 " 入力モードでの行頭行末移動
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
