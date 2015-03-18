@@ -627,6 +627,12 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 色の設定
 "
+augroup HighlightTrailingSpaces
+  autocmd!
+  autocmd VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=underline ctermbg=136
+  autocmd VimEnter,WinEnter * match TrailingSpaces /\s\+$/
+augroup END
+
 autocmd VimEnter,GUIEnter * nested call <SID>MyHighlight_Colors()
 function! s:MyHighlight_Colors()
 
