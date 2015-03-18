@@ -625,14 +625,17 @@ if filereadable(expand($HOME."/.vim/dbext.profile"))
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 色の設定
+" 行末のハイライト
 "
 augroup HighlightTrailingSpaces
   autocmd!
   autocmd VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=underline ctermbg=136
-  autocmd VimEnter,WinEnter * match TrailingSpaces /\s\+$/
+  autocmd InsertLeave * match TrailingSpaces /\s\+$/
 augroup END
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 色の設定
+"
 autocmd VimEnter,GUIEnter * nested call <SID>MyHighlight_Colors()
 function! s:MyHighlight_Colors()
 
