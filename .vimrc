@@ -263,7 +263,7 @@ filetype plugin indent on
 filetype indent on
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" キーマップ 
+" キーマップ
 "
 " 次のバッファ
 nmap K :<C-u>bn!<Enter>
@@ -602,7 +602,7 @@ let g:syntastic_auto_loc_list = 1
 " let g:syntastic_javascript_checker = 'jshint'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" jasmine.vim 
+" jasmine.vim
 "
 function! JasmineSetting()
   au BufRead,BufNewFile *Helper.js,*Spec.js  set filetype=jasmine.javascript
