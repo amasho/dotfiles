@@ -23,6 +23,20 @@ ${GITCMD} clone https://github.com/hchbaw/auto-fu.zsh ${HOME}/.zsh/auto-fu/
 # brew completion
 ln -s /usr/local/Library/Contributions/brew_zsh_completion.zsh ${HOME}/.zsh/_brew
 
+### Ricty ###
+${BREWCMD} install fontforge
+${BREWCMD} install automake
+${BREWCMD} install pkg-config
+${BREWCMD} tap sanemat/font
+${BREWCMD} install Caskroom/cask/xquartz
+${BREWCMD} install ricty
+
+### fontpatch ###
+${GITCMD} clone https://github.com/Lokaltog/vim-powerline.git
+fontforge -lang=py -script ./vim-powerline/fontpatcher/fontpatcher /usr/local/Cellar/ricty/3.2.4/share/fonts/Ricty*.ttf
+mv ./Ricty*.ttf ${HOME}/Library/Fonts
+fc-cache -fv
+
 ### vim ###
 ${BREWCMD} install mercurial
 ${BREWCMD} install vim
