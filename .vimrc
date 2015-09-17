@@ -190,12 +190,9 @@ endif
 "
 set nocompatible
 filetype off
-if has('vim_starting')
-  set runtimepath+=$HOME/.vim/bundle/neobundle.vim
-  call neobundle#begin(expand('~/.vim/bundle/'))
-  NeoBundleFetch 'Shougo/neobundle.vim'
-  call neobundle#end()
-endif
+set runtimepath+=$HOME/.vim/bundle/neobundle.vim
+call neobundle#begin(expand('~/.vim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-session'
@@ -260,6 +257,8 @@ NeoBundle 'surround.vim'
 NeoBundle 'vcscommand.vim'
 NeoBundle 'ruby-matchit'
 NeoBundle 'dbext.vim'
+NeoBundle 'itchyny/lightline.vim', {'type': 'nosync'}
+call neobundle#end()
 
 filetype plugin indent on
 filetype indent on
@@ -579,7 +578,6 @@ hi EasyMotionTarget ctermfg=yellow guifg=yellow
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " lightline
 "
-NeoBundle 'itchyny/lightline.vim', {'type': 'nosync'}
 let g:lightline = {
     \   'colorscheme': 'wombat',
     \   'component': {
