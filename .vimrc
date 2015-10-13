@@ -258,6 +258,7 @@ NeoBundle 'vcscommand.vim'
 NeoBundle 'ruby-matchit'
 NeoBundle 'dbext.vim'
 NeoBundle 'itchyny/lightline.vim', {'type': 'nosync'}
+NeoBundle 'fatih/vim-go'
 call neobundle#end()
 
 filetype plugin indent on
