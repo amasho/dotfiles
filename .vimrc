@@ -258,7 +258,8 @@ NeoBundle 'vcscommand.vim'
 NeoBundle 'ruby-matchit'
 NeoBundle 'dbext.vim'
 NeoBundle 'itchyny/lightline.vim', {'type': 'nosync'}
-NeoBundle 'fatih/vim-go'
+NeoBundle 'fatih/vim-go', {'autoload': {'filetypes': 'go'}}
+
 call neobundle#end()
 
 filetype plugin indent on
@@ -490,7 +491,7 @@ nnoremap <silent> <Leader>ua :<C-u>UniteWithBufferDir -buffer-name=files buffer 
 nnoremap <silent> <Leader>ub :<C-u>Unite bookmark<Enter>
 
 " Unite Session
-if !argc()
+if !has('gui') && !argc()
   let g:unite_source_session_enable_auto_save = 1
   autocmd VimEnter,GUIEnter * nested UniteSessionLoad
   autocmd VimLeave * nested UniteSessionSave
@@ -624,6 +625,16 @@ let dbext_default_buffer_lines = 18
 if filereadable(expand($HOME."/.vim/dbext.profile"))
   source $HOME/.vim/dbext.profile
 endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-go.vim
+"
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_command = "goimports"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 行末のハイライト

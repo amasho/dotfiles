@@ -217,4 +217,11 @@ if [[ -f ${HOME}/.nodebrew/nodebrew ]]; then
 	alias nb='nodebrew'
 fi
 
+# golang
+export GOOS=darwin #Mac
+export GOARCH=amd64
+export GOROOT=/usr/local/opt/go/libexec
+export GOPATH=${HOME}/go
+
 export PATH=${HOME}/local/bin:${HOME}/.perlbrew/bin:${HOME}/.perlbrew/perls/perl-${CURRENT_PERL_VERSION}/bin:${HOME}/.rbenv/shims:/usr/local/opt/coreutils/libexec/gnubin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:/opt/X11/bin:/usr/share/pear/bin:${HOME}/.nodebrew/current/bin:/Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home/bin:/usr/local/tomcat/bin:/usr/local/nginx/sbin:/usr/local/Cellar/scala/2.10.2/libexec/bin:/usr/local/hadoop/bin:/usr/local/hbase/bin:/usr/local/hive/bin
+export PATH=${PATH}:${GOPATH}/bin
