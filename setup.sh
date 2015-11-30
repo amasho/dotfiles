@@ -16,10 +16,20 @@ GITCMD=`which git`;
 ### zsh ###
 ${BREWCMD} install zsh
 ln -s ${HOME}/dotfiles/.zshrc ${HOME}/.zshrc
-# z.sh & auto-fu.zsh
-mkdir -p ${HOME}/.zsh/z/ ${HOME}/.zsh/auto-fu/
+# z.sh
+mkdir -p ${HOME}/.zsh/z/
 ${GITCMD} clone https://github.com/rupa/z/ ${HOME}/.zsh/z/
+
+# auto-fu.zsh
+mkdir -p ${HOME}/.zsh/auto-fu/
 ${GITCMD} clone https://github.com/hchbaw/auto-fu.zsh ${HOME}/.zsh/auto-fu/
+
+# pure
+mkdir -p ${HOME}/.zsh/pure/
+${GITCMD} clone https://github.com/sindresorhus/pure ${HOME}/.zsh/pure/
+ln -s ${HOME}/.zsh/pure/pure.zsh ${HOME}/.zsh/pure/prompt_pure_setup
+ln -s ${HOME}/.zsh/pure/async.zsh ${HOME}/.zsh/pure/async
+
 # brew completion
 ln -s /usr/local/Library/Contributions/brew_zsh_completion.zsh ${HOME}/.zsh/_brew
 

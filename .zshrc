@@ -46,72 +46,10 @@ setopt NO_HUP
 # Use prompt color
 autoload -U colors; colors
 
-# Prompt Setting
-function rprompt-git-current-branch {
-	local name st color gitdir action
-	if [[ "$PWD" =~ '/\.git(/.*)?$' ]]; then
-		return
-	fi
-	name=`git rev-parse --abbrev-ref=loose HEAD 2> /dev/null`
-	if [[ -z $name ]]; then
-		return
-	fi
-
-	gitdir=`git rev-parse --git-dir 2> /dev/null`
-	action=`VCS_INFO_git_getaction "$gitdir"` && action="($action)"
-
-	st=`git status 2> /dev/null`
-	if [[ -n `echo "$st" | grep "^nothing to"` ]]; then
-		color=%F{green}
-	elif [[ -n `echo "$st" | grep "^no changes added"` ]]; then
-		color=%F{yellow}
-	elif [[ -n `echo "$st" | grep "^# Changes to be committed"` ]]; then
-		color=%B%F{red}
-	else
-		color=%F{red}
-	fi
-
-	echo "$color$name$action%f%b: "
-}
-# see also
-# for c in {000..255}; do echo -n "\e[38;5;${c}m $c" ; [ $(($c%16)) -eq 15 ] && echo;done;echo
-P_COLOR=$((22 + RANDOM % (231 - 1 + 1)))
-PROMPT=%F$'%{\e[38;5;'$P_COLOR'm%}'"[%n@%m${WINDOW:+[$WINDOW]}]$ "%f
-RPROMPT='[`rprompt-git-current-branch`%~]'
-PROMPT2="%_%% "
-
-# push enter-key
-function do_enter() {
-    P_COLOR=$((22 + RANDOM % (231 - 1 + 1)))
-    PROMPT=%F$'%{\e[38;5;'$P_COLOR'm%}'"[%n@%m${WINDOW:+[$WINDOW]}]$ "%f
-    if [ -n "$BUFFER" ]; then
-        zle accept-line
-        return 0
-    fi
-
-    echo
-    if [ `ls |wc -l` -gt 0 ]; then
-        echo -e "\e[0;33m--- files ---\e[0m"
-        ls
-    fi
-
-    if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = 'true' ]; then
-        echo
-        echo -e "\e[0;33m--- git status ---\e[0m"
-        git status -s -b
-    fi
-#    zle reset-prompt
-    return 0
-}
-zle -N do_enter
-bindkey '^m' do_enter
-
 # Command history configuration
 HISTFILE=~/.zsh_history
 HISTSIZE=1000
 SAVEHIST=1000
-
-alias screen=${HOME}/local/bin/screen
 
 # Aliases
 alias l='ls -v'
@@ -162,11 +100,6 @@ if [ -f ${HOME}/.zsh/z/z.sh ]; then
 	precmd() { _z --add "$(pwd -P)" }
 fi
 
-# bd.zsh
-if [ -f ${HOME}/.zsh/zsh-bd/bd.zsh ]; then
-	source ${HOME}/.zsh/zsh-bd/bd.zsh
-fi
-
 # auto-fu.zsh
 if [ -f ${HOME}/.zsh/auto-fu/auto-fu.zsh ]; then
 	source ${HOME}/.zsh/auto-fu/auto-fu.zsh
@@ -175,9 +108,10 @@ if [ -f ${HOME}/.zsh/auto-fu/auto-fu.zsh ]; then
 	zstyle ':completion:*' completer _oldlist _complete
 fi
 
-# ssh-multi
-if [ -f ${HOME}/.zsh/ssh-multi/ssh-multi.sh ]; then
-    alias ssh-multi="${HOME}/.zsh/ssh-multi/ssh-multi.sh"
+# pure.zsh
+if [ -f ${HOME}/.zsh/pure/pure.zsh ]; then
+    autoload -U promptinit && promptinit
+    prompt pure
 fi
 
 # command line stack
@@ -210,15 +144,18 @@ if [[ -d ${HOME}/.perlbrew ]]; then
 fi
 
 # nodebrew
-if [[ -f ${HOME}/.nodebrew/nodebrew ]]; then
+# if [[ -f ${HOME}/.nodebrew/nodebrew ]]; then
 	export NODE_PATH=${HOME}/.nodebrew/current/lib/node_modules
 	export PATH=${PATH}:${HOME}/.nodebrew/current/bin
-	nodebrew use ${CURRENT_NODE_VERSION} > /dev/null
 	alias nb='nodebrew'
-fi
+# fi
 
 # golang
-export GOOS=darwin #Mac
+if [ `uname` = "Darwin" ]; then
+    export GOOS=darwin #Mac
+else
+    export GOOS=linux #Mac
+fi
 export GOARCH=amd64
 export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=${HOME}/go

@@ -577,7 +577,7 @@ hi EasyMotionTarget ctermfg=yellow guifg=yellow
 " lightline
 "
 let g:lightline = {
-    \   'colorscheme': 'wombat',
+    \   'colorscheme': 'Tomorrow_Night_Eighties',
     \   'component': {
     \       'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
     \       'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}'
