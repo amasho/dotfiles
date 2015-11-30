@@ -16,6 +16,7 @@ GITCMD=`which git`;
 ### zsh ###
 ${BREWCMD} install zsh
 ln -s ${HOME}/dotfiles/.zshrc ${HOME}/.zshrc
+
 # z.sh
 mkdir -p ${HOME}/.zsh/z/
 ${GITCMD} clone https://github.com/rupa/z/ ${HOME}/.zsh/z/
@@ -76,3 +77,9 @@ ln -s ${HOME}/dotfiles/.tigrc ${HOME}/.tigrc
 ### ctags ###
 ${BREWCMD} install ctags
 ln -s ${HOME}/dotfiles/.ctags ${HOME}/.ctags
+
+### Tomorrow Theme ###
+${GITCMD} clone https://github.com/chriskempson/tomorrow-theme /tmp/tomorrow-theme
+ls -l /tmp/tomorrow-theme/iTerm2
+echo "Import iTerm2 color scheme"
+
