@@ -111,6 +111,7 @@ fi
 # pure.zsh
 if [ -f ${HOME}/.zsh/pure/pure.zsh ]; then
     autoload -U promptinit && promptinit
+    PURE_PROMPT_SYMBOL="❯❯❯"
     prompt pure
 fi
 
