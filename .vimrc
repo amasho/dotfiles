@@ -94,7 +94,6 @@ set showtabline=1
 
 "クリップボード連携
 "set clipboard=unnamed
-vmap <silent> <Leader>y "*y
 if has('gui') | set clipboard= | endif
 
 "ポップアップメニューをよしなに
@@ -268,6 +267,8 @@ filetype indent on
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " キーマップ
 "
+" clipboardへコピー
+vmap <silent> <Leader>y "*y
 " バッファの行き来
 nmap <C-j> <C-^>
 " ESC 2回でハイライト消去
