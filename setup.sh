@@ -63,12 +63,7 @@ ${BREWCMD} install tmux
 ln -s ${HOME}/dotfiles/.tmux.conf ${HOME}/.tmux.conf
 
 ### reattach-to-user-namespace ###
-mkdir -p ${HOME}/local/bin && echo "PATH=${HOME}/local/bin:${PATH}" >> ${HOME}/.zshrc
-git clone git://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard.git
-cd tmux-MacOSX-pasteboard
-make reattach-to-user-namespace
-cp reattach-to-user-namespace ${HOME}/local/bin
-rm -rf reattach-to-user-namespace
+${BREWCMD} install reattach-to-user-namespace
 
 ### tig ###
 ${BREWCMD} install tig
