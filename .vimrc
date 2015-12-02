@@ -277,6 +277,9 @@ nmap <silent> <ESC><ESC> :<C-u>nohlsearch<Enter>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
 
+" :poをre-asignするためにC-tを潰す
+map <C-t> :<Backspace>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " コード補完
 "
