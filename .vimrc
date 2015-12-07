@@ -684,7 +684,7 @@ function! s:MyHighlight_Colors()
     hi MBENormal gui=none guifg=#626262 guibg=#252525
     hi MBEVisibleNormal gui=none guifg=#626262 guibg=#252525
     hi MBEVisibleActive gui=bold,underline guifg=#D7005F guibg=#252525
-  elseif &term =~ "xterm-256color"
+  elseif &term =~ "xterm-256color" || &term =~ "nvim"
     "256色
     set t_Co=256
     set t_Sf=[3%dm
@@ -708,8 +708,9 @@ function! s:MyHighlight_Colors()
     hi StatusLine cterm=bold ctermfg=255 ctermbg=21
     hi LineNr cterm=none ctermfg=241
     hi CursorLineNr cterm=bold ctermfg=161
-    hi Pmenu cterm=none ctermfg=255 ctermbg=200
-    hi PmenuSel cterm=bold ctermfg=255 ctermbg=21
+    hi Pmenu cterm=none ctermfg=255 ctermbg=238
+    hi PmenuSel cterm=none ctermfg=190 ctermbg=32
+    hi PmenuSbar cterm=bold ctermfg=255 ctermbg=28
     hi Include cterm=bold ctermfg=9
     hi Define cterm=bold ctermfg=14
     hi Macro cterm=bold ctermfg=14
