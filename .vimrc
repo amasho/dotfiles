@@ -535,7 +535,8 @@ nnoremap <silent> ,fv :VimFiler -split -simple -winwidth=35 -no-quit<Enter>
 " VimShell
 "
 let g:vimshell_popup_command = "split"
-let g:vimshell_popup_height = 30
+let g:vimshell_popup_height = 15
+let g:vimshell_environment_term = "xterm-256color"
 let g:vimshell_editor_command = '/Applications/MacVim/MacVim.app/Contents/MacOS/Vim --servername=VIM --remote-tab-wait-silent'
 let g:vimshell_prompt = '$ '
 autocmd FileType vimshell
@@ -684,7 +685,7 @@ function! s:MyHighlight_Colors()
     hi MBENormal gui=none guifg=#626262 guibg=#252525
     hi MBEVisibleNormal gui=none guifg=#626262 guibg=#252525
     hi MBEVisibleActive gui=bold,underline guifg=#D7005F guibg=#252525
-  elseif &term =~ "xterm-256color" || &term =~ "nvim"
+  elseif &term =~ "xterm-256color"
     "256色
     set t_Co=256
     set t_Sf=[3%dm
