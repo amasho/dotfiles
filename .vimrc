@@ -679,6 +679,7 @@ function! s:MyHighlight_Colors()
     hi diffAdded guifg=#000000  guibg=#0000FF
     hi ColorColumn guibg=#252525
 
+    hi VertSplit gui=none guifg=#000000 guibg=#626262
     hi StatusLineNC gui=none guifg=#000000 guibg=#626262
     hi MBENormal gui=none guifg=#626262 guibg=#252525
     hi MBEVisibleNormal gui=none guifg=#626262 guibg=#252525
@@ -715,6 +716,7 @@ function! s:MyHighlight_Colors()
     hi PreCondit cterm=bold ctermfg=21
     hi diffAdded ctermfg=21
 
+    hi VertSplit cterm=none ctermfg=0 ctermbg=239
     hi StatusLineNC cterm=none ctermfg=0 ctermbg=241
     hi MBENormal cterm=none ctermfg=241 ctermbg=0
     hi MBEVisibleNormal cterm=none ctermfg=241 ctermbg=0
