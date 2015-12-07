@@ -196,9 +196,9 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/unite.vim'
 
 NeoBundleLazy 'Shougo/unite-session', {
-  \ 'autoload':{
-  \   'unite_sources':'session',
-  \   'commands': ['UniteSessionSave', 'UniteSessionLoad']
+  \ 'autoload' : {
+  \   'unite_sources' : 'session',
+  \   'commands' : ['UniteSessionSave', 'UniteSessionLoad']
   \ }}
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/vimfiler'
