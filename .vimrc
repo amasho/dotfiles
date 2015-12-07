@@ -194,7 +194,12 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/unite-session'
+
+NeoBundleLazy 'Shougo/unite-session', {
+  \ 'autoload':{
+  \   'unite_sources':'session',
+  \   'commands': ['UniteSessionSave', 'UniteSessionLoad']
+  \ }}
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Shougo/vimproc', {
@@ -255,7 +260,6 @@ NeoBundle 'rails.vim', {
 NeoBundle 'surround.vim'
 NeoBundle 'vcscommand.vim'
 NeoBundle 'ruby-matchit'
-NeoBundle 'dbext.vim'
 NeoBundle 'itchyny/lightline.vim', {'type': 'nosync'}
 NeoBundle 'fatih/vim-go', {'autoload': {'filetypes': 'go'}}
 
@@ -267,6 +271,7 @@ filetype indent on
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " キーマップ
 "
+
 " clipboardへコピー
 vmap <silent> <Leader>y "*y
 " バッファの行き来
@@ -303,6 +308,7 @@ autocmd BufRead,BufNewFile *.gradle set filetype=groovy
 au BufRead,BufNewFile *.js set tags+=$HOME/js.tags
 au BufRead,BufNewFile *.coffee set tags+=$HOME/coffee.tags
 au BufRead,BufNewFile *.ts set tags+=$HOME/ts.tags
+au BufRead,BufNewFile *.java set tags+=$HOME/java.tags
 au BufRead,BufNewFile *.scala set tags+=$HOME/scala.tags
 au BufRead,BufNewFile *.php,*.inc set tags+=$HOME/php.tags
 
@@ -617,14 +623,6 @@ function! JasmineSetting()
 endfunction
 au BufRead,BufNewFile,BufReadPre *.coffee,*.js call JasmineSetting()
 au BufCreate *.ts :TSSstarthere
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" dbext.vim
-"
-let dbext_default_buffer_lines = 18
-if filereadable(expand($HOME."/.vim/dbext.profile"))
-  source $HOME/.vim/dbext.profile
-endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-go.vim
