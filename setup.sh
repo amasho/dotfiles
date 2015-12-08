@@ -31,8 +31,8 @@ ${GITCMD} clone https://github.com/sindresorhus/pure ${HOME}/.zsh/pure/
 ln -s ${HOME}/.zsh/pure/pure.zsh ${HOME}/.zsh/pure/prompt_pure_setup
 ln -s ${HOME}/.zsh/pure/async.zsh ${HOME}/.zsh/pure/async
 
-# brew completion
-ln -s /usr/local/Library/Contributions/brew_zsh_completion.zsh ${HOME}/.zsh/_brew
+# zsh-completions
+${BREWCMD} install zsh-completions
 
 ### Ricty ###
 ${BREWCMD} install fontforge
