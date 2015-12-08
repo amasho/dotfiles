@@ -5,6 +5,9 @@
 # Emacs keybind
 bindkey -e
 
+# fpath
+fpath=($HOME/.zsh/** /usr/local/share/zsh-completions $fpath)
+
 # Lang
 export LANG=ja_JP.UTF-8
 export LC_MESSAGES=ja_JP.UTF-8
@@ -14,17 +17,25 @@ export LESSCHARSET=UTF-8
 export JLESSCHARSET=japanese
 export LC_ALL=ja_JP.UTF-8
 
-# Screen session
-export SCREENDIR=${HOME}/.screen
-
-# Ignore case
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-zstyle ':completion:*' menu select=1
+# Completion
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # Ignore case
+zstyle ':completion:*:default' menu select=2
+zstyle ':completion:*' format '%B%d%b'
 autoload -U compinit; compinit -u
+setopt auto_param_slash
+setopt mark_dirs
+setopt list_types
+setopt auto_menu
+setopt auto_param_keys
+setopt interactive_comments
+setopt magic_equal_subst
+setopt complete_in_word
+setopt always_last_prompt
+setopt print_eight_bit
+setopt extended_glob
+setopt globdots
 
 autoload predict-on
-
-fpath=($HOME/.zsh/**/ $fpath)
 
 autoload -Uz VCS_INFO_get_data_git; VCS_INFO_get_data_git 2> /dev/null
 
@@ -64,7 +75,6 @@ alias which='/usr/bin/which'
 alias ql='qlmanage -p'
 alias javac="javac -J-Dfile.encoding=UTF8"
 
-alias s='screen -D -RR -q'
 
 # suffix
 alias -s js=node
