@@ -57,6 +57,9 @@ setopt NO_HUP
 # Use prompt color
 autoload -U colors; colors
 
+# prompt preset
+autoload -U promptinit && promptinit
+
 # Command history configuration
 HISTFILE=~/.zsh_history
 HISTSIZE=1000
@@ -120,8 +123,7 @@ fi
 
 # pure.zsh
 if [ -f ${HOME}/.zsh/pure/pure.zsh ]; then
-    autoload -U promptinit && promptinit
-    PURE_PROMPT_SYMBOL="❯❯❯"
+    PURE_PROMPT_SYMBOL="[%n@%m]❯"
     prompt pure
 fi
 
