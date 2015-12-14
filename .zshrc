@@ -96,6 +96,11 @@ alias gd='git diff --color'
 alias gst='git status -s -b'
 export GIT_EDITOR=vim
 
+# Docker
+alias d='docker'
+alias dp='docker ps'
+alias di='docker images'
+
 if [ `uname` = "Darwin" ]; then
 	stty erase  -ixon
 	export __CF_USER_TEXT_ENCODING="0x1F5:0x08000100:14"
