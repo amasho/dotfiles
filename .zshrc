@@ -171,11 +171,12 @@ fi
 # golang
 if [ `uname` = "Darwin" ]; then
     export GOOS=darwin #Mac
+    export GOROOT=/usr/local/opt/go/libexec
 else
     export GOOS=linux #linux
+    export GOROOT=/usr/lib/golang
 fi
 export GOARCH=amd64
-export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=${HOME}/go
 
 # MySQL Prompt
