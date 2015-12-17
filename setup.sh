@@ -15,6 +15,7 @@ fi
 GITCMD=`which git`;
 ### zsh ###
 ${BREWCMD} install zsh
+sudo sh -c "echo '/usr/local/bin/zsh' >> /etc/shells"
 ln -s ${HOME}/dotfiles/.zshrc ${HOME}/.zshrc
 
 # z.sh
@@ -51,6 +52,12 @@ ${BREWCMD} cask install skype
 ${BREWCMD} cask install slack
 ${BREWCMD} cask install gyazo
 ${BREWCMD} cask install charles
+
+### Silver Searcher ###
+${BREWCMD} install ag
+
+### peco ###
+${BREWCMD} install peco
 
 ### Ricty ###
 ${BREWCMD} install fontforge
