@@ -141,9 +141,7 @@ function peco-history-select() {
     zle && {zle clear-screen}
 }
 zle -N peco-history-select
-bindkey '^T' peco-history-select
 bindkey '^R' peco-history-select
-bindkey '^S' peco-history-select
 
 # command line stack
 function show_buffer_stack() {
