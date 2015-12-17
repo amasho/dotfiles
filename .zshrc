@@ -39,6 +39,9 @@ autoload predict-on
 
 autoload -Uz VCS_INFO_get_data_git; VCS_INFO_get_data_git 2> /dev/null
 
+autoload -Uz add-zsh-hook
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+
 # Options
 setopt PROMPT_SUBST
 #setopt CORRECT_ALL
@@ -62,8 +65,8 @@ autoload -U promptinit && promptinit
 
 # Command history configuration
 HISTFILE=~/.zsh_history
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=100000
+SAVEHIST=100000
 
 # Aliases
 alias l='ls -v'
@@ -77,7 +80,6 @@ alias less='less -r'
 alias which='/usr/bin/which'
 alias ql='qlmanage -p'
 alias javac="javac -J-Dfile.encoding=UTF8"
-
 
 # suffix
 alias -s js=node
@@ -102,10 +104,10 @@ alias dp='docker ps'
 alias di='docker images'
 
 if [ `uname` = "Darwin" ]; then
-	stty erase  -ixon
-	export __CF_USER_TEXT_ENCODING="0x1F5:0x08000100:14"
+    stty erase  -ixon
+    export __CF_USER_TEXT_ENCODING="0x1F5:0x08000100:14"
 else
-	stty erase  -ixon
+    stty erase  -ixon
 fi
 
 # TMUX
@@ -113,18 +115,18 @@ alias tmux='tmux -2'
 
 # z.sh
 if [ -f ${HOME}/.zsh/z/z.sh ]; then
-	_Z_CMD=j
-	source ${HOME}/.zsh/z/z.sh
-	precmd() { _z --add "$(pwd -P)" }
+    _Z_CMD=j
+    source ${HOME}/.zsh/z/z.sh
+    precmd() { _z --add "$(pwd -P)" }
 fi
 
 # auto-fu.zsh
-if [ -f ${HOME}/.zsh/auto-fu/auto-fu.zsh ]; then
-	source ${HOME}/.zsh/auto-fu/auto-fu.zsh
-	function zle-line-init () {auto-fu-init}
-	zle -N zle-line-init
-	zstyle ':completion:*' completer _oldlist _complete
-fi
+# if [ -f ${HOME}/.zsh/auto-fu/auto-fu.zsh ]; then
+#     source ${HOME}/.zsh/auto-fu/auto-fu.zsh
+#     function zle-line-init () {auto-fu-init}
+#     zle -N zle-line-init
+#     zstyle ':completion:*' completer _oldlist _complete
+# fi
 
 # pure.zsh
 if [ -f ${HOME}/.zsh/pure/pure.zsh ]; then
@@ -132,14 +134,24 @@ if [ -f ${HOME}/.zsh/pure/pure.zsh ]; then
     prompt pure
 fi
 
+# peco
+function peco-history-select() {
+    BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
+    CURSOR=$#BUFFER
+    zle && {zle clear-screen}
+}
+zle -N peco-history-select
+bindkey '^T' peco-history-select
+bindkey '^R' peco-history-select
+bindkey '^S' peco-history-select
+
 # command line stack
-show_buffer_stack() {
-	POSTDISPLAY="stack: $LBUFFER"
-	zle push-line-or-edit
+function show_buffer_stack() {
+    POSTDISPLAY="stack: $LBUFFER"
+    zle && {zle push-line-or-edit}
 }
 zle -N show_buffer_stack
-setopt noflowcontrol
-bindkey 'M-q' show_buffer_stack''
+bindkey 'M-q' show_buffer_stack
 
 # Termcap
 export TERM=xterm-256color
@@ -149,23 +161,23 @@ function chpwd() { ls }
 
 #rbenv
 if [[ -d ${HOME}/.rbenv ]]; then
-	export PATH=${PATH}:${HOME}/.rbenv/bin;
-	eval "$(rbenv init -)";
+    export PATH=${PATH}:${HOME}/.rbenv/bin;
+    eval "$(rbenv init -)";
 fi
 
 # perlbrew
 if [[ -d ${HOME}/.perlbrew ]]; then
-	source $HOME/.perlbrew/etc/bashrc
-	export PATH=${PATH}:${HOME}/.perlbrew/bin
-	export PERLBREW_ROOT=${HOME}/.perlbrew
-	alias pb='perlbrew'
+    source $HOME/.perlbrew/etc/bashrc
+    export PATH=${PATH}:${HOME}/.perlbrew/bin
+    export PERLBREW_ROOT=${HOME}/.perlbrew
+    alias pb='perlbrew'
 fi
 
 # nodebrew
 # if [[ -f ${HOME}/.nodebrew/nodebrew ]]; then
-	export NODE_PATH=${HOME}/.nodebrew/current/lib/node_modules
-	export PATH=${PATH}:${HOME}/.nodebrew/current/bin
-	alias nb='nodebrew'
+    export NODE_PATH=${HOME}/.nodebrew/current/lib/node_modules
+    export PATH=${PATH}:${HOME}/.nodebrew/current/bin
+    alias nb='nodebrew'
 # fi
 
 # golang
