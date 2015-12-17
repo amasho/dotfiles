@@ -172,7 +172,7 @@ fi
 if [ `uname` = "Darwin" ]; then
     export GOOS=darwin #Mac
 else
-    export GOOS=linux #Mac
+    export GOOS=linux #linux
 fi
 export GOARCH=amd64
 export GOROOT=/usr/local/opt/go/libexec
