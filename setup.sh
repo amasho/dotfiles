@@ -34,12 +34,30 @@ ln -s ${HOME}/.zsh/pure/async.zsh ${HOME}/.zsh/pure/async
 # zsh-completions
 ${BREWCMD} install zsh-completions
 
+### Docker ###
+${BREWCMD} install docker
+${BREWCMD} install docker-machine
+
+### Cask ###
+${BREWCMD} cask install google-japanese-ime
+${BREWCMD} cask install google-chrome
+${BREWCMD} cask install google-drive
+${BREWCMD} cask install alfred
+${BREWCMD} cask install karabiner
+${BREWCMD} cask install virtualbox
+${BREWCMD} cask install dropbox
+${BREWCMD} cask install evernote
+${BREWCMD} cask install skype
+${BREWCMD} cask install slack
+${BREWCMD} cask install gyazo
+${BREWCMD} cask install charles
+
 ### Ricty ###
 ${BREWCMD} install fontforge
 ${BREWCMD} install automake
 ${BREWCMD} install pkg-config
 ${BREWCMD} tap sanemat/font
-${BREWCMD} install Caskroom/cask/xquartz
+${BREWCMD} cask install xquartz
 ${BREWCMD} install ricty
 
 ### fontpatch ###
