@@ -103,3 +103,5 @@ ${GITCMD} clone https://github.com/chriskempson/tomorrow-theme /tmp/tomorrow-the
 ls -l /tmp/tomorrow-theme/iTerm2
 echo "Import iTerm2 color scheme"
 
+### gvm ###
+/usr/local/bin/zsh < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)

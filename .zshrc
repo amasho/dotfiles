@@ -157,6 +157,9 @@ export TERMCAP="xterm-256color:Co#256:pa#256:AF=\E[38;5;%dm:AB=\E[48;5;%dm:tc=xt
 
 function chpwd() { ls }
 
+# gvm
+[[ -d ${HOME}/.gvm ]] && source ${HOME}/.gvm/scripts/gvm
+
 #rbenv
 if [[ -d ${HOME}/.rbenv ]]; then
     export PATH=${PATH}:${HOME}/.rbenv/bin;
@@ -178,20 +181,10 @@ fi
     alias nb='nodebrew'
 # fi
 
-# golang
-if [ `uname` = "Darwin" ]; then
-    export GOOS=darwin #Mac
-    export GOROOT=/usr/local/opt/go/libexec
-else
-    export GOOS=linux #linux
-    export GOROOT=/usr/lib/golang
-fi
-export GOARCH=amd64
-export GOPATH=${HOME}/go
-
 # MySQL Prompt
 export MYSQL_PS1="mysql[\d]# "
 
 # PATH
 export PATH=${HOME}/.perlbrew/bin:${HOME}/.perlbrew/perls/perl-${CURRENT_PERL_VERSION}/bin:${HOME}/.rbenv/shims:/usr/local/opt/coreutils/libexec/gnubin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:/opt/X11/bin:/usr/share/pear/bin:${HOME}/.nodebrew/current/bin:/Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home/bin:/usr/local/tomcat/bin:/usr/local/nginx/sbin:/usr/local/Cellar/scala/2.10.2/libexec/bin:/usr/local/hadoop/bin:/usr/local/hbase/bin:/usr/local/hive/bin
-export PATH=${PATH}:${GOPATH}/bin
+export PATH=${PATH}:${GOROOT}/bin:${GOPATH}/bin
+
