@@ -40,6 +40,7 @@ ${BREWCMD} install docker
 ${BREWCMD} install docker-machine
 
 ### Cask ###
+${BREWCMD} tap caskroom/versions
 ${BREWCMD} cask install google-japanese-ime
 ${BREWCMD} cask install google-chrome
 ${BREWCMD} cask install google-drive
