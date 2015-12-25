@@ -53,6 +53,7 @@ ${BREWCMD} cask install skype
 ${BREWCMD} cask install slack
 ${BREWCMD} cask install gyazo
 ${BREWCMD} cask install charles
+${BREWCMD} cask install macvim-kaoriya
 
 ### Silver Searcher ###
 ${BREWCMD} install ag
