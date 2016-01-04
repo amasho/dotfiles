@@ -136,7 +136,13 @@ fi
 
 # peco
 function peco-history-select() {
-    BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
+    if which tac > /dev/null; then
+        TAC="tac"
+    else
+        TAC="tail -r"
+    fi
+
+    BUFFER=`history -n 1 | eval ${TAC} | awk '!a[$0]++' | peco`
     CURSOR=$#BUFFER
     zle && {zle clear-screen}
 }
