@@ -263,6 +263,9 @@ NeoBundle 'ruby-matchit'
 NeoBundle 'itchyny/lightline.vim', {'type': 'nosync'}
 NeoBundle 'fatih/vim-go', {'autoload': {'filetypes': 'go'}}
 
+NeoBundleLazy 'toyamarinyon/vim-swift', {'autoload': {'filetypes': 'swift'}}
+NeoBundleLazy 'Keithbsmiley/swift.vim', {'autoload': {'filetypes': 'swift'}}
+
 call neobundle#end()
 
 filetype plugin indent on
@@ -635,6 +638,17 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" swift quickrun
+"
+if has("mac")
+  autocmd BufRead,BufNewFile *.swift set filetype=swift
+  let g:quickrun_config['swift'] = {
+    \ 'command': 'xcrun',
+    \ 'cmdopt': 'swift',
+    \ 'exec': '%c %o %s',
+    \}}
+endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 行末のハイライト
 "
