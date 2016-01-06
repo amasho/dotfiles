@@ -53,7 +53,9 @@ ${BREWCMD} cask install skype
 ${BREWCMD} cask install slack
 ${BREWCMD} cask install gyazo
 ${BREWCMD} cask install charles
+${BREWCMD} cask install sequel-pro
 ${BREWCMD} cask install macvim-kaoriya
+${BREWCMD} cask install coccinellida
 
 ### Silver Searcher ###
 ${BREWCMD} install ag
@@ -95,6 +97,9 @@ ${BREWCMD} install reattach-to-user-namespace
 ### tig ###
 ${BREWCMD} install tig
 ln -s ${HOME}/dotfiles/.tigrc ${HOME}/.tigrc
+
+### tig ###
+${BREWCMD} install gibo
 
 ### ctags ###
 ${BREWCMD} install ctags
