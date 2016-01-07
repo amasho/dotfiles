@@ -166,24 +166,30 @@ function chpwd() { ls }
 # gvm
 [[ -d ${HOME}/.gvm ]] && source ${HOME}/.gvm/scripts/gvm
 
+# pyenv
+if [[ -d ${HOME}/.pyenv ]]; then
+    export PYENV_ROOT=${HOME}/.pyenv
+    eval "$(${PYENV_ROOT}/bin/pyenv init -)"
+fi
+
 #rbenv
 if [[ -d ${HOME}/.rbenv ]]; then
-    export PATH=${PATH}:${HOME}/.rbenv/bin;
-    eval "$(rbenv init -)";
+    export RBENV_ROOT=${HOME}/.rbenv
+    eval "$(${RBENV_ROOT}/bin/rbenv init -)"
 fi
 
 # perlbrew
 if [[ -d ${HOME}/.perlbrew ]]; then
     source $HOME/.perlbrew/etc/bashrc
-    export PATH=${PATH}:${HOME}/.perlbrew/bin
     export PERLBREW_ROOT=${HOME}/.perlbrew
     alias pb='perlbrew'
 fi
 
 # nodebrew
 # if [[ -f ${HOME}/.nodebrew/nodebrew ]]; then
-    export NODE_PATH=${HOME}/.nodebrew/current/lib/node_modules
-    export PATH=${PATH}:${HOME}/.nodebrew/current/bin
+    export NODEBREW_ROOT=${HOME}/.nodebrew
+    export NODE_PATH=${NODEBREW_ROOT}/current/lib/node_modules
+    export PATH=${PATH}:
     alias nb='nodebrew'
 # fi
 
@@ -191,6 +197,7 @@ fi
 export MYSQL_PS1="mysql[\d]# "
 
 # PATH
-export PATH=${HOME}/.perlbrew/bin:${HOME}/.perlbrew/perls/perl-${CURRENT_PERL_VERSION}/bin:${HOME}/.rbenv/shims:/usr/local/opt/coreutils/libexec/gnubin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:/opt/X11/bin:/usr/share/pear/bin:${HOME}/.nodebrew/current/bin:/Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home/bin:/usr/local/tomcat/bin:/usr/local/nginx/sbin:/usr/local/Cellar/scala/2.10.2/libexec/bin:/usr/local/hadoop/bin:/usr/local/hbase/bin:/usr/local/hive/bin
-export PATH=${PATH}:${GOROOT}/bin:${GOPATH}/bin
+export PATH=${PYENV_ROOT}/bin:${PERLBREW_ROOT}/bin:${PERLBREW_ROOT}/perls/perl-${CURRENT_PERL_VERSION}/bin:${RBENV_ROOT}/shims
+export PATH=${PATH}:${GOROOT}/bin:${GOPATH}/bin:${NODEBREW_ROOT}/current/bin:/Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home/bin
+export PATH=${PATH}:/usr/local/opt/coreutils/libexec/gnubin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:/opt/X11/bin:/usr/share/pear/bin
 
