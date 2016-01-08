@@ -94,6 +94,9 @@ ln -s ${HOME}/dotfiles/.tmux.conf ${HOME}/.tmux.conf
 ### reattach-to-user-namespace ###
 ${BREWCMD} install reattach-to-user-namespace
 
+### hub ###
+${BREWCMD} install hub
+
 ### tig ###
 ${BREWCMD} install tig
 ln -s ${HOME}/dotfiles/.tigrc ${HOME}/.tigrc
