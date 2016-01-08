@@ -98,8 +98,11 @@ ${BREWCMD} install reattach-to-user-namespace
 ${BREWCMD} install tig
 ln -s ${HOME}/dotfiles/.tigrc ${HOME}/.tigrc
 
-### tig ###
+### gibo ###
 ${BREWCMD} install gibo
+
+### heroku toolbelt ###
+${BREWCMD} install heroku-toolbelt
 
 ### ctags ###
 ${BREWCMD} install ctags
