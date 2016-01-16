@@ -98,6 +98,10 @@ alias gd='git diff --color'
 alias gst='git status -s -b'
 export GIT_EDITOR=vim
 
+# Docker Machine
+alias dm='docker-machine'
+alias dml='docker-machine ls'
+
 # Docker
 alias d='docker'
 alias dp='docker ps'
