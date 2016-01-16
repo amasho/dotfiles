@@ -56,6 +56,7 @@ ${BREWCMD} cask install charles
 ${BREWCMD} cask install sequel-pro
 ${BREWCMD} cask install macvim-kaoriya
 ${BREWCMD} cask install coccinellida
+${BREWCMD} cask install android-studio
 
 ### Silver Searcher ###
 ${BREWCMD} install ag
@@ -76,6 +77,7 @@ ${GITCMD} clone https://github.com/Lokaltog/vim-powerline.git
 fontforge -lang=py -script ./vim-powerline/fontpatcher/fontpatcher /usr/local/Cellar/ricty/3.2.4/share/fonts/Ricty*.ttf
 mv ./Ricty*.ttf ${HOME}/Library/Fonts
 fc-cache -fv
+rm -rf ./vim-powerline.git
 
 ### vim ###
 ${BREWCMD} install mercurial
