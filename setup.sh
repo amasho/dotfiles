@@ -54,7 +54,7 @@ ${BREWCMD} cask install slack
 ${BREWCMD} cask install gyazo
 ${BREWCMD} cask install charles
 ${BREWCMD} cask install sequel-pro
-${BREWCMD} cask install macvim-kaoriya
+${BREWCMD} cask install macvim
 ${BREWCMD} cask install coccinellida
 ${BREWCMD} cask install android-studio
 
