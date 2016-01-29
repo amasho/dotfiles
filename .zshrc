@@ -91,6 +91,7 @@ alias -s java=javac
 alias -s scala=scalac
 alias -s {c,cpp}=g++
 alias -s gradle=gradle
+alias -s py=python
 
 # Git
 alias g='git'
