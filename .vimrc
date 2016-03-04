@@ -228,7 +228,7 @@ NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'derekwyatt/vim-scala'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'leafgarland/typescript-vim'
-NeoBundle 'clausreinke/typescript-tools'
+NeoBundle 'clausreinke/typescript-tools.vim'
 NeoBundle 'claco/jasmine.vim'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'tmhedberg/matchit'
@@ -302,12 +302,12 @@ map <C-t> :<Backspace>
 "autocmd FileType java :setlocal completefunc=javacomplete#CompleteParamsInfo
 "autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 
-autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-"autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+au FileType ruby,eruby set omnifunc=rubycomplete#Complete
+au FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+au FileType ruby,eruby let g:rubycomplete_rails = 1
+au FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 
-autocmd BufRead,BufNewFile *.gradle set filetype=groovy
+au BufRead,BufNewFile *.gradle set filetype=groovy
 au BufRead,BufNewFile *.js set tags+=$HOME/js.tags
 au BufRead,BufNewFile *.coffee set tags+=$HOME/coffee.tags
 au BufRead,BufNewFile *.ts set tags+=$HOME/ts.tags
@@ -318,7 +318,7 @@ au BufRead,BufNewFile *.php,*.inc set tags+=$HOME/php.tags
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "バッファ切替と同時にディレクトリ移動
 "
-autocmd BufRead * execute ":lcd " . expand("%:p:h")
+au BufRead * execute ":lcd " . expand("%:p:h")
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PerlのSyntaxチェック
@@ -762,5 +762,4 @@ if has("mac")
   " markdownをMarked.appで開く
   autocmd FileType markdown :nnoremap <Leader>md :silent !open -a Marked.app '%:p'<Enter>:redraw!<Enter>
 endif
-
 
