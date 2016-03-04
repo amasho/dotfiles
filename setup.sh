@@ -44,6 +44,7 @@ ${BREWCMD} tap caskroom/versions
 ${BREWCMD} cask install google-japanese-ime
 ${BREWCMD} cask install google-chrome
 ${BREWCMD} cask install google-drive
+${BREWCMD} cask install firefox
 ${BREWCMD} cask install alfred
 ${BREWCMD} cask install karabiner
 ${BREWCMD} cask install virtualbox
