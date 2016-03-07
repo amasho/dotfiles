@@ -120,5 +120,14 @@ ${GITCMD} clone https://github.com/chriskempson/tomorrow-theme /tmp/tomorrow-the
 ls -l /tmp/tomorrow-theme/iTerm2
 echo "Import iTerm2 color scheme"
 
+### nodebrew ###
+curl -L git.io/nodebrew | perl - setup
+
 ### gvm ###
 /usr/local/bin/zsh < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+
+### rbenv ###
+${GITCMD} clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+
+### pyenv ###
+${GITCMD} clone https://github.com/yyuu/pyenv.git ${HOME}/.pyenv
