@@ -216,7 +216,6 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-rails'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'basyura/jslint.vim'
 NeoBundle 'basyura/unite-rails', {
   \ 'autoload' : {
   \   'filetypes': ['ruby', 'eruby', 'haml']
@@ -236,6 +235,7 @@ NeoBundle 'tmhedberg/matchit'
 NeoBundle 'rking/ag.vim'
 NeoBundle 'gregsexton/gitv'
 NeoBundle 'jiangmiao/auto-pairs'
+NeoBundle 'scrooloose/syntastic'
 
 NeoBundle 'vim-ruby/vim-ruby', {
   \  'autoload' : {
@@ -262,6 +262,9 @@ NeoBundle 'vcscommand.vim'
 NeoBundle 'ruby-matchit'
 NeoBundle 'itchyny/lightline.vim', {'type': 'nosync'}
 NeoBundle 'fatih/vim-go', {'autoload': {'filetypes': 'go'}}
+
+NeoBundleLazy 'nicklasos/vim-jsx-riot', {'autoload': {'filename_patterns': '.*\.tag'}}
+NeoBundleLazy 'elzr/vim-json', {'autoload': {'filename_patterns': '.*\.json'}}
 
 NeoBundleLazy 'toyamarinyon/vim-swift', {'autoload': {'filetypes': 'swift'}}
 NeoBundleLazy 'Keithbsmiley/swift.vim', {'autoload': {'filetypes': 'swift'}}
@@ -333,43 +336,6 @@ augroup perl_lint
   endfunction
   autocmd BufWritePost *.pl,*.pm call PerlLint()
 augroup END
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" PHPのSyntaxチェック
-"
-augroup php_lint
-  autocmd!
-  function! PHPLint()
-    let result = system( 'php' . ' -l ' . bufname(""))
-    if result !~ '^No.*' | echohl ErrorMsg | echomsg result | echohl None | endif
-  endfunction
-  autocmd BufWritePost *.php,*.inc call PHPLint()
-augroup END
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" RubyのSyntaxチェック
-"
-augroup ruby_lint
-  autocmd!
-  function! RubyLint()
-    let result = system( 'ruby' . ' -c ' . bufname(""))
-    if result !~ '^Syntax OK.*'
-      echohl ErrorMsg | echomsg result | echohl None
-    endif
-  endfunction
-  autocmd BufWritePost *.rb call RubyLint()
-augroup END
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" javascriptのSyntaxチェック
-" - jslint
-"
-function! s:javascript_filetype_settings()
-  autocmd BufLeave     <buffer> call jslint#clear()
-  autocmd BufWritePost <buffer> call jslint#check()
-  autocmd CursorMoved  <buffer> call jslint#message()
-endfunction
-autocmd FileType javascript call s:javascript_filetype_settings()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " neocomplcache.vimの設定
@@ -648,6 +614,8 @@ function! JasmineSetting()
 endfunction
 au BufRead,BufNewFile,BufReadPre *.coffee,*.js call JasmineSetting()
 au BufCreate *.ts :TSSstarthere
+
+au BufNewFile,BufRead *.tag setlocal ft=javascript
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-go.vim
