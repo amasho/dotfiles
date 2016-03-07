@@ -55,10 +55,10 @@ ${BREWCMD} cask install slack
 ${BREWCMD} cask install gyazo
 ${BREWCMD} cask install charles
 ${BREWCMD} cask install sequel-pro
-${BREWCMD} cask install macvim
 ${BREWCMD} cask install coccinellida
 ${BREWCMD} cask install android-studio
 ${BREWCMD} cask install coteditor
+${BREWCMD} cask install hyperswitch
 
 ### Silver Searcher ###
 ${BREWCMD} install ag
