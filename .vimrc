@@ -607,11 +607,32 @@ let g:lightline = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " syntastic
 "
-let g:syntastic_mode_map = { 'mode': 'active',
-  \ 'active_filetypes': [],
-  \ 'passive_filetypes': ['html'] }
-let g:syntastic_auto_loc_list = 1
-" let g:syntastic_javascript_checker = 'jshint'
+let g:syntastic_mode_map = { 'mode': 'passive',
+  \ 'active_filetypes': [
+  \   'javascript',
+  \   'coffee',
+  \   'typescript',
+  \   'scss',
+  \   'go',
+  \   'ruby',
+  \   'python',
+  \   'php',
+  \ ]}
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_coffee_checkers = ['coffeelint']
+let g:syntastic_typescript_checkers = ['eslint', 'tslint', 'tsc']
+let g:syntastic_scss_checkers = ['scss_lint']
+let g:syntastic_go_checkers = ['golint', 'gofmt', 'gotype']
+let g:syntastic_ruby_checkers = ['rubocop']
+let g:syntastic_python_checkers = ['pylint']
+let g:syntastic_php_checkers = ['phplint']
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+let g:syntastic_style_error_symbol = '✗'
+let g:syntastic_style_warning_symbol = '⚠'
+let g:syntastic_check_on_wq = 0
+hi SyntasticErrorSign ctermfg=160
+hi SyntasticWarningSign ctermfg=220"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " jasmine.vim
