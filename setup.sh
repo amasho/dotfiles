@@ -58,6 +58,7 @@ ${BREWCMD} cask install sequel-pro
 ${BREWCMD} cask install macvim
 ${BREWCMD} cask install coccinellida
 ${BREWCMD} cask install android-studio
+${BREWCMD} cask install coteditor
 
 ### Silver Searcher ###
 ${BREWCMD} install ag
