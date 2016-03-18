@@ -269,6 +269,8 @@ NeoBundleLazy 'elzr/vim-json', {'autoload': {'filename_patterns': '.*\.json'}}
 NeoBundleLazy 'toyamarinyon/vim-swift', {'autoload': {'filetypes': 'swift'}}
 NeoBundleLazy 'Keithbsmiley/swift.vim', {'autoload': {'filetypes': 'swift'}}
 
+NeoBundleLazy 'digitaltoad/vim-pug', {'autoload': {'filetypes': 'jade'}}
+
 call neobundle#end()
 
 filetype plugin indent on
