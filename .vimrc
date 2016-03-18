@@ -269,7 +269,7 @@ NeoBundleLazy 'elzr/vim-json', {'autoload': {'filename_patterns': '.*\.json'}}
 NeoBundleLazy 'toyamarinyon/vim-swift', {'autoload': {'filetypes': 'swift'}}
 NeoBundleLazy 'Keithbsmiley/swift.vim', {'autoload': {'filetypes': 'swift'}}
 
-NeoBundleLazy 'digitaltoad/vim-pug', {'autoload': {'filetypes': 'jade'}}
+NeoBundleLazy 'digitaltoad/vim-pug', {'autoload': {'filename_patterns': '.*\.jade'}}
 
 call neobundle#end()
 
