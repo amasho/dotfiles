@@ -157,7 +157,7 @@ augroup END
 
 "インデント周り
 set et ts=4 sw=4 sts=4
-autocmd FileType vim,html,xhtml,javascript,coffee,typescript,ruby,eruby,scala,lua setlocal et ts=2 sw=2 sts=2
+autocmd FileType vim,html,xhtml,javascript,coffee,typescript,css,sass,scss,pug,ruby,eruby,scala,lua setlocal et ts=2 sw=2 sts=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GUI用設定
