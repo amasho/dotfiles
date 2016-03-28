@@ -635,10 +635,10 @@ let g:go_fmt_command = "goimports"
 if has("mac")
   autocmd BufRead,BufNewFile *.swift set filetype=swift
   let g:quickrun_config['swift'] = {
-    \ 'command': 'xcrun',
-    \ 'cmdopt': 'swift',
-    \ 'exec': '%c %o %s',
-    \}}
+    \   'command': 'xcrun',
+    \   'cmdopt': 'swift',
+    \   'exec': '%c %o %s',
+    \ }
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 行末のハイライト
