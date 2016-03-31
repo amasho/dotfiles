@@ -270,6 +270,7 @@ NeoBundleLazy 'toyamarinyon/vim-swift', {'autoload': {'filetypes': 'swift'}}
 NeoBundleLazy 'Keithbsmiley/swift.vim', {'autoload': {'filetypes': 'swift'}}
 
 NeoBundleLazy 'digitaltoad/vim-pug', {'autoload': {'filename_patterns': '.*\.jade'}}
+NeoBundleLazy 'slim-template/vim-slim', {'autoload': {'filename_patterns': '.*\.slim'}}
 
 call neobundle#end()
 
