@@ -205,7 +205,7 @@ filetype off
 if &compatible
   set nocompatible
 endif
-set runtimepath+=$HOME/.vim/repos/github.com/Shougo/dein.vim
+set runtimepath+=$HOME/.vim/dein/repos/github.com/Shougo/dein.vim
 call dein#begin(expand('~/.vim/dein/'))
 call dein#add('Shougo/dein.vim')
 
