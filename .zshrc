@@ -198,6 +198,9 @@ fi
     alias nb='nodebrew'
 # fi
 
+# nvim
+export XDG_CONFIG_HOME=${HOME}/.config
+
 # MySQL Prompt
 export MYSQL_PS1="mysql[\d]# "
 

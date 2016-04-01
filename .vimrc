@@ -760,7 +760,7 @@ function! s:MyHighlight_Colors()
     hi MBENormal gui=none guifg=#626262 guibg=#252525
     hi MBEVisibleNormal gui=none guifg=#626262 guibg=#252525
     hi MBEVisibleActive gui=bold,underline guifg=#D7005F guibg=#252525
-  elseif &term =~ "xterm-256color"
+  elseif &term =~ "xterm-256color" || &term =~ "nvim"
     "256色
     set t_Co=256
     set t_Sf=[3%dm
