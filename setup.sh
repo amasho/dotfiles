@@ -85,12 +85,19 @@ rm -rf ./vim-powerline.git
 ${BREWCMD} install mercurial
 ${BREWCMD} install vim
 mkdir -p ${HOME}/.vim ${HOME}/.vim/dein ${HOME}/.vim/tmp/plugin ${HOME}/.vim/tmp/plugin/.unite
-# NeoBundle
+# dein.vim
 curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
 sh ./installer.sh ${HOME}/.vim/dein/ && rm -f installer.sh
 ln -s ${HOME}/dotfiles/.vimrc ${HOME}/.vimrc
 VIMCMD=`which vim`
 ${VIMCMD} -c "call dein#install()" -c exit
+
+### neovim ###
+${BREWCMD} tap neovim/neovim
+${BREWCMD} install neovim
+mkdir -p ${HOME}/.config/nvim
+ln -s ${HOME}/dotfiles/.vim ${HOME}/.config/nvim/
+ln -s ${HOME}/dotfiles/.vimrc ${HOME}/.config/nvim/init.vim
 
 ### tmux ###
 ${BREWCMD} install tmux
