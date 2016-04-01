@@ -199,64 +199,176 @@ augroup HighlightTrailingSpaces
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NeoBundle
+" dein.vim
 "
-set nocompatible
 filetype off
-set runtimepath+=$HOME/.vim/bundle/neobundle.vim
-call neobundle#begin(expand('~/.vim/bundle/'))
-NeoBundleFetch 'Shougo/neobundle.vim'
+if &compatible
+  set nocompatible
+endif
+set runtimepath+=$HOME/.vim/repos/github.com/Shougo/dein.vim
+call dein#begin(expand('~/.vim/dein/'))
+call dein#add('Shougo/dein.vim')
 
-NeoBundle 'Shougo/unite.vim'
+call dein#add('Shougo/unite.vim')
+call dein#add('Shougo/unite-session', {
+  \ 'lazy': 1,
+  \ 'autoload': {
+  \   'unite_sources': 'session',
+  \   'commands': ['UniteSessionSave', 'UniteSessionLoad']
+  \ }})
 
-NeoBundleLazy 'Shougo/unite-session', {'autoload': {'unite_sources': 'session', 'commands': ['UniteSessionSave', 'UniteSessionLoad']}}
-NeoBundle 'Shougo/vimshell'
-NeoBundle 'Shougo/vimfiler'
-NeoBundle 'Shougo/vimproc', {'build': {'mac': 'make -f make_mac.mak', 'unix': 'make -f make_unix.mak'}}
-NeoBundle 'Shougo/neomru.vim', {'depends': 'Shougo/unite.vim'}
-NeoBundle 'Shougo/neocomplcache.vim'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-endwise'
-NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'itchyny/lightline.vim', {'type': 'nosync'}
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'tomtom/tcomment_vim'
-NeoBundle 'tmhedberg/matchit'
-NeoBundle 'surround.vim'
-NeoBundle 'rking/ag.vim'
-NeoBundle 'jiangmiao/auto-pairs'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'nathanaelkane/vim-indent-guides'
+call dein#add('Shougo/vimshell')
+call dein#add('Shougo/vimfiler')
 
-NeoBundleLazy 'othree/html5.vim', {'autoload': {'filetypes': ['html']}}
-NeoBundleLazy 'hail2u/vim-css3-syntax', {'autoload': {'filetypes': ['css','sass','scss']}}
-NeoBundleLazy 'digitaltoad/vim-pug', {'autoload': {'filetypes': ['pug']}}
-NeoBundleLazy 'slim-template/vim-slim', {'autoload': {'filetypes': ['slim']}}
-NeoBundleLazy 'nicklasos/vim-jsx-riot', {'autoload': {'filename_patterns': '.*\.tag'}}
-NeoBundleLazy 'elzr/vim-json', {'autoload': {'filename_patterns': '.*\.json'}}
+call dein#add('Shougo/vimproc', {
+  \ 'build': {
+  \   'mac': 'make -f make_mac.mak',
+  \   'unix': 'make -f make_unix.mak'
+  \ }})
 
-NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload': {'filetypes': ['javascript']}}
-NeoBundleLazy 'othree/yajs.vim', {'autoload': {'filetypes': ['javascript']}}
+call dein#add('Shougo/neomru.vim', {'depends': 'Shougo/unite.vim'})
+call dein#add('Shougo/neocomplcache.vim')
+call dein#add('thinca/vim-quickrun')
+call dein#add('tpope/vim-fugitive')
+call dein#add('tpope/vim-endwise')
+call dein#add('Lokaltog/vim-easymotion')
+call dein#add('itchyny/lightline.vim')
+call dein#add('mattn/emmet-vim')
+call dein#add('tomtom/tcomment_vim')
+call dein#add('tmhedberg/matchit')
+call dein#add('surround.vim')
+call dein#add('rking/ag.vim')
+call dein#add('jiangmiao/auto-pairs')
+call dein#add('scrooloose/syntastic')
+call dein#add('nathanaelkane/vim-indent-guides')
 
-NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload': {'filename_patterns': '.*\.coffee'}}
-NeoBundleLazy 'leafgarland/typescript-vim', {'autoload': {'filename_patterns': '.*\.ts'}}
-NeoBundleLazy 'clausreinke/typescript-tools.vim', {'autoload': {'filename_patterns': '.*\.ts'}}
-NeoBundleLazy 'claco/jasmine.vim', {'autoload': {'filetypes': ['javascript']}}
+call dein#add('othree/html5.vim', {
+  \ 'lazy': 1,
+  \ 'autoload': {
+  \   'filetypes': ['html']
+  \ }})
 
-NeoBundleLazy 'basyura/unite-rails', {'autoload': {'filetypes': ['ruby', 'eruby', 'haml']}}
-NeoBundleLazy 'vim-ruby/vim-ruby', {'autoload': {'filetypes': ['ruby', 'eruby', 'haml']}}
-NeoBundleLazy 'skwp/vim-rspec', {'autoload': {'filetypes': ['ruby', 'eruby', 'haml']}}
-NeoBundleLazy 'ruby.vim', {'autoload': {'filetypes': ['ruby', 'eruby', 'haml']}}
-NeoBundleLazy 'rails.vim', {'autoload': {'filetypes': ['ruby', 'eruby', 'haml']}}
-NeoBundleLazy 'tpope/vim-rails', {'autoload': {'filetypes': ['ruby', 'eruby', 'haml']}}
+call dein#add('hail2u/vim-css3-syntax', {
+  \ 'lazy': 1,
+  \ 'autoload': {
+  \   'filetypes': ['css','sass','scss']
+  \ }})
 
-NeoBundleLazy 'fatih/vim-go', {'autoload': {'filetypes': 'go'}}
+call dein#add('digitaltoad/vim-pug', {
+  \ 'lazy': 1,
+  \ 'autoload': {
+  \   'filetypes': ['pug']
+  \ }})
 
-NeoBundleLazy 'toyamarinyon/vim-swift', {'autoload': {'filetypes': 'swift'}}
-NeoBundleLazy 'Keithbsmiley/swift.vim', {'autoload': {'filetypes': 'swift'}}
+call dein#add('slim-template/vim-slim', {
+  \ 'lazy': 1,
+  \ 'autoload': {
+  \   'filetypes': ['slim']
+  \ }})
 
-call neobundle#end()
+call dein#add('nicklasos/vim-jsx-riot', {
+  \ 'lazy': 1,
+  \ 'autoload': {
+  \   'filename_patterns': '.*\.tag'
+  \ }})
+
+call dein#add('elzr/vim-json', {
+  \ 'lazy': 1,
+  \ 'autoload': {
+  \   'filename_patterns': '.*\.json'
+  \ }})
+
+call dein#add('jelera/vim-javascript-syntax', {
+  \ 'lazy': 1,
+  \ 'autoload': {
+  \   'filetypes': ['javascript']
+  \ }})
+
+call dein#add('othree/yajs.vim', {
+  \ 'lazy': 1,
+  \ 'autoload': {
+  \   'filetypes': ['javascript']
+  \ }})
+
+call dein#add('kchmck/vim-coffee-script', {
+  \ 'lazy': 1,
+  \ 'autoload': {
+  \   'filename_patterns': '.*\.coffee'
+  \ }})
+
+call dein#add('leafgarland/typescript-vim', {
+  \ 'lazy': 1,
+  \ 'autoload': {
+  \   'filename_patterns': '.*\.ts'
+  \ }})
+
+call dein#add('clausreinke/typescript-tools.vim', {
+  \ 'lazy': 1,
+  \ 'autoload': {
+  \   'filename_patterns': '.*\.ts'
+  \ }})
+
+call dein#add('claco/jasmine.vim', {
+  \ 'lazy': 1,
+  \ 'autoload': {
+  \   'filetypes': ['javascript']
+  \ }})
+
+call dein#add('basyura/unite-rails', {
+  \ 'lazy': 1,
+  \ 'autoload': {
+  \   'filetypes': ['ruby', 'eruby', 'haml']
+  \ }})
+
+call dein#add('vim-ruby/vim-ruby', {
+  \ 'lazy': 1,
+  \ 'autoload': {
+  \   'filetypes': ['ruby', 'eruby', 'haml']
+  \ }})
+
+call dein#add('skwp/vim-rspec', {
+  \ 'lazy': 1,
+  \ 'autoload': {
+  \   'filetypes': ['ruby', 'eruby', 'haml']
+  \ }})
+
+call dein#add('ruby.vim', {
+  \ 'lazy': 1,
+  \ 'autoload': {
+  \   'filetypes': ['ruby', 'eruby', 'haml']
+  \ }})
+
+call dein#add('rails.vim', {
+  \ 'lazy': 1,
+  \ 'autoload': {
+  \   'filetypes': ['ruby', 'eruby', 'haml']
+  \ }})
+
+call dein#add('tpope/vim-rails', {
+  \ 'lazy': 1,
+  \ 'autoload': {
+  \   'filetypes': ['ruby', 'eruby', 'haml']
+  \ }})
+
+call dein#add('fatih/vim-go', {
+  \ 'lazy': 1,
+  \ 'autoload': {
+  \   'filetypes': 'go'
+  \ }})
+
+call dein#add('toyamarinyon/vim-swift', {
+  \ 'lazy': 1,
+  \ 'autoload': {
+  \   'filetypes': 'swift'
+  \ }})
+
+call dein#add('Keithbsmiley/swift.vim', {
+  \ 'lazy': 1,
+  \ 'autoload': {
+  \   'filetypes': 'swift'
+  \ }})
+
+call dein#end()
 
 filetype plugin indent on
 filetype indent on
@@ -278,18 +390,22 @@ map <C-t> :<Backspace>
 " lightline
 "
 let g:lightline = {
-    \   'colorscheme': 'Tomorrow_Night_Eighties',
-    \   'component': {
-    \       'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
-    \       'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}'
-    \   },
-    \   'component_visible_condition': {
-    \       'readonly': '(&filetype!="help"&& &readonly)',
-    \       'modified': '(&filetype!="help"&&(&modified||!&modifiable))'
-    \   },
-    \   'separator': { 'left': '⮀', 'right': '⮂' },
-    \   'subseparator': { 'left': '⮁', 'right': '⮃' }
-    \ }
+  \ 'colorscheme': 'Tomorrow_Night_Eighties',
+  \   'component': {
+  \     'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
+  \     'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}'
+  \   },
+  \   'component_visible_condition': {
+  \     'readonly': '(&filetype!="help"&& &readonly)',
+  \     'modified': '(&filetype!="help"&&(&modified||!&modifiable))'
+  \   },
+  \   'separator': {
+  \     'left': '⮀', 'right': '⮂'
+  \   },
+  \   'subseparator': {
+  \     'left': '⮁', 'right': '⮃'
+  \   }
+  \ }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Unite

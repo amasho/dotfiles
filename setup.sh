@@ -86,10 +86,11 @@ ${BREWCMD} install mercurial
 ${BREWCMD} install vim
 mkdir -p ${HOME}/.vim ${HOME}/.vim/bundle ${HOME}/.vim/tmp/plugin ${HOME}/.vim/tmp/plugin/.unite
 # NeoBundle
-${GITCMD} clone https://github.com/Shougo/neobundle.vim ${HOME}/.vim/bundle/neobundle.vim
+curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+sh ./installer.sh ${HOME}/.vim/.
 ln -s ${HOME}/dotfiles/.vimrc ${HOME}/.vimrc
 VIMCMD=`which vim`
-${VIMCMD} -c NeoBundleInstall -c exit
+${VIMCMD} -c "call dein#install()" -c exit
 
 ### tmux ###
 ${BREWCMD} install tmux
