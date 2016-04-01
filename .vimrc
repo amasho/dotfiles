@@ -263,9 +263,10 @@ NeoBundle 'ruby-matchit'
 NeoBundle 'itchyny/lightline.vim', {'type': 'nosync'}
 NeoBundle 'fatih/vim-go', {'autoload': {'filetypes': 'go'}}
 
-NeoBundle 'othree/yajs.vim'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'hail2u/vim-css3-syntax'
+
+NeoBundleLazy 'othree/yajs.vim', {'autoload': {'filetypes': ['javascript']}}
 
 NeoBundleLazy 'nicklasos/vim-jsx-riot', {'autoload': {'filename_patterns': '.*\.tag'}}
 NeoBundleLazy 'elzr/vim-json', {'autoload': {'filename_patterns': '.*\.json'}}
@@ -622,6 +623,7 @@ endfunction
 au BufRead,BufNewFile,BufReadPre *.coffee,*.js call JasmineSetting()
 au BufCreate *.ts :TSSstarthere
 
+au BufRead,BufNewFile *.es6 setfiletype javascript
 au BufNewFile,BufRead *.tag setlocal ft=javascript
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
