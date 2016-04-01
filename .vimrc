@@ -263,6 +263,10 @@ NeoBundle 'ruby-matchit'
 NeoBundle 'itchyny/lightline.vim', {'type': 'nosync'}
 NeoBundle 'fatih/vim-go', {'autoload': {'filetypes': 'go'}}
 
+NeoBundle 'othree/yajs.vim'
+NeoBundle 'othree/html5.vim'
+NeoBundle 'hail2u/vim-css3-syntax'
+
 NeoBundleLazy 'nicklasos/vim-jsx-riot', {'autoload': {'filename_patterns': '.*\.tag'}}
 NeoBundleLazy 'elzr/vim-json', {'autoload': {'filename_patterns': '.*\.json'}}
 
