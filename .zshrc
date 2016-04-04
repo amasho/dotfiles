@@ -200,7 +200,6 @@ fi
 
 # nvim
 export XDG_CONFIG_HOME=${HOME}/.config
-alias vim='nvim'
 
 # MySQL Prompt
 export MYSQL_PS1="mysql[\d]# "
