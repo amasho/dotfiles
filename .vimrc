@@ -5,6 +5,7 @@
 "
 "シンタックス・ハイライトをON
 syntax on
+syntax enable
 hi clear
 
 "leaderを変更
@@ -293,7 +294,7 @@ call dein#add('othree/yajs.vim', {
 call dein#add('kchmck/vim-coffee-script', {
   \ 'lazy': 1,
   \ 'autoload': {
-  \   'filename_patterns': '.*\.coffee'
+  \   'filetypes': ['coffee']
   \ }})
 
 call dein#add('leafgarland/typescript-vim', {
@@ -371,7 +372,6 @@ call dein#add('Keithbsmiley/swift.vim', {
 call dein#end()
 
 filetype plugin indent on
-filetype indent on
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " キーマップ
@@ -412,8 +412,8 @@ let g:lightline = {
 "
 " コンフィグ用ディレクトリ
 let g:unite_data_directory = expand($HOME.'/.vim/tmp/plugin/.unite')
-" 入力モードで開始しない
-let g:unite_enable_start_insert = 0
+" 入力モードで開始
+let g:unite_enable_start_insert = 1
 let g:unite_kind_openable_lcd_command = 1
 
 " 常用セット
