@@ -255,17 +255,8 @@ call dein#add('hail2u/vim-css3-syntax', {
   \   'filetypes': ['css','sass','scss']
   \ }})
 
-call dein#add('digitaltoad/vim-pug', {
-  \ 'lazy': 1,
-  \ 'autoload': {
-  \   'filetypes': ['pug']
-  \ }})
-
-call dein#add('slim-template/vim-slim', {
-  \ 'lazy': 1,
-  \ 'autoload': {
-  \   'filetypes': ['slim']
-  \ }})
+call dein#add('digitaltoad/vim-pug')
+call dein#add('slim-template/vim-slim')
 
 call dein#add('nicklasos/vim-jsx-riot', {
   \ 'lazy': 1,
