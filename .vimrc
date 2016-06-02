@@ -243,6 +243,8 @@ call dein#add('jiangmiao/auto-pairs')
 call dein#add('scrooloose/syntastic')
 call dein#add('nathanaelkane/vim-indent-guides')
 
+call dein#add('editorconfig/editorconfig-vim')
+
 call dein#add('othree/html5.vim', {
   \ 'lazy': 1,
   \ 'autoload': {
