@@ -163,10 +163,10 @@ autocmd FileType vim,html,xhtml,javascript,coffee,typescript,css,sass,scss,pug,r
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GUI用設定
 "
-if has('gui') || has('gui_macvim')
+if has('gui') || has('gui_macvim') || has('gui_vimr')
   set antialias
   set transparency=0
-  set guifont=Ricty-Regular:h13
+  set guifont=Ricty-Regular:h15
   set guioptions+=i
   set guioptions-=l
   set guioptions-=L
