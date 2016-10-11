@@ -9,6 +9,7 @@ syntax enable
 hi clear
 
 set synmaxcol=150
+set foldmethod=indent foldlevel=1 foldnestmax=2
 
 "leaderを変更
 let mapleader = ","
