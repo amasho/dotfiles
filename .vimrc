@@ -8,6 +8,8 @@ syntax on
 syntax enable
 hi clear
 
+set synmaxcol=150
+
 "leaderを変更
 let mapleader = ","
 
@@ -159,6 +161,7 @@ augroup END
 "インデント周り
 set et ts=4 sw=4 sts=4
 autocmd FileType vim,html,xhtml,javascript,coffee,typescript,css,sass,scss,pug,ruby,eruby,scala,lua setlocal et ts=2 sw=2 sts=2
+autocmd BufRead,BufNewFile *.ctp setlocal et ts=2 sw=2 sts=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GUI用設定
@@ -166,7 +169,7 @@ autocmd FileType vim,html,xhtml,javascript,coffee,typescript,css,sass,scss,pug,r
 if has('gui') || has('gui_macvim') || has('gui_vimr')
   set antialias
   set transparency=0
-  set guifont=Ricty-Regular:h15
+  set guifont=Ricty-Regular:h13
   set guioptions+=i
   set guioptions-=l
   set guioptions-=L
@@ -259,6 +262,11 @@ call dein#add('hail2u/vim-css3-syntax', {
 
 call dein#add('digitaltoad/vim-pug')
 call dein#add('slim-template/vim-slim')
+
+call dein#add('othree/yajs.vim')
+call dein#add('maxmellon/vim-jsx-pretty')
+call dein#add('othree/javascript-libraries-syntax.vim')
+call dein#add('othree/es.next.syntax.vim')
 
 call dein#add('nicklasos/vim-jsx-riot', {
   \ 'lazy': 1,
