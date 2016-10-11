@@ -794,6 +794,7 @@ function! s:MyHighlight_Colors()
     hi Macro cterm=bold ctermfg=14
     hi PreCondit cterm=bold ctermfg=21
     hi diffAdded ctermfg=21
+    hi Folded ctermfg=15 ctermbg=199
 
     hi VertSplit cterm=none ctermfg=0 ctermbg=239
     hi StatusLineNC cterm=none ctermfg=0 ctermbg=241
