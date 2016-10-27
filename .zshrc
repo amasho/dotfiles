@@ -73,13 +73,16 @@ alias l='ls -v'
 alias ls='ls -vF'
 alias ll='ls -l'
 alias la='ls -la'
-alias v='vim'
+alias v='nvim'
 alias e='emacs -nw'
 alias h='history'
 alias less='less -r'
 alias which='/usr/bin/which'
 alias ql='qlmanage -p'
 alias javac="javac -J-Dfile.encoding=UTF8"
+
+# Only Mac
+alias op='open .'
 
 # suffix
 alias -s js=node
@@ -208,5 +211,6 @@ export MYSQL_PS1="mysql[\d]# "
 export PATH=${PYENV_ROOT}/bin:${PERLBREW_ROOT}/bin:${PERLBREW_ROOT}/perls/perl-${CURRENT_PERL_VERSION}/bin:${RBENV_ROOT}/bin:${RBENV_ROOT}/shims
 export PATH=${PATH}:${GOROOT}/bin:${GOPATH}/bin:${NODEBREW_ROOT}/current/bin:/Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home/bin
 export PATH=${PATH}:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/share/pear/bin
+export PATH=${HOME}/.local/bin:${PATH}
 
 
