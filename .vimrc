@@ -9,7 +9,7 @@ syntax enable
 hi clear
 
 set synmaxcol=150
-set foldmethod=indent foldlevel=1 foldnestmax=2
+" set foldmethod=indent foldlevel=1 foldnestmax=2
 
 "leaderを変更
 let mapleader = ","
@@ -202,6 +202,11 @@ augroup HighlightTrailingSpaces
   autocmd VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=underline ctermbg=136
   autocmd InsertLeave * match TrailingSpaces /\s\+$/
 augroup END
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" python3設定
+"
+let g:python3_host_prog = expand($HOME . '/.pyenv/shims/python3')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " dein.vim
