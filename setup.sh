@@ -97,7 +97,7 @@ ${BREWCMD} tap neovim/neovim
 ${BREWCMD} install neovim
 mkdir -p ${HOME}/.config/nvim
 ln -s ${HOME}/dotfiles/.vim ${HOME}/.config/nvim/
-ln -s ${HOME}/dotfiles/.vimrc ${HOME}/.config/nvim/init.vim
+ln -s ${HOME}/dotfiles/.nvimrc ${HOME}/.config/nvim/init.vim
 
 ### tmux ###
 ${BREWCMD} install tmux
@@ -134,8 +134,11 @@ curl -L git.io/nodebrew | perl - setup
 ### gvm ###
 /usr/local/bin/zsh < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 
-### rbenv ###
-${GITCMD} clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+### rbenv & ruby-build ###
+${GITCMD} clone https://github.com/sstephenson/rbenv.git ${HOME}/.rbenv
+${GITCMD} clone https://github.com/sstephenson/ruby-build.git ${HOME}/.rbenv/plugins/ruby-build
 
 ### pyenv ###
 ${GITCMD} clone https://github.com/yyuu/pyenv.git ${HOME}/.pyenv
+${GITCMD} clone https://github.com/yyuu/pyenv-virtualenv.git ${HOME}/.pyenv/plugins/pyenv-virtualenv
+
