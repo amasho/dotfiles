@@ -73,7 +73,7 @@ alias l='ls -v'
 alias ls='ls -vF'
 alias ll='ls -l'
 alias la='ls -la'
-alias v='nvim'
+alias v='vim'
 alias e='emacs -nw'
 alias h='history'
 alias less='less -r'
@@ -180,6 +180,9 @@ if [[ -d ${HOME}/.pyenv ]]; then
     eval "$(${PYENV_ROOT}/bin/pyenv init -)"
 fi
 
+# pyenv-virtualenv
+eval "$(${PYENV_ROOT}/bin/pyenv virtualenv-init -)"
+
 #rbenv
 if [[ -d ${HOME}/.rbenv ]]; then
     export RBENV_ROOT=${HOME}/.rbenv
@@ -208,7 +211,7 @@ export XDG_CONFIG_HOME=${HOME}/.config
 export MYSQL_PS1="mysql[\d]# "
 
 # PATH
-export PATH=${PYENV_ROOT}/bin:${PERLBREW_ROOT}/bin:${PERLBREW_ROOT}/perls/perl-${CURRENT_PERL_VERSION}/bin:${RBENV_ROOT}/bin:${RBENV_ROOT}/shims
+export PATH=${PYENV_ROOT}/bin:${PERLBREW_ROOT}/bin:${PERLBREW_ROOT}/perls/perl-${CURRENT_PERL_VERSION}/bin:${RBENV_ROOT}/bin:${RBENV_ROOT}/shims:${PYENV_ROOT}/shims
 export PATH=${PATH}:${GOROOT}/bin:${GOPATH}/bin:${NODEBREW_ROOT}/current/bin:/Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home/bin
 export PATH=${PATH}:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/share/pear/bin
 export PATH=${HOME}/.local/bin:${PATH}
