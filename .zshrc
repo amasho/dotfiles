@@ -68,12 +68,20 @@ HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
 
+if [ -f ~/.gnupg/.gpg-agent-info ] && [ -n "$(pgrep gpg-agent)" ]; then
+  source ~/.gnupg/.gpg-agent-info
+  export GPG_AGENT_INFO
+else
+  eval $(gpg-agent --daemon --write-env-file ~/.gnupg/.gpg-agent-info)
+fi
+
 # Aliases
 alias l='ls -v'
 alias ls='ls -vF'
 alias ll='ls -l'
 alias la='ls -la'
-alias v='vim'
+alias v='nvim'
+alias vi='nvim'
 alias e='emacs -nw'
 alias h='history'
 alias less='less -r'
