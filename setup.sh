@@ -86,8 +86,8 @@ ${BREWCMD} install mercurial
 ${BREWCMD} install vim
 mkdir -p ${HOME}/.vim ${HOME}/.vim/dein ${HOME}/.vim/tmp/plugin ${HOME}/.vim/tmp/plugin/.unite
 # dein.vim
-curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
-sh ./installer.sh ${HOME}/.vim/dein/ && rm -f installer.sh
+curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > install.sh
+sh ./install.sh ${HOME}/.vim/dein/ && rm -f install.sh
 ln -s ${HOME}/dotfiles/.vimrc ${HOME}/.vimrc
 VIMCMD=`which vim`
 ${VIMCMD} -c "call dein#install()" -c exit
