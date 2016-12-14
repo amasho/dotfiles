@@ -273,10 +273,13 @@ let g:lightline = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Denite
 "
-nnoremap <silent> <C-l> <ESC>:<C-u>Denite -auto-preview -mode=normal file_mru<Enter>
-nnoremap <silent> F <ESC>:<C-u>Denite -auto-preview -mode=normal file_rec<Enter>
-nnoremap <silent> B :<C-u>Denite -mode=normal buffer<Enter>
-nnoremap <silent> <C-d> :<C-u>Denite -mode=normal directory_rec<Enter>
+call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+call denite#custom#var('grep', 'command', ['ag'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'default_opts', ['--follow', '--no-group', '--no-color'])
+nnoremap <silent> <C-l> <ESC>:<C-u>Denite -mode=insert file_mru<Enter>
+nnoremap <silent> <C-d> :<C-u>Denite -mode=insert file_rec<Enter>
+nnoremap <silent> B :<C-u>Denite -mode=insert buffer<Enter>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VimShell
