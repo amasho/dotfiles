@@ -17,6 +17,9 @@ export LESSCHARSET=UTF-8
 export JLESSCHARSET=japanese
 export LC_ALL=ja_JP.UTF-8
 
+# Word
+export WORDCHARS='*?_.[]~-=&;!#$%^(){}<>'
+
 # Completion
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # Ignore case
 zstyle ':completion:*:default' menu select=2

@@ -164,6 +164,14 @@ set et ts=4 sw=4 sts=4
 autocmd FileType vim,html,xhtml,javascript,coffee,typescript,css,sass,scss,pug,ruby,eruby,scala,lua setlocal et ts=2 sw=2 sts=2
 autocmd BufRead,BufNewFile *.ctp setlocal et ts=2 sw=2 sts=2
 
+inoremap { {}<Left>
+inoremap {<Enter> {}<Left><CR><ESC><S-o>
+inoremap ( ()<ESC>
+inoremap (<Enter> ()<Left><CR><ESC><S-o>))}}
+
+" terminal
+tnoremap <silent> <C-[> <C-\><C-n>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GUI用設定
 "
