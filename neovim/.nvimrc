@@ -1,4 +1,4 @@
-" .nvimrc
+
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Misc
@@ -8,7 +8,7 @@ syntax on
 syntax enable
 hi clear
 
-set synmaxcol=150
+set synmaxcol=300
 " set foldmethod=indent foldlevel=1 foldnestmax=2
 
 "leaderを変更
@@ -281,13 +281,15 @@ let g:lightline = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Denite
 "
-call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nogroup', '-g', ''])
 call denite#custom#var('grep', 'command', ['ag'])
 call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'default_opts', ['--follow', '--no-group', '--no-color'])
-nnoremap <silent> <C-l> <ESC>:<C-u>Denite -mode=insert file_mru<Enter>
-nnoremap <silent> <C-d> :<C-u>Denite -mode=insert file_rec<Enter>
-nnoremap <silent> B :<C-u>Denite -mode=insert buffer<Enter>
+
+nnoremap <silent> <C-k><C-b> :<C-u>Denite buffer<CR>
+nnoremap <silent> <C-k><C-d> :<C-u>Denite file_rec<CR>
+nnoremap <silent> <C-k><C-g> :<C-u>Denite grep<CR>
+nnoremap <silent> <C-k><C-l> :<C-u>Denite file_mru<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VimShell
