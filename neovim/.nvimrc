@@ -127,9 +127,6 @@ set laststatus=2
 "Ctrl-X + Ctrl-Uでsyntax補完、Ctrl-X + Ctrl-OでOmni補完
 set completefunc=syntaxcomplete#Complete
 
-"タグファイル
-set tags=$HOME/.tags
-
 "コマンド実行中は再描画しない
 set lazyredraw
 
@@ -253,6 +250,8 @@ vmap <silent> <Leader>y "*y
 nmap <C-j> <C-^>
 " ESC 2回でハイライト消去
 nmap <silent> <ESC><ESC> :<C-u>nohlsearch<Enter>
+" :wする
+nmap <silent> <SPACE><SPACE> :<C-u>w<Enter>
 
 " :poをre-asignするためにC-tを潰す
 map <C-t> :<Backspace>
@@ -279,6 +278,11 @@ let g:lightline = {
   \ }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" UltiSnips
+"
+let g:UltiSnipsExpandTrigger="<C-s>"
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Denite
 "
 call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nogroup', '-g', ''])
@@ -289,6 +293,7 @@ call denite#custom#var('grep', 'default_opts', ['--follow', '--no-group', '--no-
 nnoremap <silent> <C-k><C-b> :<C-u>Denite buffer<CR>
 nnoremap <silent> <C-k><C-d> :<C-u>Denite file_rec<CR>
 nnoremap <silent> <C-k><C-g> :<C-u>Denite grep<CR>
+nnoremap <silent> <C-k><C-k> :<C-u>Denite ghq<CR>
 nnoremap <silent> <C-k><C-l> :<C-u>Denite file_mru<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

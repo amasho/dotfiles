@@ -21,6 +21,9 @@ repo = 'Shougo/vimproc'
 build = 'make'
 
 [[plugins]]
+repo = 'Jagua/vim-denite-ghq'
+
+[[plugins]]
 repo = 'thinca/vim-quickrun'
 
 [[plugins]]
@@ -166,4 +169,18 @@ on_ft = ['swift']
 [[plugins]]
 repo = 'Keithbsmiley/swift.vim'
 on_ft = ['swift']
+
+[[plugins]]
+repo = 'epilande/vim-es2015-snippets'
+on_i = 1
+on_ft = ['javascript']
+
+[[plugins]]
+repo = 'epilande/vim-react-snippets'
+on_i = 1
+on_ft = ['javascript']
+
+[[plugins]]
+repo = 'SirVer/ultisnips'
+on_i = 1
 
