@@ -1,4 +1,4 @@
-
+" .nvimrc
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Misc
@@ -7,6 +7,8 @@
 syntax on
 syntax enable
 hi clear
+
+color dracula
 
 set synmaxcol=300
 " set foldmethod=indent foldlevel=1 foldnestmax=2
@@ -167,7 +169,7 @@ inoremap ( ()<ESC>
 inoremap (<Enter> ()<Left><CR><ESC><S-o>))}}
 
 " terminal
-tnoremap <silent> <C-[> <C-\><C-n>
+noremap <silent> <C-[> <C-\><C-n>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GUI用設定
@@ -175,7 +177,7 @@ tnoremap <silent> <C-[> <C-\><C-n>
 if has('gui') || has('gui_macvim') || has('gui_vimr')
   set antialias
   set transparency=0
-  set guifont=Ricty-Regular:h13
+  set guifont=Ricty-Regular:h14
   set guioptions+=i
   set guioptions-=l
   set guioptions-=L
@@ -188,7 +190,6 @@ if has('gui') || has('gui_macvim') || has('gui_vimr')
 
   augroup focus_group
     autocmd!
-    autocmd FocusGained * call <SID>MyHighlight_Colors()
     autocmd FocusGained * set transparency=0
     autocmd FocusLost * set transparency=50
   augroup END
@@ -228,7 +229,8 @@ if !isdirectory(s:dein_repo_dir)
   call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
 endif
 let &runtimepath = s:dein_repo_dir . ',' . &runtimepath
-let s:toml_file = fnamemodify(expand('<sfile>'), ':h') . '/dein.toml'
+" let s:toml_file = fnamemodify(expand('<sfile>'), ':h') . '/dein.toml'
+let s:toml_file = '~/.config/nvim/dein.toml'
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir, [$MYVIMRC, s:toml_file])
   call dein#load_toml(s:toml_file)
@@ -283,6 +285,11 @@ let g:lightline = {
 let g:UltiSnipsExpandTrigger="<C-s>"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vaffle
+"
+nmap <silent> <Leader>v :<C-u>Vaffle .<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Denite
 "
 call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nogroup', '-g', ''])
@@ -300,7 +307,7 @@ nnoremap <silent> <C-k><C-l> :<C-u>Denite file_mru<CR>
 " VimShell
 "
 let g:vimshell_popup_command = "split"
-let g:vimshell_popup_height = 15
+let g:vimshell_popup_height = 10
 let g:vimshell_environment_term = "xterm-256color"
 let g:vimshell_editor_command = '/Applications/MacVim/MacVim.app/Contents/MacOS/Vim --servername=VIM --remote-tab-wait-silent'
 let g:vimshell_prompt = '$ '
@@ -381,6 +388,7 @@ nmap <silent><Leader>ig <Plug>IndentGuidesToggle
 "
 nnoremap <Leader>gs :<C-u>Gstatus<Enter>
 nnoremap <Leader>gl :<C-u>Glog<Enter>
+nnoremap <Leader>gd :<C-u>Gdiff<Enter>
 nnoremap <Leader>ga :<C-u>Gwrite<Enter>
 nnoremap <Leader>gc :<C-u>Gcommit<Enter>
 nnoremap <Leader>gC :<C-u>Git commit --amend<Enter>
@@ -399,7 +407,6 @@ let g:syntastic_mode_map = { 'mode': 'passive',
   \   'python',
   \   'php',
   \ ]}
-let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_coffee_checkers = ['coffeelint']
 let g:syntastic_typescript_checkers = ['eslint', 'tslint', 'tsc']
 let g:syntastic_scss_checkers = ['scss_lint']
@@ -414,6 +421,20 @@ let g:syntastic_style_warning_symbol = '⚠'
 let g:syntastic_check_on_wq = 0
 hi SyntasticErrorSign ctermfg=160
 hi SyntasticWarningSign ctermfg=220"
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" neomake
+"
+autocmd! BufWritePost * Neomake
+
+let g:neomake_error_sign = { 'text': '>>' }
+let g:neomake_warning_sign = { 'text': '>>' }
+
+let g:neomake_javascript_enabled_makers = [ 'eslint' ]
+let g:neomake_css_enabled_makers = [ 'stylelint' ]
+let g:neomake_scss_enabled_makers = [ 'stylelint-scss' ]
+let g:neomake_ruby_enabled_makers = [ 'rubocop' ]
+let g:neomake_php_enabled_makers = [ 'phplint' ]
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-coffee-script
@@ -491,89 +512,4 @@ augroup perl_lint
   endfunction
   autocmd BufWritePost *.pl,*.pm call PerlLint()
 augroup END
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 色の設定
-"
-autocmd VimEnter,GUIEnter * nested call <SID>MyHighlight_Colors()
-function! s:MyHighlight_Colors()
-
-  hi clear CursorLine
-
-  if has('gui') || has('gui_macvim')
-    "GUI用設定
-    hi Normal guifg=#FFFFFF guibg=#252525
-    hi NonText guifg=#FFFFFF guibg=#252525
-    hi Directory gui=bold guifg=#FF5FD7
-    hi Cursor guifg=#FFFFFF guibg=#00FFFF
-    hi CursorIM guifg=#000000 guibg=#FF5FD7
-    hi CursorLine gui=none
-    hi Comment guifg=#87FF87
-    hi String guifg=#FF0087
-    hi Constant guifg=#FFFFFF guibg=#252525
-    hi Keyword guifg=#FF5F00
-    hi Statement gui=bold guifg=#D7AF87
-    hi Identifier guifg=#FFD787
-    hi Visual guibg=#AF8700
-    hi Special guifg=#FFFFFF guibg=#252525
-    hi Search gui=bold guifg=#000000 guibg=#FF87AF
-    hi LineNr gui=none guifg=#626262 guibg=#252525
-    hi CursorLineNr gui=bold guifg=#D7005F guibg=#252525
-    hi Pmenu gui=none guifg=#FFFFFF guibg=#FF00D7
-    hi PmenuSel gui=bold guifg=#FFFFFF guibg=#FF00D7
-    hi Include gui=bold guifg=#FF0000
-    hi Define gui=bold guifg=Cyan
-    hi Macro gui=bold guifg=Cyan
-    hi PreCondit gui=bold guifg=#0000FF
-    hi diffAdded guifg=#000000  guibg=#0000FF
-    hi ColorColumn guibg=#252525
-
-    hi VertSplit gui=none guifg=#000000 guibg=#626262
-    hi StatusLineNC gui=none guifg=#000000 guibg=#626262
-    hi MBENormal gui=none guifg=#626262 guibg=#252525
-    hi MBEVisibleNormal gui=none guifg=#626262 guibg=#252525
-    hi MBEVisibleActive gui=bold,underline guifg=#D7005F guibg=#252525
-  elseif &term =~ "xterm-256color" || &term =~ "nvim"
-    "256色
-    set t_Co=256
-    set t_Sf=[3%dm
-    set t_Sb=[4%dm
-
-    hi Normal ctermfg=255
-    hi NonText ctermfg=255
-    hi Directory cterm=bold ctermfg=206
-    hi Cursor ctermfg=255 ctermbg=255
-    hi CursorIM ctermfg=0 ctermbg=206
-    hi CursorLine cterm=none
-    hi Comment ctermfg=120
-    hi String ctermfg=198
-    hi Constant ctermfg=6
-    hi Keyword ctermfg=202
-    hi Statement cterm=bold ctermfg=180
-    hi Identifier ctermfg=222
-    hi Visual cterm=bold ctermbg=136
-    hi Special ctermfg=255
-    hi Search cterm=none ctermfg=88 ctermbg=211
-    hi StatusLine cterm=bold ctermfg=255 ctermbg=21
-    hi LineNr cterm=none ctermfg=241
-    hi CursorLineNr cterm=bold ctermfg=161
-    hi Pmenu cterm=none ctermfg=255 ctermbg=238
-    hi PmenuSel cterm=none ctermfg=190 ctermbg=32
-    hi PmenuSbar cterm=bold ctermfg=255 ctermbg=28
-    hi Include cterm=bold ctermfg=9
-    hi Define cterm=bold ctermfg=14
-    hi Macro cterm=bold ctermfg=14
-    hi PreCondit cterm=bold ctermfg=21
-    hi diffAdded ctermfg=21
-    hi Folded ctermfg=15 ctermbg=199
-
-    hi VertSplit cterm=none ctermfg=0 ctermbg=239
-    hi StatusLineNC cterm=none ctermfg=0 ctermbg=241
-    hi MBENormal cterm=none ctermfg=241 ctermbg=0
-    hi MBEVisibleNormal cterm=none ctermfg=241 ctermbg=0
-    hi MBEVisibleActive cterm=bold,underline ctermfg=161 ctermbg=0
-  else
-    syntax off
-  endif
-endfunction
 
