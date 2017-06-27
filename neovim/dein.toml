@@ -1,4 +1,7 @@
 [[plugins]]
+repo = 'dracula/vim'
+
+[[plugins]]
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
@@ -11,20 +14,17 @@ repo = 'Shougo/deoplete.nvim'
 repo = 'Shougo/neomru.vim'
 
 [[plugins]]
-repo = 'Shougo/vimshell'
-
-[[plugins]]
-repo = 'Shougo/vimfiler'
-
-[[plugins]]
 repo = 'Shougo/vimproc'
 build = 'make'
 
 [[plugins]]
-repo = 'Jagua/vim-denite-ghq'
+repo = 'Shougo/vimshell'
 
 [[plugins]]
-repo = 'thinca/vim-quickrun'
+repo = 'cocopon/vaffle.vim'
+
+[[plugins]]
+repo = 'Jagua/vim-denite-ghq'
 
 [[plugins]]
 repo = 'tpope/vim-fugitive'
@@ -48,9 +48,6 @@ repo = 'tomtom/tcomment_vim'
 repo = 'tmhedberg/matchit'
 
 [[plugins]]
-repo = 'surround.vim'
-
-[[plugins]]
 repo = 'rking/ag.vim'
 
 [[plugins]]
@@ -58,6 +55,13 @@ repo = 'jiangmiao/auto-pairs'
 
 [[plugins]]
 repo = 'scrooloose/syntastic'
+
+[[plugins]]
+repo = 'neomake/neomake'
+
+[[plugins]]
+repo = 'benjie/neomake-local-eslint.vim'
+on_ft = ['javascript']
 
 [[plugins]]
 repo = 'cespare/vim-toml'
@@ -123,10 +127,6 @@ repo = 'jelera/vim-javascript-syntax'
 on_ft = ['javascript']
 
 [[plugins]]
-repo = 'kchmck/vim-coffee-script'
-on_ft = ['coffee']
-
-[[plugins]]
 repo = 'leafgarland/typescript-vim'
 on_ft = ['typescript']
 
@@ -147,28 +147,12 @@ repo = 'skwp/vim-rspec'
 on_ft = ['ruby', 'eruby', 'haml']
 
 [[plugins]]
-repo = 'ruby.vim'
-on_ft = ['ruby', 'eruby', 'haml']
-
-[[plugins]]
-repo = 'rails.vim'
-on_ft = ['ruby', 'eruby', 'haml']
-
-[[plugins]]
 repo = 'tpope/vim-rails'
 on_ft = ['ruby', 'eruby', 'haml']
 
 [[plugins]]
 repo = 'fatih/vim-go'
 on_ft = ['go']
-
-[[plugins]]
-repo = 'toyamarinyon/vim-swift'
-on_ft = ['swift']
-
-[[plugins]]
-repo = 'Keithbsmiley/swift.vim'
-on_ft = ['swift']
 
 [[plugins]]
 repo = 'epilande/vim-es2015-snippets'
@@ -183,4 +167,19 @@ on_ft = ['javascript']
 [[plugins]]
 repo = 'SirVer/ultisnips'
 on_i = 1
+
+[[plugins]]
+repo = 'editorconfig/editorconfig-vim'
+
+[[plugins]]
+repo = 'stephenway/postcss.vim'
+on_ft = ['css']
+
+[[plugins]]
+repo = 'elixir-lang/vim-elixir'
+on_ft = ['elixir']
+
+[[plugins]]
+repo = 'flowtype/vim-flow'
+on_ft = ['javascript']
 
