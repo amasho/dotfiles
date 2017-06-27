@@ -8,8 +8,6 @@ syntax on
 syntax enable
 hi clear
 
-color dracula
-
 set synmaxcol=300
 " set foldmethod=indent foldlevel=1 foldnestmax=2
 
@@ -512,4 +510,9 @@ augroup perl_lint
   endfunction
   autocmd BufWritePost *.pl,*.pm call PerlLint()
 augroup END
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable dracula theme
+"
+color dracula
 
