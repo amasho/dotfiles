@@ -119,8 +119,9 @@ ${BREWCMD} install gibo
 ### heroku toolbelt ###
 ${BREWCMD} install heroku-toolbelt
 
-### ctags ###
-${BREWCMD} install ctags
+### universal-ctags ###
+${BREWCMD} tap universal-ctags/universal-ctags
+${BREWCMD} install universal-ctags
 ln -s ${HOME}/dotfiles/.ctags ${HOME}/.ctags
 
 ### Tomorrow Theme ###
