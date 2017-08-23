@@ -18,10 +18,8 @@ repo = 'Shougo/vimproc'
 build = 'make'
 
 [[plugins]]
-repo = 'Shougo/vimshell'
-
-[[plugins]]
 repo = 'cocopon/vaffle.vim'
+# repo = 'scrooloose/nerdtree'
 
 [[plugins]]
 repo = 'Jagua/vim-denite-ghq'
@@ -46,9 +44,6 @@ repo = 'tomtom/tcomment_vim'
 
 [[plugins]]
 repo = 'tmhedberg/matchit'
-
-[[plugins]]
-repo = 'rking/ag.vim'
 
 [[plugins]]
 repo = 'jiangmiao/auto-pairs'
@@ -114,11 +109,6 @@ repo = 'othree/es.next.syntax.vim'
 on_i = 1
 
 [[plugins]]
-repo = 'nicklasos/vim-jsx-riot'
-on_i = 1
-on_ft = ['tag']
-
-[[plugins]]
 repo = 'elzr/vim-json'
 on_ft = 'json'
 
@@ -176,10 +166,11 @@ repo = 'stephenway/postcss.vim'
 on_ft = ['css']
 
 [[plugins]]
-repo = 'elixir-lang/vim-elixir'
-on_ft = ['elixir']
-
-[[plugins]]
 repo = 'flowtype/vim-flow'
 on_ft = ['javascript']
 
+[[plugins]]
+repo = 'dag/vim-fish'
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'

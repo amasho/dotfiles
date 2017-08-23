@@ -29,6 +29,7 @@ bind generic <Ctrl-F> move-page-down
 bind generic <Ctrl-B> move-page-up
 bind generic H view-help
 bind generic b view-refs
+# bind generic C @bash -c "echo -n '%(commit)' | pbcopy"
 
 bind diff l scroll-right
 bind diff h scroll-left

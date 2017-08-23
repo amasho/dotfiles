@@ -39,7 +39,7 @@ set wrapscan
 "日本語対応
 "set encoding=japan
 
-"let twitvim_count = 100TERMの文字コード
+"TERMの文字コード
 set termencoding=utf-8
 
 "デフォルト文字コード
@@ -97,7 +97,7 @@ set nolist
 set showtabline=1
 
 "クリップボード連携
-"set clipboard=unnamed
+set clipboard=unnamed
 if has('gui') | set clipboard= | endif
 
 "ポップアップメニューをよしなに
@@ -172,25 +172,8 @@ noremap <silent> <C-[> <C-\><C-n>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GUI用設定
 "
-if has('gui') || has('gui_macvim') || has('gui_vimr')
-  set antialias
-  set transparency=0
-  set guifont=Ricty-Regular:h14
-  set guioptions+=i
-  set guioptions-=l
-  set guioptions-=L
-  set guioptions-=r
-  set guioptions-=R
-  set guioptions-=T
-
-  nnoremap <C-f> <C-d>
-  nnoremap <C-b> <C-u>
-
-  augroup focus_group
-    autocmd!
-    autocmd FocusGained * set transparency=0
-    autocmd FocusLost * set transparency=50
-  augroup END
+let g:Guifont="Roboto Mono for Powerline:h20"
+if has('gui') || has('gui_macvim') || has('gui_vimr') || has('gui_running')
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -257,6 +240,14 @@ nmap <silent> <SPACE><SPACE> :<C-u>w<Enter>
 map <C-t> :<Backspace>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Twitvim
+"
+let twitvim_browser_cmd = 'open'
+let twitvim_enable_python = 1
+" let twitvim_force_ssl = 1
+let twitvim_count = 40
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " lightline
 "
 let g:lightline = {
@@ -286,49 +277,35 @@ let g:UltiSnipsExpandTrigger="<C-s>"
 " Vaffle
 "
 nmap <silent> <Leader>v :<C-u>Vaffle .<CR>
+autocmd StdinReadPre * let s:std_in=1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Denite
 "
-call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nogroup', '-g', ''])
-call denite#custom#var('grep', 'command', ['ag'])
-call denite#custom#var('grep', 'recursive_opts', [])
-call denite#custom#var('grep', 'default_opts', ['--follow', '--no-group', '--no-color'])
+call denite#custom#option('default', 'prompt', '>')
 
-nnoremap <silent> <C-k><C-b> :<C-u>Denite buffer<CR>
-nnoremap <silent> <C-k><C-d> :<C-u>Denite file_rec<CR>
-nnoremap <silent> <C-k><C-g> :<C-u>Denite grep<CR>
-nnoremap <silent> <C-k><C-k> :<C-u>Denite ghq<CR>
-nnoremap <silent> <C-k><C-l> :<C-u>Denite file_mru<CR>
+call denite#custom#map('insert', "<C-j>", '<denite:move_to_next_line>')
+call denite#custom#map('insert', "<C-k>", '<denite:move_to_previous_line>')
+call denite#custom#map('insert', "<C-v>", '<denite:do_action:vsplit>')
+
+call denite#custom#var('file_rec', 'command', ['rg', '--files', '--glob', '!.git'])
+call denite#custom#var('grep', 'command', ['rg'])
+call denite#custom#var('grep', 'recursive_opts', [])
+
+call denite#custom#source('file_rec', 'matchers', ['matcher_fuzzy','matcher_ignore_globs'])
+
+nnoremap <silent> <C-k><C-b> :<C-u>Denite buffer -highlight-mode-insert=WildMenu<CR>
+nnoremap <silent> <C-k><C-p> :<C-u>Denite file_rec -highlight-mode-insert=IncSearch<CR>
+nnoremap <silent> <C-k><C-g> :<C-u>Denite grep -highlight-mode-insert=DiffAdd<CR>
+nnoremap <silent> <C-k><C-k> :<C-u>Denite ghq -highlight-mode-insert=Todo<CR>
+nnoremap <silent> <C-k><C-l> :<C-u>Denite file_mru -highlight-mode-insert=Search<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" VimShell
+" denite-gtags
 "
-let g:vimshell_popup_command = "split"
-let g:vimshell_popup_height = 10
-let g:vimshell_environment_term = "xterm-256color"
-let g:vimshell_editor_command = '/Applications/MacVim/MacVim.app/Contents/MacOS/Vim --servername=VIM --remote-tab-wait-silent'
-let g:vimshell_prompt = '$ '
-autocmd FileType vimshell
-\  call vimshell#altercmd#define('la', 'ls -la')
-\| call vimshell#altercmd#define('g', 'git')
-\| call vimshell#altercmd#define('gd', 'git diff ')
-\| call vimshell#altercmd#define('gst', 'git status -s -b')
-nnoremap <silent> ,sv :VimShellPop<Enter>
-
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
-let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+nnoremap <reader>d :<C-u>DeniteCursorWord -buffer-name=gtags_def gtags_def<CR>
+nnoremap <reader>r :<C-u>DeniteCursorWord -buffer-name=gtags_ref gtags_ref<CR>
+nnoremap <reader>c :<C-u>DeniteCursorWord -buffer-name=gtags_context gtags_context<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-quickrun
@@ -516,3 +493,8 @@ augroup END
 "
 color dracula
 
+" neovim terminal mapping
+if has('nvim')
+	" 新しいタブでターミナルを起動
+	nnoremap <silent> @t :new<CR>:resize 15<CR>:terminal<CR>
+endif
