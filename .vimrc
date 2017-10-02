@@ -1,14 +1,13 @@
 " .vimrc
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Misc
-"
+" Misc "
 "シンタックス・ハイライトをON
 syntax on
 syntax enable
 hi clear
 
-set synmaxcol=150
+set synmaxcol=300
 " set foldmethod=indent foldlevel=1 foldnestmax=2
 
 "leaderを変更
@@ -127,9 +126,6 @@ set laststatus=2
 "Ctrl-X + Ctrl-Uでsyntax補完、Ctrl-X + Ctrl-OでOmni補完
 set completefunc=syntaxcomplete#Complete
 
-"タグファイル
-set tags=$HOME/.tags
-
 "コマンド実行中は再描画しない
 set lazyredraw
 
@@ -164,13 +160,21 @@ set et ts=4 sw=4 sts=4
 autocmd FileType vim,html,xhtml,javascript,coffee,typescript,css,sass,scss,pug,ruby,eruby,scala,lua setlocal et ts=2 sw=2 sts=2
 autocmd BufRead,BufNewFile *.ctp setlocal et ts=2 sw=2 sts=2
 
+inoremap { {}<Left>
+inoremap {<Enter> {}<Left><CR><ESC><S-o>
+inoremap ( ()<ESC>
+inoremap (<Enter> ()<Left><CR><ESC><S-o>))}}
+
+" terminal
+noremap <silent> <C-[> <C-\><C-n>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GUI用設定
 "
 if has('gui') || has('gui_macvim') || has('gui_vimr')
   set antialias
   set transparency=0
-  set guifont=Ricty-Regular:h13
+  set guifont=Ricty-Regular:h15
   set guioptions+=i
   set guioptions-=l
   set guioptions-=L
@@ -215,168 +219,25 @@ filetype off
 if &compatible
   set nocompatible
 endif
-set runtimepath+=$HOME/.vim/dein/repos/github.com/Shougo/dein.vim
-call dein#begin(expand('~/.vim/dein/'))
-call dein#add('Shougo/dein.vim')
 
-call dein#add('Shougo/unite.vim')
-call dein#add('Shougo/unite-session', {
-  \ 'lazy': 1,
-  \ 'autoload': {
-  \   'unite_sources': 'session',
-  \   'commands': ['UniteSessionSave', 'UniteSessionLoad']
-  \ }})
-
-call dein#add('Shougo/vimshell')
-call dein#add('Shougo/vimfiler')
-
-call dein#add('Shougo/vimproc', {
-  \ 'build': {
-  \   'mac': 'make -f make_mac.mak',
-  \   'unix': 'make -f make_unix.mak'
-  \ }})
-
-call dein#add('Shougo/neomru.vim', {'depends': 'Shougo/unite.vim'})
-call dein#add('Shougo/neocomplcache.vim')
-call dein#add('thinca/vim-quickrun')
-call dein#add('tpope/vim-fugitive')
-call dein#add('tpope/vim-endwise')
-call dein#add('Lokaltog/vim-easymotion')
-call dein#add('itchyny/lightline.vim')
-call dein#add('mattn/emmet-vim')
-call dein#add('tomtom/tcomment_vim')
-call dein#add('tmhedberg/matchit')
-call dein#add('surround.vim')
-call dein#add('rking/ag.vim')
-call dein#add('jiangmiao/auto-pairs')
-call dein#add('scrooloose/syntastic')
-call dein#add('nathanaelkane/vim-indent-guides')
-
-call dein#add('editorconfig/editorconfig-vim')
-
-call dein#add('othree/html5.vim', {
-  \ 'lazy': 1,
-  \ 'autoload': {
-  \   'filetypes': ['html']
-  \ }})
-
-call dein#add('hail2u/vim-css3-syntax', {
-  \ 'lazy': 1,
-  \ 'autoload': {
-  \   'filetypes': ['css','sass','scss']
-  \ }})
-
-call dein#add('digitaltoad/vim-pug')
-call dein#add('slim-template/vim-slim')
-
-call dein#add('othree/yajs.vim')
-call dein#add('maxmellon/vim-jsx-pretty')
-call dein#add('othree/javascript-libraries-syntax.vim')
-call dein#add('othree/es.next.syntax.vim')
-
-call dein#add('nicklasos/vim-jsx-riot', {
-  \ 'lazy': 1,
-  \ 'autoload': {
-  \   'filename_patterns': '.*\.tag'
-  \ }})
-
-call dein#add('elzr/vim-json', {
-  \ 'lazy': 1,
-  \ 'autoload': {
-  \   'filename_patterns': '.*\.json'
-  \ }})
-
-call dein#add('jelera/vim-javascript-syntax', {
-  \ 'lazy': 1,
-  \ 'autoload': {
-  \   'filetypes': ['javascript']
-  \ }})
-
-call dein#add('othree/yajs.vim', {
-  \ 'lazy': 1,
-  \ 'autoload': {
-  \   'filetypes': ['javascript']
-  \ }})
-
-call dein#add('kchmck/vim-coffee-script', {
-  \ 'lazy': 1,
-  \ 'autoload': {
-  \   'filetypes': ['coffee']
-  \ }})
-
-call dein#add('leafgarland/typescript-vim', {
-  \ 'lazy': 1,
-  \ 'autoload': {
-  \   'filename_patterns': '.*\.ts'
-  \ }})
-
-call dein#add('clausreinke/typescript-tools.vim', {
-  \ 'lazy': 1,
-  \ 'autoload': {
-  \   'filename_patterns': '.*\.ts'
-  \ }})
-
-call dein#add('claco/jasmine.vim', {
-  \ 'lazy': 1,
-  \ 'autoload': {
-  \   'filetypes': ['javascript']
-  \ }})
-
-call dein#add('basyura/unite-rails', {
-  \ 'lazy': 1,
-  \ 'autoload': {
-  \   'filetypes': ['ruby', 'eruby', 'haml']
-  \ }})
-
-call dein#add('vim-ruby/vim-ruby', {
-  \ 'lazy': 1,
-  \ 'autoload': {
-  \   'filetypes': ['ruby', 'eruby', 'haml']
-  \ }})
-
-call dein#add('skwp/vim-rspec', {
-  \ 'lazy': 1,
-  \ 'autoload': {
-  \   'filetypes': ['ruby', 'eruby', 'haml']
-  \ }})
-
-call dein#add('ruby.vim', {
-  \ 'lazy': 1,
-  \ 'autoload': {
-  \   'filetypes': ['ruby', 'eruby', 'haml']
-  \ }})
-
-call dein#add('rails.vim', {
-  \ 'lazy': 1,
-  \ 'autoload': {
-  \   'filetypes': ['ruby', 'eruby', 'haml']
-  \ }})
-
-call dein#add('tpope/vim-rails', {
-  \ 'lazy': 1,
-  \ 'autoload': {
-  \   'filetypes': ['ruby', 'eruby', 'haml']
-  \ }})
-
-call dein#add('fatih/vim-go', {
-  \ 'lazy': 1,
-  \ 'autoload': {
-  \   'filetypes': 'go'
-  \ }})
-
-call dein#add('toyamarinyon/vim-swift', {
-  \ 'lazy': 1,
-  \ 'autoload': {
-  \   'filetypes': 'swift'
-  \ }})
-
-call dein#add('Keithbsmiley/swift.vim', {
-  \ 'lazy': 1,
-  \ 'autoload': {
-  \   'filetypes': 'swift'
-  \ }})
-
-call dein#end()
+let s:cache_home = empty($XDG_CACHE_HOME) ? expand($HOME . '/.cache') : $XDG_CACHE_HOME
+let s:dein_dir = s:cache_home . '/dein'
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+if !isdirectory(s:dein_repo_dir)
+  call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repo_dir))
+endif
+let &runtimepath = s:dein_repo_dir . ',' . &runtimepath
+" let s:toml_file = fnamemodify(expand('<sfile>'), ':h') . '/dein.toml'
+let s:toml_file = '~/.config/nvim/dein.toml'
+if dein#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir, [$MYVIMRC, s:toml_file])
+  call dein#load_toml(s:toml_file)
+  call dein#end()
+  call dein#save_state()
+endif
+if has('vim_starting') && dein#check_install()
+  call dein#install()
+endif
 
 filetype plugin indent on
 
@@ -389,9 +250,16 @@ vmap <silent> <Leader>y "*y
 nmap <C-j> <C-^>
 " ESC 2回でハイライト消去
 nmap <silent> <ESC><ESC> :<C-u>nohlsearch<Enter>
+" :wする
+nmap <silent> <SPACE><SPACE> :<C-u>w<Enter>
 
 " :poをre-asignするためにC-tを潰す
-map <C-t> :<Backspace>
+" map <C-t> :<Backspace>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Twitvim
+"
+let twitvim_enable_python = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " lightline
@@ -415,70 +283,34 @@ let g:lightline = {
   \ }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Unite
+" UltiSnips
 "
-" コンフィグ用ディレクトリ
-let g:unite_data_directory = expand($HOME.'/.vim/tmp/plugin/.unite')
-" 入力モードで開始
-let g:unite_enable_start_insert = 1
-let g:unite_kind_openable_lcd_command = 1
-
-" 常用セット
-nnoremap <silent> <C-l> <ESC>:<C-u>Unite buffer file file_mru vimshell/history<Enter>
-inoremap <silent> <C-l> <ESC>:<C-u>Unite buffer file file_mru vimshell/history<Enter>
-" バッファ一覧
-nnoremap <silent> B :<C-u>Unite buffer<Enter>
-" ファイル一覧
-nnoremap <silent> <Leader>uf :<C-u>UniteWithBufferDir -buffer-name=files file<Enter>
-" レジスタ一覧
-nnoremap <silent> <Leader>ur :<C-u>Unite -buffer-name=register register<Enter>
-" 最近使用したファイル一覧
-nnoremap <silent> <Leader>um :<C-u>Unite file_mru<Enter>
-" 全部乗せ
-nnoremap <silent> <Leader>ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<Enter>
-" Bookmark
-nnoremap <silent> <Leader>ub :<C-u>Unite bookmark<Enter>
-
-" Unite Session
-if !has('gui') && !argc()
-  let g:unite_source_session_enable_auto_save = 1
-  autocmd VimEnter,GUIEnter * nested UniteSessionLoad
-  autocmd VimLeave * nested UniteSessionSave
-endif
-
-" unite-rails
-autocmd FileType ruby,eruby,haml :nnoremap <silent> <Leader>R :<C-u>Unite
-  \ rails/view
-  \ rails/model
-  \ rails/controller
-  \ rails/spec
-  \ rails/config
-  \ rails/javascript
-  \ rails/stylesheet<Enter>
-autocmd FileType ruby,eruby,haml :nnoremap <silent> <Leader>vR :<C-u>Unite rails/view<Enter>
-autocmd FileType ruby,eruby,haml :nnoremap <silent> <Leader>mR :<C-u>Unite rails/model<Enter>
-autocmd FileType ruby,eruby,haml :nnoremap <silent> <Leader>cR :<C-u>Unite rails/controller<Enter>
-autocmd FileType ruby,eruby,haml :nnoremap <silent> <Leader>sR :<C-u>Unite rails/spec<Enter>
-autocmd FileType ruby,eruby,haml :nnoremap <silent> <Leader>CR :<C-u>Unite rails/config<Enter>
-autocmd FileType ruby,eruby,haml :nnoremap <silent> <Leader>JR :<C-u>Unite rails/javascript<Enter>
-autocmd FileType ruby,eruby,haml :nnoremap <silent> <Leader>SR :<C-u>Unite rails/stylesheet<Enter>
+let g:UltiSnipsExpandTrigger="<C-s>"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" VimFiler
+" Vaffle
 "
-let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_execute_file_list={}
-let g:vimfiler_execute_file_list["_"]="vim"
-let g:vimfiler_directory_display_top = 1
-let g:vimfiler_safe_mode_by_default = 1
-let g:vimfiler_enable_auto_cd = 1
-nnoremap <silent> ,fv :VimFiler -split -simple -winwidth=35 -no-quit<Enter>
+nmap <silent> <Leader>v :<C-u>Vaffle .<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Denite
+"
+call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nogroup', '-g', ''])
+call denite#custom#var('grep', 'command', ['ag'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'default_opts', ['--follow', '--no-group', '--no-color'])
+
+nnoremap <silent> <C-k><C-b> :<C-u>Denite buffer<CR>
+nnoremap <silent> <C-k><C-d> :<C-u>Denite file_rec<CR>
+nnoremap <silent> <C-k><C-g> :<C-u>Denite grep<CR>
+nnoremap <silent> <C-k><C-k> :<C-u>Denite ghq<CR>
+nnoremap <silent> <C-k><C-l> :<C-u>Denite file_mru<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VimShell
 "
 let g:vimshell_popup_command = "split"
-let g:vimshell_popup_height = 15
+let g:vimshell_popup_height = 10
 let g:vimshell_environment_term = "xterm-256color"
 let g:vimshell_editor_command = '/Applications/MacVim/MacVim.app/Contents/MacOS/Vim --servername=VIM --remote-tab-wait-silent'
 let g:vimshell_prompt = '$ '
@@ -488,55 +320,6 @@ autocmd FileType vimshell
 \| call vimshell#altercmd#define('gd', 'git diff ')
 \| call vimshell#altercmd#define('gst', 'git status -s -b')
 nnoremap <silent> ,sv :VimShellPop<Enter>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" neocomplcache.vimの設定
-"
-let g:neocomplcache_force_overwrite_completefunc=1
-let g:neocomplcache_enable_force_overwrite_completefunc=1
-
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
-" Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-" Use camel case completion.
-let g:neocomplcache_enable_camel_case_completion = 1
-" Use underbar completion.
-let g:neocomplcache_enable_underbar_completion = 1
-" Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-
-" Define dictionary.
-let g:neocomplcache_dictionary_filetype_lists = {
-  \   'default' : '',
-  \   'vimshell' : $HOME.'/.vim/.vimshell_hist',
-  \   'scheme' : $HOME.'/.vim/.gosh_completions'
-  \ }
-
-" Define keyword.
-if !exists('g:neocomplcache_keyword_patterns')
-  let g:neocomplcache_keyword_patterns = {}
-endif
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string()
-
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplcache#smart_close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-endfunction
-
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -551,13 +334,6 @@ let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" neomru
-"
-let g:neomru#file_mru_limit = 200
-let g:neomru#file_mru_path=expand($HOME.'/.vim/tmp/plugin/.unite/file_mru')
-let g:neomru#directory_mru_path=expand($HOME.'/.vim/tmp/plugin/.unite/directory_mru')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-quickrun
@@ -615,6 +391,7 @@ nmap <silent><Leader>ig <Plug>IndentGuidesToggle
 "
 nnoremap <Leader>gs :<C-u>Gstatus<Enter>
 nnoremap <Leader>gl :<C-u>Glog<Enter>
+nnoremap <Leader>gd :<C-u>Gdiff<Enter>
 nnoremap <Leader>ga :<C-u>Gwrite<Enter>
 nnoremap <Leader>gc :<C-u>Gcommit<Enter>
 nnoremap <Leader>gC :<C-u>Git commit --amend<Enter>

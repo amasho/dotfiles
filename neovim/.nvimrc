@@ -166,9 +166,6 @@ inoremap {<Enter> {}<Left><CR><ESC><S-o>
 inoremap ( ()<ESC>
 inoremap (<Enter> ()<Left><CR><ESC><S-o>))}}
 
-" terminal
-noremap <silent> <C-[> <C-\><C-n>
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GUI用設定
 "
@@ -236,42 +233,44 @@ nmap <silent> <ESC><ESC> :<C-u>nohlsearch<Enter>
 " :wする
 nmap <silent> <SPACE><SPACE> :<C-u>w<Enter>
 
+nmap <silent> c xi
+
 " :poをre-asignするためにC-tを潰す
 map <C-t> :<Backspace>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Twitvim
-"
-let twitvim_browser_cmd = 'open'
-let twitvim_enable_python = 1
-" let twitvim_force_ssl = 1
-let twitvim_count = 40
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " lightline
 "
 let g:lightline = {
-  \ 'colorscheme': 'Tomorrow_Night_Eighties',
+  \ 'colorscheme': 'Dracula',
+  \   'active': {
+  \     'left': [
+  \       [ 'mode', 'paste' ],
+  \       [ 'gitbranch', 'filename', 'readonly', 'modified', 'ale_error', 'ale_warning' ]
+  \     ]
+  \   },
   \   'component': {
   \     'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
-  \     'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}'
+  \     'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
   \   },
   \   'component_visible_condition': {
   \     'readonly': '(&filetype!="help"&& &readonly)',
   \     'modified': '(&filetype!="help"&&(&modified||!&modifiable))'
+  \   },
+  \   'component_function': {
+  \     'gitbranch': 'fugitive#head'
+  \   },
+  \   'component_expand': {
+  \     'ale_error': 's:ale_string(0)',
+  \     'ale_warning': 's:ale_string(1)'
   \   },
   \   'separator': {
   \     'left': '⮀', 'right': '⮂'
   \   },
   \   'subseparator': {
   \     'left': '⮁', 'right': '⮃'
-  \   }
+  \   },
   \ }
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" UltiSnips
-"
-let g:UltiSnipsExpandTrigger="<C-s>"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vaffle
@@ -296,9 +295,10 @@ call denite#custom#source('file_rec', 'matchers', ['matcher_fuzzy','matcher_igno
 
 nnoremap <silent> <C-k><C-b> :<C-u>Denite buffer -highlight-mode-insert=WildMenu<CR>
 nnoremap <silent> <C-k><C-p> :<C-u>Denite file_rec -highlight-mode-insert=IncSearch<CR>
-nnoremap <silent> <C-k><C-g> :<C-u>Denite grep -highlight-mode-insert=DiffAdd<CR>
-nnoremap <silent> <C-k><C-k> :<C-u>Denite ghq -highlight-mode-insert=Todo<CR>
+nnoremap <silent> <C-k><C-g> :<C-u>Denite grep -highlight-mode-insert=LightlineRight_normal_1<CR>
 nnoremap <silent> <C-k><C-l> :<C-u>Denite file_mru -highlight-mode-insert=Search<CR>
+
+nnoremap <C-k><C-r> :<C-u>Denite rails:
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " denite-gtags
@@ -308,20 +308,25 @@ nnoremap <reader>r :<C-u>DeniteCursorWord -buffer-name=gtags_ref gtags_ref<CR>
 nnoremap <reader>c :<C-u>DeniteCursorWord -buffer-name=gtags_context gtags_context<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim-quickrun
+" deoplete
 "
-let g:quickrun_config = {}
-let g:quickrun_config['_'] = {}
-let g:quickrun_config['_']['runner'] = 'vimproc'
-let g:quickrun_config['_']['runner/vimproc/updatetime'] = 100
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#min_syntax_length = 3
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" neosnippet
+"
+let g:neosnippet#enable_snipmate_compatibility = 1
+" let g:neosnippet#snippets_directory='~/.vim/dein/vim-snippets'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " emmet.vim
 "
 let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
+autocmd FileType html,css,javascript.jsx,eruby,php EmmetInstall
 let g:user_emmet_mode = 'a'
-let g:user_emmet_leader_key = '<C-y>'
+let g:user_emmet_leader_key='<C-y>'
 let g:user_emmet_settings = {
   \   'lang' : 'ja',
   \   'html' : {
@@ -330,6 +335,15 @@ let g:user_emmet_settings = {
   \   },
   \   'css' : {
   \     'filters' : 'fc',
+  \   },
+  \  'javascript.jsx' : {
+  \     'extends' : 'jsx',
+  \   },
+  \  'eruby' : {
+  \     'extends' : 'erb',
+  \   },
+  \  'php' : {
+  \     'extends' : 'ctp',
   \   },
   \ }
 
@@ -359,84 +373,6 @@ hi IndentGuidesEven ctermbg=237
 nmap <silent><Leader>ig <Plug>IndentGuidesToggle
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim-fugitive
-"
-nnoremap <Leader>gs :<C-u>Gstatus<Enter>
-nnoremap <Leader>gl :<C-u>Glog<Enter>
-nnoremap <Leader>gd :<C-u>Gdiff<Enter>
-nnoremap <Leader>ga :<C-u>Gwrite<Enter>
-nnoremap <Leader>gc :<C-u>Gcommit<Enter>
-nnoremap <Leader>gC :<C-u>Git commit --amend<Enter>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" syntastic
-"
-let g:syntastic_mode_map = { 'mode': 'passive',
-  \ 'active_filetypes': [
-  \   'javascript',
-  \   'coffee',
-  \   'typescript',
-  \   'scss',
-  \   'go',
-  \   'ruby',
-  \   'python',
-  \   'php',
-  \ ]}
-let g:syntastic_coffee_checkers = ['coffeelint']
-let g:syntastic_typescript_checkers = ['eslint', 'tslint', 'tsc']
-let g:syntastic_scss_checkers = ['scss_lint']
-let g:syntastic_go_checkers = ['golint', 'gofmt', 'gotype']
-let g:syntastic_ruby_checkers = ['rubocop']
-let g:syntastic_python_checkers = ['pylint']
-let g:syntastic_php_checkers = ['phplint']
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
-let g:syntastic_style_error_symbol = '✗'
-let g:syntastic_style_warning_symbol = '⚠'
-let g:syntastic_check_on_wq = 0
-hi SyntasticErrorSign ctermfg=160
-hi SyntasticWarningSign ctermfg=220"
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" neomake
-"
-autocmd! BufWritePost * Neomake
-
-let g:neomake_error_sign = { 'text': '>>' }
-let g:neomake_warning_sign = { 'text': '>>' }
-
-let g:neomake_javascript_enabled_makers = [ 'eslint' ]
-let g:neomake_css_enabled_makers = [ 'stylelint' ]
-let g:neomake_scss_enabled_makers = [ 'stylelint-scss' ]
-let g:neomake_ruby_enabled_makers = [ 'rubocop' ]
-let g:neomake_php_enabled_makers = [ 'phplint' ]
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim-coffee-script
-"
-nnoremap <Leader>cfm :<C-u>CoffeeMake<Enter>
-nnoremap <Leader>cfr :<C-u>CoffeeRun<Enter>
-nnoremap <Leader>cfc :<C-u>CoffeeCompile<Enter>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" jasmine.vim
-"
-function! JasmineSetting()
-  au BufRead,BufNewFile *Helper.js,*Spec.js  set filetype=jasmine.javascript
-  au BufRead,BufNewFile *Helper.coffee,*Spec.coffee  set filetype=jasmine.coffee
-  au BufRead,BufNewFile,BufReadPre *Helper.coffee,*Spec.coffee  let b:quickrun_config = {'type' : 'coffee'}
-  call jasmine#load_snippets()
-  map <buffer> <leader>m :JasmineRedGreen<CR>
-  command! JasmineRedGreen :call jasmine#redgreen()
-  command! JasmineMake :call jasmine#make()
-endfunction
-au BufRead,BufNewFile,BufReadPre *.coffee,*.js call JasmineSetting()
-au BufCreate *.ts :TSSstarthere
-
-au BufRead,BufNewFile *.es6 setfiletype javascript
-au BufNewFile,BufRead *.tag setlocal ft=javascript
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-go.vim
 "
 let g:go_highlight_functions = 1
@@ -445,18 +381,6 @@ let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" swift quickrun
-"
-if has("mac")
-  autocmd BufRead,BufNewFile *.swift set filetype=swift
-  let g:quickrun_config['swift'] = {
-    \   'command': 'xcrun',
-    \   'cmdopt': 'swift',
-    \   'exec': '%c %o %s',
-    \ }
-endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ruby
@@ -475,18 +399,32 @@ au BufRead,BufNewFile *.scala set tags+=$HOME/scala.tags
 au BufRead,BufNewFile *.php,*.inc set tags+=$HOME/php.tags
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Perl Syntax
+" ALE (Asynchronous Lint Engine)
 "
-augroup perl_lint
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
+
+let g:ale_statusline_format = ['⨉ %d', '⚠ %d']
+
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+
+let g:ale_lint_delay = 100
+
+let g:ale_open_list = 0
+let g:ale_keep_list_window_open = 0
+
+nmap <silent> <C-a><C-n> <Plug>(ale_next)
+nmap <silent> <C-a><C-p> <Plug>(ale_previous)
+
+" jsx周りの設定
+augroup FiletypeGroup
   autocmd!
-  function! PerlLint()
-    let result = system( 'perl' . ' -c ' . bufname(""))
-    if result !~ '.* syntax OK'
-      echohl ErrorMsg | echomsg result | echohl None
-    endif
-  endfunction
-  autocmd BufWritePost *.pl,*.pm call PerlLint()
+  au BufNewFile,BufRead *.jsx set filetype=javascript.jsx
 augroup END
+let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
+let g:ale_linter_aliases = {'jsx': 'css'}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable dracula theme
@@ -496,5 +434,9 @@ color dracula
 " neovim terminal mapping
 if has('nvim')
 	" 新しいタブでターミナルを起動
-	nnoremap <silent> @t :new<CR>:resize 15<CR>:terminal<CR>
+	nnoremap <silent> @t :new<CR>:resize 13<CR>:terminal<CR>
+	nnoremap <silent> @T :tabnew<CR>:terminal<CR>
+  autocmd TermClose * execute ":call feedkeys('\<CR>')"
+  " ESC 2回でNormalモードに
+  tmap <silent> <ESC><ESC> <C-\><C-n>
 endif
