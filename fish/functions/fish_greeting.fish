@@ -1,0 +1,1 @@
+/Users/amasho/.config/fisherman/pure/fish_greeting.fish

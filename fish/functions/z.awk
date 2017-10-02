@@ -1,0 +1,1 @@
+/Users/amasho/.config/fisherman/z/functions/z.awk

@@ -1,0 +1,1 @@
+/Users/amasho/.config/fisherman/pure/__format_time.fish
