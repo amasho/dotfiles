@@ -100,12 +100,18 @@ set -x PATH $GOENV_ROOT/bin $PATH
 set -x PATH $GOENV_ROOT/shims $PATH
 goenv rehash
 
+# phpenv
+set -x PHPENV_ROOT $HOME/.phpenv
+set -x PATH $GOENV_ROOT/bin $PATH
+set -x PATH $GOENV_ROOT/shims $PATH
+goenv rehash
+
 # Android SDK
-set -x ANDROID_HOME $HOME/Library/Android/sdk
-set -x ANDROID_SDK_HOME $HOME/Library/Android/sdk
-set -x JAVA_HOME /Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home
-set -x PATH $PATH $JAVA_HOME/bin $ANDROID_SDK_HOME/tools $ANDROID_SDK_HOME/platform-tools
+# set -x ANDROID_HOME $HOME/Library/Android/sdk
+# set -x ANDROID_SDK_HOME $HOME/Library/Android/sdk
+# set -x JAVA_HOME /Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home
+# set -x PATH $PATH $JAVA_HOME/bin $ANDROID_SDK_HOME/tools $ANDROID_SDK_HOME/platform-tools
 
 # PATH
-set -x PATH $PATH /usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin /opt/X11/bin
-set -x PATH $HOME/.local/bin $PATH
+set -x PATH $PATH /usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin
+# set -x PATH $HOME/.local/bin $PATH
