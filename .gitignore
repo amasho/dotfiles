@@ -1,8 +1,7 @@
 .vim
 completions/
 conf.d/
-fishd.8c85904dc764
-fishd.acbc32b5d421
+fishd.*
 fishfile
 functions/
 

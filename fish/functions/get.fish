@@ -1,1 +1,0 @@
-/Users/amasho/.config/fisherman/get/functions/get.fish

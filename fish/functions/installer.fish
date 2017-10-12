@@ -1,1 +1,0 @@
-/Users/amasho/.config/fisherman/pure/installer.fish

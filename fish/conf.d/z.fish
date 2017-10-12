@@ -1,1 +1,0 @@
-/Users/amasho/.config/fisherman/z/conf.d/z.fish

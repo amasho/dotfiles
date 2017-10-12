@@ -1,1 +1,0 @@
-/Users/amasho/.config/fisherman/await/functions/await.fish

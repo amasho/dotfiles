@@ -1,1 +1,0 @@
-/Users/amasho/.config/fisherman/ghq/completions/ghq.fish
