@@ -69,7 +69,11 @@ on_ft = ['html']
 [[plugins]]
 repo = 'hail2u/vim-css3-syntax'
 on_i = 1
-on_ft = ['css','sass','scss']
+on_ft = ['css','sass','scss', 'javascript.jsx']
+
+[[plugins]]
+repo = 'styled-components/vim-styled-components'
+on_ft = ['javascript', 'javascript.jsx']
 
 [[plugins]]
 repo = 'othree/javascript-libraries-syntax.vim'
@@ -158,8 +162,6 @@ on_ft = ['javascript']
 repo = 'epilande/vim-react-snippets'
 on_i = 1
 on_ft = ['javascript']
-
-
 
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
