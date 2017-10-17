@@ -27,6 +27,8 @@ end
 # z
 set -U Z_CMD "j"
 
+set -x HOMEBREW_GITHUB_API_TOKEN (cat $HOME/.homebrew_token)
+
 # Aliases
 alias ll 'ls -l'
 alias la 'ls -la'
