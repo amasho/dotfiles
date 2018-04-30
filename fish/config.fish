@@ -15,24 +15,80 @@ set -x TERMCAP "xterm-256color:Co#256:pa#256:AF=\E[38;5;%dm:AB=\E[48;5;%dm:tc=xt
 # WORD
 set -x WORDCHARS '*?_.[]~-=&;!#$%^(){}<>'
 
-# gpg
-if test (pgrep gpg-agent) != ""
-  set -x GPG_AGENT_INFO /Users/amasho/.gnupg/S.gpg-agent:600:1
-  set -x GPG_AGENT_INFO
-else
-# eval (gpg-agent --daemon --write-env-file ~/.gnupg/.gpg-agent-info)
-  eval (gpg-agent --daemon)
-end
-
 # z
 set -U Z_CMD "j"
 
 set -x HOMEBREW_GITHUB_API_TOKEN (cat $HOME/.homebrew_token)
 
+if test (uname) = "Darwin"
+    stty erase  -ixon
+    set -x __CF_USER_TEXT_ENCODING "0x1F5:0x08000100:14"
+else
+    stty erase  -ixon
+end
+
+# TMUX
+alias tmux 'tmux -2'
+
+# nvim
+set -x XDG_CONFIG_HOME $HOME/.config
+
+# MySQL Prompt
+set -x MYSQL_PS1 "mysql[\d]# "
+
+# anyenv
+set -x PATH $HOME/.anyenv/bin $PATH
+set -x ENVS_PATH $HOME/.anyenv/envs
+
+# ndenv
+set -x NDENV_ROOT $ENVS_PATH/ndenv
+set -x PATH $NDENV_ROOT/bin $PATH
+set -x PATH $NDENV_ROOT/shims $PATH
+ndenv rehash
+
+# rbenv
+set -x RBENV_ROOT $ENVS_PATH/rbenv
+set -x PATH $RBENV_ROOT/bin $PATH
+set -x PATH $RBENV_ROOT/shims $PATH
+rbenv rehash
+
+# pyenv
+set -x PYENV_ROOT $ENVS_PATH/pyenv
+set -x PATH $PYENV_ROOT/bin $PATH
+set -x PATH $PYENV_ROOT/shims $PATH
+pyenv rehash
+
+# phpenv
+set -x PHPENV_ROOT $ENVS_PATH/phpenv
+set -x PATH $PHPENV_ROOT/bin $PATH
+set -x PATH $PHPENV_ROOT/shims $PATH
+
+# goenv
+set -x GOENV_ROOT $ENVS_PATH/goenv
+set -x PATH $GOENV_ROOT/bin $PATH
+set -x PATH $GOENV_ROOT/shims $PATH
+set -x GOROOT $HOME/go
+set -x GOPATH $HOME/go
+set -x PATH $GOPATH/bin $PATH
+goenv rehash
+
+# Android SDK
+#set -x ANDROID_HOME $HOME/Library/Android/sdk
+#set -x ANDROID_SDK_HOME $HOME/Library/Android/sdk
+#set -x JAVA_HOME /Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home
+#set -x PATH $PATH $JAVA_HOME/bin $ANDROID_SDK_HOME/tools $ANDROID_SDK_HOME/platform-tools
+
+# PATH
+set -x PATH $PATH /usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin
+set -x PATH $HOME/local/bin $PATH
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/amasho/local/bin/google-cloud-sdk/path.fish.inc' ]; if type source > /dev/null; source '/Users/amasho/local/bin/google-cloud-sdk/path.fish.inc'; else; . '/Users/amasho/local/bin/google-cloud-sdk/path.fish.inc'; end; end
+
 # Aliases
+alias l 'ls'
 alias ll 'ls -l'
 alias la 'ls -la'
-alias ls 'ls -vF'
 alias h 'history'
 alias less 'less -r'
 alias which '/usr/bin/which'
@@ -61,59 +117,3 @@ alias dml 'docker-machine ls'
 alias d 'docker'
 alias dp 'docker ps'
 alias di 'docker images'
-
-if test (uname) = "Darwin"
-    stty erase  -ixon
-    set -x __CF_USER_TEXT_ENCODING "0x1F5:0x08000100:14"
-else
-    stty erase  -ixon
-end
-
-# TMUX
-alias tmux 'tmux -2'
-
-# nvim
-set -x XDG_CONFIG_HOME $HOME/.config
-
-# MySQL Prompt
-set -x MYSQL_PS1 "mysql[\d]# "
-
-# ndenv
-set -x NDENV_ROOT $HOME/.ndenv
-set -x PATH $NDENV_ROOT/bin $PATH
-set -x PATH $NDENV_ROOT/shims $PATH
-ndenv rehash
-
-# rbenv
-set -x RBENV_ROOT $HOME/.rbenv
-set -x PATH $RBENV_ROOT/bin $PATH
-set -x PATH $RBENV_ROOT/shims $PATH
-rbenv rehash
-
-# pyenv
-set -x PYENV_ROOT $HOME/.pyenv
-set -x PATH $PYENV_ROOT/bin $PATH
-set -x PATH $PYENV_ROOT/shims $PATH
-pyenv rehash
-
-# goenv
-set -x GOENV_ROOT $HOME/.goenv
-set -x PATH $GOENV_ROOT/bin $PATH
-set -x PATH $GOENV_ROOT/shims $PATH
-goenv rehash
-
-# phpenv
-set -x PHPENV_ROOT $HOME/.phpenv
-set -x PATH $GOENV_ROOT/bin $PATH
-set -x PATH $GOENV_ROOT/shims $PATH
-goenv rehash
-
-# Android SDK
-set -x ANDROID_HOME $HOME/Library/Android/sdk
-set -x ANDROID_SDK_HOME $HOME/Library/Android/sdk
-set -x JAVA_HOME /Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home
-set -x PATH $PATH $JAVA_HOME/bin $ANDROID_SDK_HOME/tools $ANDROID_SDK_HOME/platform-tools
-
-# PATH
-set -x PATH $PATH /usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin
-# set -x PATH $HOME/.local/bin $PATH

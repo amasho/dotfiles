@@ -8,9 +8,6 @@ repo = 'Shougo/dein.vim'
 repo = 'Shougo/denite.nvim'
 
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
-
-[[plugins]]
 repo = 'Shougo/neomru.vim'
 
 [[plugins]]

@@ -190,7 +190,7 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " python3設定
 "
-let g:python3_host_prog = expand($HOME . '/.pyenv/shims/python3')
+let g:python3_host_prog = expand($HOME . '/.anyenv/envs/pyenv/shims/python3')
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " dein.vim
