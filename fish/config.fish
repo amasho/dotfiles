@@ -82,9 +82,6 @@ goenv rehash
 set -x PATH $PATH /usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin
 set -x PATH $HOME/local/bin $PATH
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/amasho/local/bin/google-cloud-sdk/path.fish.inc' ]; if type source > /dev/null; source '/Users/amasho/local/bin/google-cloud-sdk/path.fish.inc'; else; . '/Users/amasho/local/bin/google-cloud-sdk/path.fish.inc'; end; end
-
 # Aliases
 alias l 'ls'
 alias ll 'ls -l'
@@ -123,3 +120,6 @@ function fish_user_key_bindings
   bind \cg peco_select_ghq_repository
 end
 
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/amasho/local/bin/google-cloud-sdk/path.fish.inc' ]; if type source > /dev/null; source '/Users/amasho/local/bin/google-cloud-sdk/path.fish.inc'; else; . '/Users/amasho/local/bin/google-cloud-sdk/path.fish.inc'; end; end
