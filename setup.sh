@@ -142,5 +142,3 @@ ${GITCMD} clone https://github.com/sstephenson/ruby-build.git ${HOME}/.rbenv/plu
 ### pyenv ###
 ${GITCMD} clone https://github.com/yyuu/pyenv.git ${HOME}/.pyenv
 ${GITCMD} clone https://github.com/yyuu/pyenv-virtualenv.git ${HOME}/.pyenv/plugins/pyenv-virtualenv
-
-
