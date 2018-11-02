@@ -115,11 +115,34 @@ alias d 'docker'
 alias dp 'docker ps'
 alias di 'docker images'
 
+### Change the prompt
+set pure_color_blue \e\[34m
+set pure_color_cyan \e\[36m
+set pure_color_gray \e\[38\;2\;147\;161\;161m
+set pure_color_green \e\[32m
+set pure_color_normal \e\[30m\e\(B\e\[m
+set pure_color_red \e\[31m
+set pure_color_yellow \e\[33m
+
+set pure_command_max_exec_time 5
+set pure_host_color \e\[38\;2\;147\;161\;161m
+set pure_root_color \e\[30m\e\(B\e\[m
+set pure_symbol_git_dirty '*'
+set pure_symbol_git_down_arrow "⇣"
+set pure_symbol_git_up_arrow "⇡"
+set pure_symbol_horizontal_bar "—"
+set pure_symbol_prompt "❯"
+set pure_user_host_location 0
+set pure_username_color \e\[38\;2\;147\;161\;161m
+
+function fish_prompt --description 'Write out the prompt'
+    printf '\n%s%s\n%s❯ ' (set_color magenta) (prompt_pwd) $pure_color_green
+end
+
 function fish_user_key_bindings
   bind \cr peco_select_history
   bind \cg peco_select_ghq_repository
 end
-
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/amasho/local/bin/google-cloud-sdk/path.fish.inc' ]; if type source > /dev/null; source '/Users/amasho/local/bin/google-cloud-sdk/path.fish.inc'; else; . '/Users/amasho/local/bin/google-cloud-sdk/path.fish.inc'; end; end
