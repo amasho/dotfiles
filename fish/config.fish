@@ -136,7 +136,18 @@ set pure_user_host_location 0
 set pure_username_color \e\[38\;2\;147\;161\;161m
 
 function fish_prompt --description 'Write out the prompt'
-    printf '\n%s%s\n%s❯ ' (set_color magenta) (prompt_pwd) $pure_color_green
+    # pwd
+    printf '\n%s%s' (set_color magenta) (prompt_pwd)
+    set_color normal
+
+    # normal
+    set last_status $status
+    printf '%s ' $pure_color_yellow(__fish_git_prompt)
+    set_color normal
+
+    # git branch
+    printf '\n%s❯ ' $pure_color_green
+
 end
 
 function fish_user_key_bindings
