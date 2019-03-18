@@ -158,6 +158,7 @@ augroup END
 
 "インデント周り
 set et ts=4 sw=4 sts=4
+autocmd FileType go setlocal et ts=8 sw=8 sts=8
 autocmd FileType vim,html,xhtml,javascript,coffee,typescript,css,sass,scss,pug,ruby,eruby,scala,lua setlocal et ts=2 sw=2 sts=2
 autocmd BufRead,BufNewFile *.ctp setlocal et ts=2 sw=2 sts=2
 
