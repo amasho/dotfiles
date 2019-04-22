@@ -40,11 +40,13 @@ set -x MYSQL_PS1 "mysql[\d]# "
 set -x PATH $HOME/.anyenv/bin $PATH
 set -x ENVS_PATH $HOME/.anyenv/envs
 
-# ndenv
-set -x NDENV_ROOT $ENVS_PATH/ndenv
-set -x PATH $NDENV_ROOT/bin $PATH
-set -x PATH $NDENV_ROOT/shims $PATH
-ndenv rehash
+# nodenv
+set -x NODENV_ROOT $ENVS_PATH/nodenv
+set -x PATH $NODENV_ROOT/bin $PATH
+set -x PATH $NODENV_ROOT/shims $PATH
+status --is-interactive
+source (nodenv init -|psub)
+nodenv rehash
 
 # rbenv
 set -x RBENV_ROOT $ENVS_PATH/rbenv
@@ -154,6 +156,7 @@ function fish_user_key_bindings
   bind \cr peco_select_history
   bind \cg peco_select_ghq_repository
 end
+set -g fish_user_paths "/usr/local/opt/mysql@5.7/bin" $fish_user_paths
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/amasho/local/bin/google-cloud-sdk/path.fish.inc' ]; if type source > /dev/null; source '/Users/amasho/local/bin/google-cloud-sdk/path.fish.inc'; else; . '/Users/amasho/local/bin/google-cloud-sdk/path.fish.inc'; end; end
+if [ -f '/Users/samano/local/bin/google-cloud-sdk/path.fish.inc' ]; . '/Users/samano/local/bin/google-cloud-sdk/path.fish.inc'; end
