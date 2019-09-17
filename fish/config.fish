@@ -106,6 +106,7 @@ alias g 'git'
 alias gd 'git diff --color'
 alias gst 'git status -s -b'
 alias gco 'git checkout'
+alias gsw 'git switch'
 set -x GIT_EDITOR vim
 
 # Docker Machine
