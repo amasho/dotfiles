@@ -71,7 +71,7 @@ set -x PATH $GOENV_ROOT/bin $PATH
 set -x PATH $GOENV_ROOT/shims $PATH
 set -x GOROOT $HOME/go
 set -x GOPATH $HOME/go
-set -x PATH $GOPATH/bin $PATH
+set -x PATH $GOPATH/bin $HOME/go/1.13.0/bin $PATH
 goenv rehash
 
 # Android SDK
