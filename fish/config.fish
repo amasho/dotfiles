@@ -109,10 +109,6 @@ alias gco 'git checkout'
 alias gsw 'git switch'
 set -x GIT_EDITOR vim
 
-# Docker Machine
-alias dm 'docker-machine'
-alias dml 'docker-machine ls'
-
 # Docker
 alias d 'docker'
 alias dp 'docker ps'
