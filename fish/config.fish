@@ -85,15 +85,17 @@ set -x PATH $PATH /usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin
 set -x PATH $HOME/local/bin $PATH
 
 # Aliases
+alias exa 'exa --git'
+alias ls "exa"
 alias l 'ls'
 alias ll 'ls -l'
+alias ltr 'll -s modified'
 alias la 'ls -la'
 alias h 'history'
 alias less 'less -r'
 alias which '/usr/bin/which'
 alias ql 'qlmanage -p'
 alias javac 'javac -J-Dfile.encoding=UTF8'
-alias exa 'exa --git'
 alias vim 'nvim'
 alias vi 'vim'
 alias v 'vim'
