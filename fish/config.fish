@@ -89,7 +89,7 @@ alias exa 'exa --git'
 alias ls "exa"
 alias l 'ls'
 alias ll 'ls -l'
-alias ltr 'll -s modified'
+alias ltr 'll -r -m'
 alias la 'ls -la'
 alias h 'history'
 alias less 'less -r'
