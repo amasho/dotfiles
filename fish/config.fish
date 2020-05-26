@@ -74,12 +74,6 @@ set -x GOPATH $HOME/go
 set -x PATH $GOPATH/bin $HOME/go/1.13.0/bin $PATH
 goenv rehash
 
-# Android SDK
-#set -x ANDROID_HOME $HOME/Library/Android/sdk
-#set -x ANDROID_SDK_HOME $HOME/Library/Android/sdk
-#set -x JAVA_HOME /Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home
-#set -x PATH $PATH $JAVA_HOME/bin $ANDROID_SDK_HOME/tools $ANDROID_SDK_HOME/platform-tools
-
 # PATH
 set -x PATH $PATH /usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin
 set -x PATH $HOME/local/bin $PATH
@@ -99,9 +93,6 @@ alias javac 'javac -J-Dfile.encoding=UTF8'
 alias vim 'nvim'
 alias vi 'vim'
 alias v 'vim'
-
-# Only Mac
-alias op 'open .'
 
 # Git
 alias g 'git'
