@@ -93,10 +93,11 @@ alias javac 'javac -J-Dfile.encoding=UTF8'
 alias vim 'nvim'
 alias vi 'vim'
 alias v 'vim'
+alias diff 'icdiff'
 
 # Git
 alias g 'git'
-alias gd 'git diff --color'
+alias gd 'git-icdiff'
 alias gst 'git status -s -b'
 alias gco 'git checkout'
 alias gsw 'git switch'
