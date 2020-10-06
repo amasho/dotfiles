@@ -98,7 +98,7 @@ alias diff 'icdiff'
 # Git
 alias g 'git'
 alias gd 'git diff -u'
-alias gcd 'git-icdiff'
+alias gicd 'git-icdiff'
 alias gst 'git status -s -b'
 alias gco 'git checkout'
 alias gsw 'git switch'
