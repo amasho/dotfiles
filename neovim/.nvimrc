@@ -232,7 +232,7 @@ nmap <C-j> <C-^>
 " ESC 2回でハイライト消去
 nmap <silent> <ESC><ESC> :<C-u>nohlsearch<Enter>
 " :wする
-nmap <silent> <SPACE><SPACE> :<C-u>w<Enter>
+"nmap <silent> <SPACE><SPACE> :<C-u>w<Enter>
 
 nmap <silent> c xi
 
