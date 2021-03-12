@@ -243,7 +243,7 @@ map <C-t> :<Backspace>
 " lightline
 "
 let g:lightline = {
-  \ 'colorscheme': 'Dracula',
+  \ 'colorscheme': 'dracula',
   \   'active': {
   \     'left': [
   \       [ 'mode', 'paste' ],

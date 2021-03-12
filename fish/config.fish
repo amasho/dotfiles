@@ -151,4 +151,7 @@ end
 set -g fish_user_paths "/usr/local/opt/mysql@5.7/bin" $fish_user_paths
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/samano/local/bin/google-cloud-sdk/path.fish.inc' ]; . '/Users/samano/local/bin/google-cloud-sdk/path.fish.inc'; end
+if [ -f '~/local/bin/google-cloud-sdk/path.fish.inc' ]; . '~/local/bin/google-cloud-sdk/path.fish.inc'; end
+
+# for Bigsur
+set -x PATH /opt/homebrew/bin:$PATH
