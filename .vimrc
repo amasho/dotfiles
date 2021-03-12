@@ -587,4 +587,3 @@ function! s:MyHighlight_Colors()
     syntax off
   endif
 endfunction
-
