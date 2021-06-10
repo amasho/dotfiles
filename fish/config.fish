@@ -155,6 +155,10 @@ if [ -f '~/local/bin/google-cloud-sdk/path.fish.inc' ]; . '~/local/bin/google-cl
 
 # for Bigsur
 set -x PATH /opt/homebrew/bin:$PATH
+
+# for composer
+set -x PATH $HOME/.composer/vendor/bin:$PATH
+
 # for flutter
 set -x PATH $HOME/.pub-cache/bin:$PATH
 
