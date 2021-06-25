@@ -64,6 +64,7 @@ pyenv rehash
 set -x PHPENV_ROOT $ENVS_PATH/phpenv
 set -x PATH $PHPENV_ROOT/bin $PATH
 set -x PATH $PHPENV_ROOT/shims $PATH
+set -x PATH $PATH /usr/local/opt/libxml2/bin /usr/local/opt/bzip2/bin /usr/local/opt/libiconv/bin
 
 # goenv
 set -x GOENV_ROOT $ENVS_PATH/goenv
@@ -162,3 +163,7 @@ set -x PATH $HOME/.composer/vendor/bin:$PATH
 # for flutter
 set -x PATH $HOME/.pub-cache/bin:$PATH
 
+# for openssl
+set -x PATH /usr/local/opt/openssl@1.1/bin:$PATH
+set -gx LDFLAGS "-L/usr/local/opt/openssl@1.1/lib"
+set -gx CPPFLAGS "-I/usr/local/opt/openssl@1.1/include"
