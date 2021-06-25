@@ -65,6 +65,7 @@ set -x PHPENV_ROOT $ENVS_PATH/phpenv
 set -x PATH $PHPENV_ROOT/bin $PATH
 set -x PATH $PHPENV_ROOT/shims $PATH
 set -x PATH $PATH /usr/local/opt/libxml2/bin /usr/local/opt/bzip2/bin /usr/local/opt/libiconv/bin
+phpenv rehash
 
 # goenv
 set -x GOENV_ROOT $ENVS_PATH/goenv
@@ -156,9 +157,6 @@ if [ -f '~/local/bin/google-cloud-sdk/path.fish.inc' ]; . '~/local/bin/google-cl
 
 # for Bigsur
 set -x PATH /opt/homebrew/bin:$PATH
-
-# for composer
-set -x PATH $HOME/.composer/vendor/bin:$PATH
 
 # for flutter
 set -x PATH $HOME/.pub-cache/bin:$PATH
