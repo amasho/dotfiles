@@ -156,12 +156,12 @@ set -g fish_user_paths "/usr/local/opt/mysql@5.7/bin" $fish_user_paths
 if [ -f '~/local/bin/google-cloud-sdk/path.fish.inc' ]; . '~/local/bin/google-cloud-sdk/path.fish.inc'; end
 
 # for Bigsur
-set -x PATH /opt/homebrew/bin:$PATH
+set -x PATH /opt/homebrew/bin $PATH
 
 # for flutter
-set -x PATH $HOME/.pub-cache/bin:$PATH
+set -x PATH $HOME/.pub-cache/bin $PATH
 
 # for openssl
-set -x PATH /usr/local/opt/openssl@1.1/bin:$PATH
+set -x PATH /usr/local/opt/openssl@1.1/bin $PATH
 set -gx LDFLAGS "-L/usr/local/opt/openssl@1.1/lib"
 set -gx CPPFLAGS "-I/usr/local/opt/openssl@1.1/include"
