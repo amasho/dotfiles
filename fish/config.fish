@@ -161,7 +161,12 @@ set -x PATH /opt/homebrew/bin $PATH
 # for flutter
 set -x PATH $HOME/.pub-cache/bin $PATH
 
+# direnv
+set -x EDITOR vim
+eval (direnv hook fish)
+
 # for openssl
-set -x PATH /usr/local/opt/openssl@1.1/bin $PATH
-set -gx LDFLAGS "-L/usr/local/opt/openssl@1.1/lib"
-set -gx CPPFLAGS "-I/usr/local/opt/openssl@1.1/include"
+set -x PATH (brew --prefix openssl)/bin $PATH
+set -gx LDFLAGS "-L"(brew --prefix openssl)"/lib"
+set -gx CPPFLAGS "-I"(brew --prefix openssl)"/include"
+
