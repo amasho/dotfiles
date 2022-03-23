@@ -1,0 +1,31 @@
+import:
+  - ~/ghq/github.com/dracula/alacritty/dracula.yml
+
+window:
+  dimensions:
+    columns: 200
+    lines: 60
+  padding:
+    x: 8
+    y: 0
+  opacity: 0.9
+
+scrolling:
+  # consoleのlogを10000行まで保持
+  history: 10000
+
+  # スクロール量は3行
+  multiplier: 3
+
+font:
+  normal:
+    family: 'Roboto Mono for Powerline'
+    style: Regular
+  bold:
+    family: 'Roboto Mono for Powerline'
+    style: Bold
+  size: 13.0
+  offset:
+    x: 1
+    y: 1
+  use_thin_strokes: true
