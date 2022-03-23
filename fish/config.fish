@@ -170,3 +170,5 @@ set -x PATH (brew --prefix openssl)/bin $PATH
 set -gx LDFLAGS "-L"(brew --prefix openssl)"/lib"
 set -gx CPPFLAGS "-I"(brew --prefix openssl)"/include"
 
+# 一度sdkコマンドを実行してgradleのpathを通す
+sdk help > /dev/null
