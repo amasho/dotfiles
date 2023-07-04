@@ -103,6 +103,7 @@ alias -s py=python
 alias g='git'
 alias gd='git diff --color'
 alias gst='git status -s -b'
+alias gsw='git switch'
 export GIT_EDITOR=vim
 
 # Docker
