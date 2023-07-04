@@ -6,7 +6,7 @@
 bindkey -e
 
 # fpath
-fpath=($HOME/.zsh/** /usr/local/share/zsh-completions $fpath)
+fpath+=($HOME/.zsh/** /usr/local/share/zsh-completions)
 
 # Lang
 export LANG=ja_JP.UTF-8
@@ -71,26 +71,18 @@ HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
 
-if [ -f ~/.gnupg/.gpg-agent-info ] && [ -n "$(pgrep gpg-agent)" ]; then
-  source ~/.gnupg/.gpg-agent-info
-  export GPG_AGENT_INFO
-else
-  eval $(gpg-agent --daemon --write-env-file ~/.gnupg/.gpg-agent-info)
-fi
-
 # Aliases
-alias l='ls -v'
-alias ls='ls -vF'
+alias exa='exa --git'
+alias ls="exa"
+alias l='ls'
 alias ll='ls -l'
+alias ltr='ll -r -m'
 alias la='ls -la'
 alias v='nvim'
 alias vi='nvim'
-alias e='emacs -nw'
 alias h='history'
 alias less='less -r'
-alias which='/usr/bin/which'
 alias ql='qlmanage -p'
-alias javac="javac -J-Dfile.encoding=UTF8"
 
 # Only Mac
 alias op='open .'
@@ -112,10 +104,6 @@ alias g='git'
 alias gd='git diff --color'
 alias gst='git status -s -b'
 export GIT_EDITOR=vim
-
-# Docker Machine
-alias dm='docker-machine'
-alias dml='docker-machine ls'
 
 # Docker
 alias d='docker'
@@ -139,17 +127,9 @@ if [ -f ${HOME}/.zsh/z/z.sh ]; then
     precmd() { _z --add "$(pwd -P)" }
 fi
 
-# auto-fu.zsh
-# if [ -f ${HOME}/.zsh/auto-fu/auto-fu.zsh ]; then
-#     source ${HOME}/.zsh/auto-fu/auto-fu.zsh
-#     function zle-line-init () {auto-fu-init}
-#     zle -N zle-line-init
-#     zstyle ':completion:*' completer _oldlist _complete
-# fi
-
 # pure.zsh
 if [ -f ${HOME}/.zsh/pure/pure.zsh ]; then
-    PURE_PROMPT_SYMBOL="[%n@%m]❯"
+    export PURE_PROMPT_SYMBOL="[%n@%m]❯"
     prompt pure
 fi
 
@@ -168,52 +148,44 @@ function peco-history-select() {
 zle -N peco-history-select
 bindkey '^R' peco-history-select
 
+function vs-peco () {
+  local base_dir=`ghq root`
+  local selected_dir=`ghq list | peco`
+  if [ -n "$selected_dir" ]; then
+    code "$base_dir/$selected_dir"
+    zle accept-line
+    zle reset-prompt
+  fi
+  zle clear-screen
+}
+zle -N vs-peco
+bindkey '^]^V' vs-peco
+
+function ghq-peco () {
+  local base_dir=`ghq root`
+  local selected_dir=`ghq list | peco`
+  if [ -n "$selected_dir" ]; then
+    cd "$base_dir/$selected_dir"
+    zle accept-line
+    zle reset-prompt
+  fi
+}
+zle -N ghq-peco
+bindkey '^]^G' ghq-peco
+
 # command line stack
 function show_buffer_stack() {
     POSTDISPLAY="stack: $LBUFFER"
     zle && {zle push-line-or-edit}
 }
 zle -N show_buffer_stack
-bindkey 'M-q' show_buffer_stack
+bindkey '\M-q' show_buffer_stack
 
 # Termcap
 export TERM=xterm-256color
 export TERMCAP="xterm-256color:Co#256:pa#256:AF=\E[38;5;%dm:AB=\E[48;5;%dm:tc=xterm-xfree86:"
 
 function chpwd() { ls }
-
-# gvm
-[[ -d ${HOME}/.gvm ]] && source ${HOME}/.gvm/scripts/gvm
-
-# pyenv
-if [[ -d ${HOME}/.pyenv ]]; then
-    export PYENV_ROOT=${HOME}/.pyenv
-    eval "$(${PYENV_ROOT}/bin/pyenv init -)"
-fi
-
-# pyenv-virtualenv
-eval "$(${PYENV_ROOT}/bin/pyenv virtualenv-init -)"
-
-#rbenv
-if [[ -d ${HOME}/.rbenv ]]; then
-    export RBENV_ROOT=${HOME}/.rbenv
-    eval "$(${RBENV_ROOT}/bin/rbenv init -)"
-fi
-
-# perlbrew
-if [[ -d ${HOME}/.perlbrew ]]; then
-    source $HOME/.perlbrew/etc/bashrc
-    export PERLBREW_ROOT=${HOME}/.perlbrew
-    alias pb='perlbrew'
-fi
-
-# nodebrew
-# if [[ -f ${HOME}/.nodebrew/nodebrew ]]; then
-    export NODEBREW_ROOT=${HOME}/.nodebrew
-    export NODE_PATH=${NODEBREW_ROOT}/current/lib/node_modules
-    export PATH=${PATH}:
-    alias nb='nodebrew'
-# fi
 
 # nvim
 export XDG_CONFIG_HOME=${HOME}/.config
@@ -222,9 +194,6 @@ export XDG_CONFIG_HOME=${HOME}/.config
 export MYSQL_PS1="mysql[\d]# "
 
 # PATH
-export PATH=${PYENV_ROOT}/bin:${PERLBREW_ROOT}/bin:${PERLBREW_ROOT}/perls/perl-${CURRENT_PERL_VERSION}/bin:${RBENV_ROOT}/bin:${RBENV_ROOT}/shims:${PYENV_ROOT}/shims
-export PATH=${PATH}:${GOROOT}/bin:${GOPATH}/bin:${NODEBREW_ROOT}/current/bin:/Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home/bin
-export PATH=${PATH}:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/share/pear/bin
-export PATH=${HOME}/.local/bin:${PATH}
-
+export PATH=${PATH}:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/share/pear/bin:/opt/homebrew/bin:${HOME}/.local/bin
+eval "$(anyenv init -)"
 
