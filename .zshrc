@@ -8,8 +8,6 @@ bindkey -e
 # fpath
 fpath+=($HOME/.zsh/** /usr/local/share/zsh-completions)
 
-source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-
 # Lang
 export LANG=ja_JP.UTF-8
 export LC_MESSAGES=ja_JP.UTF-8
@@ -123,6 +121,9 @@ fi
 # TMUX
 alias tmux='tmux -2'
 
+# zsh-autosuggestions
+source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 # z.sh
 if [ -f ${HOME}/.zsh/z/z.sh ]; then
     _Z_CMD=j
@@ -130,11 +131,8 @@ if [ -f ${HOME}/.zsh/z/z.sh ]; then
     precmd() { _z --add "$(pwd -P)" }
 fi
 
-# pure.zsh
-if [ -f ${HOME}/.zsh/pure/pure.zsh ]; then
-    export PURE_PROMPT_SYMBOL="[%n@%m]❯"
-    prompt pure
-fi
+# spaceship
+source /opt/homebrew/opt/spaceship/spaceship.zsh
 
 # peco
 function peco-history-select() {
