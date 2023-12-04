@@ -131,8 +131,11 @@ if [ -f ${HOME}/.zsh/z/z.sh ]; then
     precmd() { _z --add "$(pwd -P)" }
 fi
 
+# zsh-autosuggestions
+source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 # spaceship
-source /opt/homebrew/opt/spaceship/spaceship.zsh
+source "$(brew --prefix)/opt/spaceship/spaceship.zsh"
 
 # peco
 function peco-history-select() {

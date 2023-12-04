@@ -28,7 +28,6 @@ font:
   offset:
     x: 1
     y: 1
-  use_thin_strokes: true
 
 key_bindings:
   - { key: B, mods: Alt, chars: "\x1bb" }
