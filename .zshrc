@@ -104,6 +104,7 @@ alias g='git'
 alias gd='git diff --color'
 alias gst='git status -s -b'
 alias gsw='git switch'
+export EDITOR=vim
 export GIT_EDITOR=vim
 
 # Docker
@@ -135,7 +136,7 @@ fi
 source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # spaceship
-source "$(brew --prefix)/opt/spaceship/spaceship.zsh"
+source "$(/opt/homebrew/bin/brew --prefix)/opt/spaceship/spaceship.zsh"
 
 # peco
 function peco-history-select() {
@@ -196,6 +197,14 @@ export XDG_CONFIG_HOME=${HOME}/.config
 
 # MySQL Prompt
 export MYSQL_PS1="mysql[\d]# "
+
+# gcloud
+source "$(/opt/homebrew/bin/brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+source "$(/opt/homebrew/bin/brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+
+
+# direnv
+eval "$(direnv hook zsh)"
 
 # PATH
 export PATH=${PATH}:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/share/pear/bin:/opt/homebrew/bin:${HOME}/.local/bin
