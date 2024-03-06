@@ -72,12 +72,12 @@ HISTSIZE=100000
 SAVEHIST=100000
 
 # Aliases
-alias exa='exa --git'
-alias ls="exa"
-alias l='ls'
-alias ll='ls -l'
-alias ltr='ll -r -m'
-alias la='ls -la'
+# alias exa='exa --git'
+# alias ls="exa"
+# alias l='ls'
+# alias ll='ls -l'
+# alias ltr='ll -r -m'
+# alias la='ls -la'
 alias v='nvim'
 alias vi='nvim'
 alias h='history'
@@ -202,11 +202,10 @@ export MYSQL_PS1="mysql[\d]# "
 source "$(/opt/homebrew/bin/brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
 source "$(/opt/homebrew/bin/brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
 
+# PATH
+export PATH=${PATH}:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/share/pear/bin:/opt/homebrew/bin:${HOME}/.local/bin
 
 # direnv
 eval "$(direnv hook zsh)"
 
-# PATH
-export PATH=${PATH}:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/share/pear/bin:/opt/homebrew/bin:${HOME}/.local/bin
-eval "$(anyenv init -)"
-
+. "$(/opt/homebrew/bin/brew --prefix)/opt/asdf/libexec/asdf.sh"
