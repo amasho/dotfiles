@@ -72,17 +72,18 @@ HISTSIZE=100000
 SAVEHIST=100000
 
 # Aliases
-# alias exa='exa --git'
-# alias ls="exa"
-# alias l='ls'
-# alias ll='ls -l'
-# alias ltr='ll -r -m'
-# alias la='ls -la'
+alias eza='eza --git'
+alias ls="eza"
+alias l='ls'
+alias ll='ls -l'
+alias ltr='ll -r -m'
+alias la='ls -la'
 alias v='nvim'
 alias vi='nvim'
 alias h='history'
 alias less='less -r'
 alias ql='qlmanage -p'
+alias tree='tre'
 
 # Only Mac
 alias op='open .'
