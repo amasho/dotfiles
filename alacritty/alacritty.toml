@@ -1,4 +1,4 @@
-import = ["/Users/amano-shota/ghq/github.com/dracula/alacritty/dracula.toml"]
+import = ["~/ghq/github.com/dracula/alacritty/dracula.toml"]
 
 [font]
 size = 14.0
