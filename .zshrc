@@ -139,24 +139,30 @@ source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # spaceship
 source "$(/opt/homebrew/bin/brew --prefix)/opt/spaceship/spaceship.zsh"
 
-# peco
-function peco-history-select() {
-    if which tac > /dev/null; then
-        TAC="tac"
-    else
-        TAC="tail -r"
-    fi
-
-    BUFFER=`history -n 1 | eval ${TAC} | awk '!a[$0]++' | peco`
+# fzf
+function fzf-history-select() {
+    BUFFER=$(history -n -r 1 | fzf --query "$LBUFFER" --reverse)
     CURSOR=$#BUFFER
-    zle && {zle clear-screen}
+    zle reset-prompt && {zle clear-screen}
 }
-zle -N peco-history-select
-bindkey '^R' peco-history-select
+zle -N fzf-history-select
+bindkey '^R' fzf-history-select
 
-function vs-peco () {
+function fzf-cdr() {
+    local selected_dir=$(cdr -l | awk '{ print $2 }' | fzf --reverse)
+    if [ -n "$selected_dir" ]; then
+        BUFFER="cd ${selected_dir}"
+        zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N fzf-cdr
+setopt noflowcontrol
+bindkey '^q' fzf-cdr
+
+function vs-fzf () {
   local base_dir=`ghq root`
-  local selected_dir=`ghq list | peco`
+  local selected_dir=`ghq list | fzf`
   if [ -n "$selected_dir" ]; then
     code "$base_dir/$selected_dir"
     zle accept-line
@@ -164,20 +170,20 @@ function vs-peco () {
   fi
   zle clear-screen
 }
-zle -N vs-peco
-bindkey '^]^V' vs-peco
+zle -N vs-fzf
+bindkey '^]^V' vs-fzf
 
-function ghq-peco () {
+function ghq-fzf () {
   local base_dir=`ghq root`
-  local selected_dir=`ghq list | peco`
+  local selected_dir=`ghq list | fzf`
   if [ -n "$selected_dir" ]; then
     cd "$base_dir/$selected_dir"
     zle accept-line
     zle reset-prompt
   fi
 }
-zle -N ghq-peco
-bindkey '^]^G' ghq-peco
+zle -N ghq-fzf
+bindkey '^]^G' ghq-fzf
 
 # command line stack
 function show_buffer_stack() {
