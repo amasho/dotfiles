@@ -216,3 +216,7 @@ export PATH=${PATH}:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/
 eval "$(direnv hook zsh)"
 
 . "$(/opt/homebrew/bin/brew --prefix)/opt/asdf/libexec/asdf.sh"
+# Powerline設定 - 動的にパスを解決
+if command -v powerline-config >/dev/null 2>&1; then
+    export POWERLINE_CONFIG_COMMAND="powerline-config"
+fi
