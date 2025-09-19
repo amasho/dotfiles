@@ -8,6 +8,9 @@ bindkey -e
 # fpath
 fpath+=($HOME/.zsh/** /usr/local/share/zsh-completions)
 
+# COLORTERM
+export COLORTERM=truecolor
+
 # Lang
 export LANG=ja_JP.UTF-8
 export LC_MESSAGES=ja_JP.UTF-8
