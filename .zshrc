@@ -167,7 +167,7 @@ function vs-fzf () {
   local base_dir=`ghq root`
   local selected_dir=`ghq list | fzf`
   if [ -n "$selected_dir" ]; then
-    code "$base_dir/$selected_dir"
+    cursor "$base_dir/$selected_dir"
     zle accept-line
     zle reset-prompt
   fi
