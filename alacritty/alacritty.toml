@@ -34,6 +34,11 @@ chars = "\n"
 key = "Return"
 mods = "Shift"
 
+[[keyboard.bindings]]
+action = "None"
+key = "W"
+mods = "Command"
+
 [scrolling]
 history = 10000
 multiplier = 3
