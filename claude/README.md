@@ -11,13 +11,18 @@ Claude Code のカスタム設定。
 ### 1. 前提
 
 - `jq` がインストールされていること（macOS: `brew install jq`）
-- このリポジトリが `~/ghq/github.com/amasho/dotfiles` などにクローン済みであること
+- このリポジトリが ghq 経由で `~/ghq/github.com/amasho/dotfiles` にクローン済みであること
+  ```bash
+  ghq get git@github.com:amasho/dotfiles.git
+  ```
 
 ### 2. シンボリックリンク作成
 
 ```bash
-ln -s "$PWD/claude/statusline.sh" ~/.claude/statusline.sh
+ln -s ~/ghq/github.com/amasho/dotfiles/claude/statusline.sh ~/.claude/statusline.sh
 ```
+
+> ghq の管理パスが既定 (`~/ghq`) と異なる場合は `git config --global ghq.root` の値に合わせてパスを置き換えてください。
 
 ### 3. `~/.claude/settings.json` に下記キーを追記
 
