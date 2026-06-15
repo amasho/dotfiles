@@ -1,0 +1,25 @@
+theme = dracula
+
+font-family = Roboto Mono for Powerline
+font-family-bold = Roboto Mono for Powerline
+font-size = 15
+font-style = Bold
+font-style-bold = Bold
+
+# Alt+b/f/d で単語移動・削除のエスケープシーケンスを送る (alacritty 互換)
+keybind = alt+b=esc:b
+keybind = alt+f=esc:f
+keybind = alt+d=esc:d
+
+# Shift+Return で改行を挿入
+keybind = shift+enter=text:\n
+
+# Cmd+W によるウィンドウ/タブのクローズを無効化
+keybind = cmd+w=ignore
+
+background-opacity = 0.93
+
+window-width = 200
+window-height = 60
+window-padding-x = 8
+window-padding-y = 0
