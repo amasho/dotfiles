@@ -1,7 +1,11 @@
 theme = dracula
 
+# 2行目以降はフォールバック。Roboto Mono for Powerline に無い
+# Nerd Font アイコン(starship)と日本語は HackGen Console NF から補完する
 font-family = Roboto Mono for Powerline
+font-family = HackGen Console NF
 font-family-bold = Roboto Mono for Powerline
+font-family-bold = HackGen Console NF
 font-size = 14.5
 font-style = Bold
 font-style-bold = Bold

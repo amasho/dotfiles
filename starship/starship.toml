@@ -1,0 +1,110 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Dracula (Ghostty の theme = dracula に合わせた配色)
+palette = 'dracula'
+
+# 空行 → ディレクトリ / git / 言語 / 実行時間 → 改行 → ❯
+add_newline = true
+format = """
+$directory\
+$git_branch\
+$git_status\
+$nodejs\
+$python\
+$ruby\
+$golang\
+$php\
+$java\
+$docker_context\
+$cmd_duration\
+$line_break\
+$character"""
+
+[palettes.dracula]
+black = '#282a36'
+red = '#ff5555'
+green = '#50fa7b'
+yellow = '#f1fa8c'
+blue = '#bd93f9'
+purple = '#ff79c6'
+cyan = '#8be9fd'
+white = '#f8f8f2'
+bright-black = '#44475a'
+bright-blue = '#6272a4'
+orange = '#ffb86c'
+pink = '#ff79c6'
+comment = '#6272a4'
+dracula-purple = '#bd93f9'
+
+[character]
+success_symbol = '[❯](bold green)'
+error_symbol = '[❯](bold red)'
+vimcmd_symbol = '[❮](bold dracula-purple)'
+
+[directory]
+style = 'bold dracula-purple'
+truncation_length = 3
+truncate_to_repo = true
+truncation_symbol = '…/'
+read_only = " "
+read_only_style = 'bold red'
+
+[git_branch]
+symbol = " "
+style = 'bold pink'
+format = '[$symbol$branch]($style) '
+
+[git_status]
+style = 'bold orange'
+format = '([$all_status$ahead_behind]($style) )'
+conflicted = '='
+ahead = '⇡${count}'
+behind = '⇣${count}'
+diverged = '⇕⇡${ahead_count}⇣${behind_count}'
+up_to_date = ''
+untracked = '?${count}'
+stashed = '≡${count}'
+modified = '*${count}'
+staged = '+${count}'
+renamed = '»${count}'
+deleted = '✘${count}'
+
+[cmd_duration]
+min_time = 5_000
+style = 'bold yellow'
+format = "[ $duration]($style) "
+
+[nodejs]
+symbol = " "
+style = 'bold green'
+format = '[$symbol($version )]($style)'
+
+[python]
+symbol = " "
+style = 'bold yellow'
+format = '[$symbol($version )(\($virtualenv\) )]($style)'
+
+[ruby]
+symbol = " "
+style = 'bold red'
+format = '[$symbol($version )]($style)'
+
+[golang]
+symbol = " "
+style = 'bold cyan'
+format = '[$symbol($version )]($style)'
+
+[php]
+symbol = " "
+style = 'bold bright-blue'
+format = '[$symbol($version )]($style)'
+
+[java]
+symbol = " "
+style = 'bold orange'
+format = '[$symbol($version )]($style)'
+
+[docker_context]
+symbol = " "
+style = 'bold cyan'
+format = '[$symbol$context]($style) '
