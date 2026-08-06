@@ -1,88 +1,81 @@
-set fish_greeting
+#
+# config.fish
+#
 
-set -x LANG ja_JP.UTF-8
-set -x LC_MESSAGES ja_JP.UTF-8
-set -x LC_CTYPE ja_JP.UTF-8
-set -x OUTPUT_CHARSET ja_JP.UTF-8
-set -x LESSCHARSET UTF-8
-set -x JLESSCHARSET japanese
-set -x LC_ALL ja_JP.UTF-8
+### 基本 ###################################################################
+set -g fish_greeting
 
-# TERM's
-set -x TERM xterm-256color
-set -x TERMCAP "xterm-256color:Co#256:pa#256:AF=\E[38;5;%dm:AB=\E[48;5;%dm:tc=xterm-xfree86:"
+### ロケール ###############################################################
+set -gx LANG ja_JP.UTF-8
+set -gx LC_ALL ja_JP.UTF-8
+set -gx LC_MESSAGES ja_JP.UTF-8
+set -gx LC_CTYPE ja_JP.UTF-8
+set -gx OUTPUT_CHARSET ja_JP.UTF-8
+set -gx LESSCHARSET UTF-8
+set -gx JLESSCHARSET japanese
+set -gx COLORTERM truecolor
+# TERM / TERMCAP は端末(Ghostty=xterm-ghostty)と tmux(tmux-256color)に任せ、上書きしない
 
-# WORD
-set -x WORDCHARS '*?_.[]~-=&;!#$%^(){}<>'
-
-# z
-set -U Z_CMD "j"
-
-set -x HOMEBREW_GITHUB_API_TOKEN (cat $HOME/.homebrew_token)
-
-if test (uname) = "Darwin"
-    stty erase  -ixon
-    set -x __CF_USER_TEXT_ENCODING "0x1F5:0x08000100:14"
-else
-    stty erase  -ixon
+if test (uname) = Darwin
+    set -gx __CF_USER_TEXT_ENCODING 0x1F5:0x08000100:14
 end
 
-# TMUX
-alias tmux 'tmux -2'
+### 配色 (Dracula) #########################################################
+# fish のバージョン移行で universal 変数(fish_variables)が飛ぶため global に固定する
+set -g fish_color_normal normal
+set -g fish_color_command F8F8F2
+set -g fish_color_param FF79C6
+set -g fish_color_quote F1FA8C
+set -g fish_color_comment 6272A4
+set -g fish_color_redirection 8BE9FD
+set -g fish_color_end 50FA7B
+set -g fish_color_error FFB86C
+set -g fish_color_escape 00a6b2
+set -g fish_color_operator 00a6b2
+set -g fish_color_autosuggestion BD93F9
+set -g fish_color_cwd green
+set -g fish_color_cwd_root red
+set -g fish_color_status red
+set -g fish_color_user brgreen
+set -g fish_color_host normal
+set -g fish_color_host_remote yellow
+set -g fish_color_valid_path --underline
+set -g fish_color_cancel -r
+set -g fish_color_history_current --bold
+set -g fish_color_match --background=brblue
+set -g fish_color_search_match bryellow --background=brblack
+set -g fish_color_selection white --bold --background=brblack
+set -g fish_pager_color_completion normal
+set -g fish_pager_color_description B3A06D yellow
+set -g fish_pager_color_prefix white --bold --underline
+set -g fish_pager_color_progress brwhite --background=cyan
+set -g fish_pager_color_selected_background -r
 
-# nvim
-set -x XDG_CONFIG_HOME $HOME/.config
+### PATH ###################################################################
+# asdf 0.16+ は asdf.sh が廃止。shims を最優先で PATH に追加する
+set -l asdf_dir $HOME/.asdf
+set -q ASDF_DATA_DIR; and set asdf_dir $ASDF_DATA_DIR
+fish_add_path -gp $asdf_dir/shims $HOME/.local/bin $HOME/local/bin \
+    $HOME/.pub-cache/bin /opt/homebrew/bin /opt/homebrew/sbin
+test -d $HOME/go/bin; and fish_add_path -ga $HOME/go/bin
 
-# MySQL Prompt
-set -x MYSQL_PS1 "mysql[\d]# "
+### 環境変数 ###############################################################
+set -gx XDG_CONFIG_HOME $HOME/.config
+set -gx EDITOR vim
+set -gx GIT_EDITOR vim
+set -gx MYSQL_PS1 "mysql[\d]# "
 
-# anyenv
-set -x PATH $HOME/.anyenv/bin $PATH
-set -x ENVS_PATH $HOME/.anyenv/envs
+# openssl (ビルド用フラグ。起動ごとの brew --prefix 実行を避けて静的パスで解決)
+set -l openssl_prefix /opt/homebrew/opt/openssl@3
+if test -d $openssl_prefix
+    fish_add_path -ga $openssl_prefix/bin
+    set -gx LDFLAGS "-L$openssl_prefix/lib"
+    set -gx CPPFLAGS "-I$openssl_prefix/include"
+end
 
-# nodenv
-set -x NODENV_ROOT $ENVS_PATH/nodenv
-set -x PATH $NODENV_ROOT/bin $PATH
-set -x PATH $NODENV_ROOT/shims $PATH
-status --is-interactive
-source (nodenv init -|psub)
-nodenv rehash
-
-# rbenv
-set -x RBENV_ROOT $ENVS_PATH/rbenv
-set -x PATH $RBENV_ROOT/bin $PATH
-set -x PATH $RBENV_ROOT/shims $PATH
-rbenv rehash
-
-# pyenv
-set -x PYENV_ROOT $ENVS_PATH/pyenv
-set -x PATH $PYENV_ROOT/bin $PATH
-set -x PATH $PYENV_ROOT/shims $PATH
-pyenv rehash
-
-# phpenv
-set -x PHPENV_ROOT $ENVS_PATH/phpenv
-set -x PATH $PHPENV_ROOT/bin $PATH
-set -x PATH $PHPENV_ROOT/shims $PATH
-set -x PATH $PATH /usr/local/opt/libxml2/bin /usr/local/opt/bzip2/bin /usr/local/opt/libiconv/bin
-phpenv rehash
-
-# goenv
-set -x GOENV_ROOT $ENVS_PATH/goenv
-set -x PATH $GOENV_ROOT/bin $PATH
-set -x PATH $GOENV_ROOT/shims $PATH
-set -x GOROOT $HOME/go
-set -x GOPATH $HOME/go
-set -x PATH $GOPATH/bin $HOME/go/1.13.0/bin $PATH
-goenv rehash
-
-# PATH
-set -x PATH $PATH /usr/local/bin /usr/local/sbin /usr/bin /bin /usr/sbin /sbin
-set -x PATH $HOME/local/bin $PATH
-
-# Aliases
-alias exa 'exa --git'
-alias ls "exa"
+### alias ##################################################################
+alias eza 'eza --git'
+alias ls 'eza'
 alias l 'ls'
 alias ll 'ls -l'
 alias ltr 'll -r -m'
@@ -95,80 +88,48 @@ alias javac 'javac -J-Dfile.encoding=UTF8'
 alias vim 'nvim'
 alias vi 'vim'
 alias v 'vim'
-alias diff 'icdiff'
+alias tmux 'tmux -2'
+alias op 'open .'
 
 # Git
 alias g 'git'
 alias gd 'git diff -u'
-alias gicd 'git-icdiff'
 alias gst 'git status -s -b'
 alias gco 'git checkout'
 alias gsw 'git switch'
-set -x GIT_EDITOR vim
 
 # Docker
 alias d 'docker'
 alias dp 'docker ps'
 alias di 'docker images'
 
-### Change the prompt
-set pure_color_blue \e\[34m
-set pure_color_cyan \e\[36m
-set pure_color_gray \e\[38\;2\;147\;161\;161m
-set pure_color_green \e\[32m
-set pure_color_normal \e\[30m\e\(B\e\[m
-set pure_color_red \e\[31m
-set pure_color_yellow \e\[33m
-
-set pure_command_max_exec_time 5
-set pure_host_color \e\[38\;2\;147\;161\;161m
-set pure_root_color \e\[30m\e\(B\e\[m
-set pure_symbol_git_dirty '*'
-set pure_symbol_git_down_arrow "⇣"
-set pure_symbol_git_up_arrow "⇡"
-set pure_symbol_horizontal_bar "—"
-set pure_symbol_prompt "❯"
-set pure_user_host_location 0
-set pure_username_color \e\[38\;2\;147\;161\;161m
-
-function fish_prompt --description 'Write out the prompt'
-    # pwd
-    printf '\n%s%s' (set_color magenta) (prompt_pwd)
-    set_color normal
-
-    # normal
-    set last_status $status
-    printf '%s ' $pure_color_yellow(__fish_git_prompt)
-    set_color normal
-
-    # git branch
-    printf '\n%s❯ ' $pure_color_green
-
+### 関数 ###################################################################
+function ghq_fzf --description 'ghq のリポジトリを fzf で選んで cd する'
+    set -l query (commandline)
+    set -l selected (ghq list --full-path | fzf --reverse --query "$query")
+    if test -n "$selected"
+        cd $selected
+        commandline -r ''
+    end
+    commandline -f repaint
 end
 
-function fish_user_key_bindings
-  bind \cr peco_select_history
-  bind \cg peco_select_ghq_repository
+### ツール初期化 ###########################################################
+command -q direnv; and direnv hook fish | source
+
+set -l gcloud_inc /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc
+test -f $gcloud_inc; and source $gcloud_inc
+
+if status is-interactive
+    # 端末に繋がっていない対話セッション(CI や -c 実行)ではスキップ
+    isatty stdin; and stty erase \x7f -ixon
+
+    # プロンプト
+    command -q starship; and starship init fish | source
+
+    # fzf: Ctrl-R 履歴 / Ctrl-T ファイル / Alt-C ディレクトリ移動
+    command -q fzf; and fzf --fish | source
+
+    # ghq リポジトリ移動
+    command -q ghq; and command -q fzf; and bind ctrl-g ghq_fzf
 end
-set -g fish_user_paths "/usr/local/opt/mysql@5.7/bin" $fish_user_paths
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '~/local/bin/google-cloud-sdk/path.fish.inc' ]; . '~/local/bin/google-cloud-sdk/path.fish.inc'; end
-
-# for Bigsur
-set -x PATH /opt/homebrew/bin $PATH
-
-# for flutter
-set -x PATH $HOME/.pub-cache/bin $PATH
-
-# direnv
-set -x EDITOR vim
-eval (direnv hook fish)
-
-# for openssl
-set -x PATH (brew --prefix openssl)/bin $PATH
-set -gx LDFLAGS "-L"(brew --prefix openssl)"/lib"
-set -gx CPPFLAGS "-I"(brew --prefix openssl)"/include"
-
-# 一度sdkコマンドを実行してgradleのpathを通す
-sdk help > /dev/null

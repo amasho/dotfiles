@@ -5,4 +5,7 @@ fishd.*
 fishfile
 functions/
 
+# fish が自動生成・書き換えするファイル (配色は config.fish で管理)
+fish/fish_variables
+
 
