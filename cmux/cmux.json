@@ -1,0 +1,68 @@
+{
+  "$schema" : "https://raw.githubusercontent.com/manaflow-ai/cmux/main/web/data/cmux.schema.json",
+  "schemaVersion" : 1,
+  "shortcuts" : {
+    "bindings" : {
+      "focusDown" : {
+        "first" : {
+          "command" : true,
+          "control" : false,
+          "key" : "j",
+          "keyCode" : 38,
+          "option" : true,
+          "shift" : false
+        }
+      },
+      "focusLeft" : {
+        "first" : {
+          "command" : true,
+          "control" : false,
+          "key" : "h",
+          "keyCode" : 4,
+          "option" : true,
+          "shift" : false
+        }
+      },
+      "focusRight" : {
+        "first" : {
+          "command" : true,
+          "control" : false,
+          "key" : "l",
+          "keyCode" : 37,
+          "option" : true,
+          "shift" : false
+        }
+      },
+      "focusUp" : {
+        "first" : {
+          "command" : true,
+          "control" : false,
+          "key" : "k",
+          "keyCode" : 40,
+          "option" : true,
+          "shift" : false
+        }
+      },
+      "nextSidebarTab" : {
+        "first" : {
+          "command" : true,
+          "control" : true,
+          "key" : "n",
+          "keyCode" : 45,
+          "option" : false,
+          "shift" : false
+        }
+      },
+      "prevSidebarTab" : {
+        "first" : {
+          "command" : true,
+          "control" : true,
+          "key" : "p",
+          "keyCode" : 35,
+          "option" : false,
+          "shift" : false
+        }
+      }
+    }
+  }
+}
