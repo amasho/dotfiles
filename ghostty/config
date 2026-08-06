@@ -1,5 +1,10 @@
 theme = dracula
 
+# ログインシェル(zsh)ではなく fish で起動する。zsh を使いたい場合は `zsh` と打つ
+# -l が無いと macOS の path_helper が走らず /usr/local/bin や /Library/Apple/usr/bin が
+# PATH から抜けるため、ログインシェルとして起動する
+command = /opt/homebrew/bin/fish -l
+
 # 2行目以降はフォールバック。Roboto Mono for Powerline に無い
 # Nerd Font アイコン(starship)と日本語は HackGen Console NF から補完する
 font-family = Roboto Mono for Powerline
