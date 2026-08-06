@@ -64,6 +64,7 @@ set -gx XDG_CONFIG_HOME $HOME/.config
 set -gx EDITOR vim
 set -gx GIT_EDITOR vim
 set -gx MYSQL_PS1 "mysql[\d]# "
+set -gx BAT_THEME Dracula
 
 # openssl (ビルド用フラグ。起動ごとの brew --prefix 実行を避けて静的パスで解決)
 set -l openssl_prefix /opt/homebrew/opt/openssl@3
@@ -82,6 +83,7 @@ alias ltr 'll -r -m'
 alias la 'ls -la'
 alias h 'history'
 alias less 'less -r'
+alias cat 'bat -pp'
 alias which '/usr/bin/which'
 alias ql 'qlmanage -p'
 alias javac 'javac -J-Dfile.encoding=UTF8'
@@ -132,4 +134,7 @@ if status is-interactive
 
     # ghq リポジトリ移動
     command -q ghq; and command -q fzf; and bind ctrl-g ghq_fzf
+
+    # zoxide: z でディレクトリジャンプ / zi で fzf 選択
+    command -q zoxide; and zoxide init fish | source
 end
