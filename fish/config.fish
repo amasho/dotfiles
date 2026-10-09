@@ -61,8 +61,8 @@ test -d $HOME/go/bin; and fish_add_path -ga $HOME/go/bin
 
 ### 環境変数 ###############################################################
 set -gx XDG_CONFIG_HOME $HOME/.config
-set -gx EDITOR vim
-set -gx GIT_EDITOR vim
+set -gx EDITOR nvim
+set -gx GIT_EDITOR nvim
 set -gx MYSQL_PS1 "mysql[\d]# "
 set -gx BAT_THEME Dracula
 
