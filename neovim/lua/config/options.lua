@@ -2,13 +2,14 @@ local opt = vim.opt
 
 -- 表示
 opt.number = true
+opt.numberwidth = 2
 opt.ruler = true
 opt.title = true
 opt.showcmd = true
 opt.wrap = false
 opt.synmaxcol = 300
 opt.cursorline = true -- カレントウィンドウのみ (autocmds.lua で制御)
-opt.signcolumn = "yes"
+opt.signcolumn = "number" -- サインは行番号の欄に重ねて表示し左余白を詰める
 opt.termguicolors = true
 opt.showtabline = 1
 opt.laststatus = 3
