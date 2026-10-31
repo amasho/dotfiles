@@ -5,18 +5,26 @@
 ### 基本 ###################################################################
 set -g fish_greeting
 
+set -l os (uname)
+set -l is_wsl false
+test $os = Linux; and string match -qi '*microsoft*' </proc/version; and set is_wsl true
+
 ### ロケール ###############################################################
-set -gx LANG ja_JP.UTF-8
-set -gx LC_ALL ja_JP.UTF-8
-set -gx LC_MESSAGES ja_JP.UTF-8
-set -gx LC_CTYPE ja_JP.UTF-8
-set -gx OUTPUT_CHARSET ja_JP.UTF-8
+# ja_JP ロケールが未生成の環境(素の Ubuntu/WSL 等)では C.UTF-8 にフォールバックし
+# setlocale の警告を避ける。ja_JP を使うには install.sh (sudo locale-gen) を実行する
+set -l locale ja_JP.UTF-8
+locale -a 2>/dev/null | string match -qri '^ja_JP\.utf-?8$'; or set locale C.UTF-8
+set -gx LANG $locale
+set -gx LC_ALL $locale
+set -gx LC_MESSAGES $locale
+set -gx LC_CTYPE $locale
+set -gx OUTPUT_CHARSET UTF-8
 set -gx LESSCHARSET UTF-8
 set -gx JLESSCHARSET japanese
 set -gx COLORTERM truecolor
 # TERM / TERMCAP は端末(Ghostty=xterm-ghostty)と tmux(tmux-256color)に任せ、上書きしない
 
-if test (uname) = Darwin
+if test $os = Darwin
     set -gx __CF_USER_TEXT_ENCODING 0x1F5:0x08000100:14
 end
 
@@ -75,23 +83,39 @@ if test -d $openssl_prefix
 end
 
 ### alias ##################################################################
-alias eza 'eza --git'
-alias ls 'eza'
+# Ubuntu/Debian は bat / fd のコマンド名が batcat / fdfind
+command -q batcat; and alias bat batcat
+command -q fdfind; and alias fd fdfind
+
+if command -q eza
+    alias eza 'eza --git'
+    alias ls 'eza'
+end
 alias l 'ls'
 alias ll 'ls -l'
 alias ltr 'll -r -m'
 alias la 'ls -la'
 alias h 'history'
 alias less 'less -r'
-alias cat 'bat -pp'
+if command -q bat; or command -q batcat
+    alias cat 'bat -pp'
+end
 alias which '/usr/bin/which'
-alias ql 'qlmanage -p'
 alias javac 'javac -J-Dfile.encoding=UTF8'
 alias vim 'nvim'
 alias vi 'vim'
 alias v 'vim'
 alias tmux 'tmux -2'
-alias op 'open .'
+
+# カレントディレクトリを GUI で開く
+if test $os = Darwin
+    alias op 'open .'
+    alias ql 'qlmanage -p'
+else if test $is_wsl = true
+    alias op 'explorer.exe .'
+else if command -q xdg-open
+    alias op 'xdg-open .'
+end
 
 # Git
 alias g 'git'
