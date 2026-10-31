@@ -49,3 +49,14 @@ opt.softtabstop = 4
 -- その他
 opt.mouse = "a"
 opt.clipboard = "unnamedplus"
+
+-- WSL では Windows のクリップボードへ win32yank 経由で渡す (install.sh が ~/.local/bin に配置する)。
+-- WSLg があると自動検出で xsel が選ばれ tmux 側(win32yank)と挙動がずれるため明示する
+if vim.fn.has("wsl") == 1 and vim.fn.executable("win32yank.exe") == 1 then
+  vim.g.clipboard = {
+    name = "win32yank",
+    copy = { ["+"] = "win32yank.exe -i --crlf", ["*"] = "win32yank.exe -i --crlf" },
+    paste = { ["+"] = "win32yank.exe -o --lf", ["*"] = "win32yank.exe -o --lf" },
+    cache_enabled = 0,
+  }
+end
