@@ -1,0 +1,12 @@
+{
+  "zoom": 1.2,
+  "sounds": {
+    "enabled": true
+  },
+  "font": "Roboto Mono Medium for Powerline",
+  "minimum_contrast": 1,
+  "ui_font": "Roboto Mono Medium for Powerline",
+  "appearance": "dark",
+  "telemetry": false,
+  "font_size": 16
+}
