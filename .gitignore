@@ -8,3 +8,7 @@ functions/
 fish/fish_variables
 
 
+
+# Herdr mod の自動生成ファイル
+herdr/mods/*/gpui-kit.d.ts
+herdr/mods/*/jsconfig.json
