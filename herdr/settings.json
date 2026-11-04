@@ -3,10 +3,10 @@
   "sounds": {
     "enabled": true
   },
-  "font": "Roboto Mono Medium for Powerline",
   "minimum_contrast": 1,
-  "ui_font": "Roboto Mono Medium for Powerline",
   "appearance": "dark",
   "telemetry": false,
-  "font_size": 16
+  "font_size": 16,
+  "ui_font": "Roboto Mono Light for Powerline",
+  "font": "Roboto Mono Light for Powerline"
 }
