@@ -1,6 +1,7 @@
 # dotfiles
 
 macOS (Ghostty) と Windows (WSL2 + Windows Terminal) で共通の開発環境。
+Ubuntu の Linux VM (Lima) でも `install.sh` でセットアップできる。
 配色は Dracula で統一している。
 
 | ディレクトリ / ファイル | 内容 | リンク先 |
@@ -26,7 +27,9 @@ cd ~/ghq/github.com/amasho/dotfiles
 `install.sh` は何度実行しても同じ結果になる。行うこと:
 
 - 上記のシンボリックリンク作成 (既存ファイルは `*.bak.<日時>` に退避)
-- Ubuntu / WSL: apt で `fish tmux neovim starship fzf zoxide eza bat fd-find ripgrep tig jq unzip build-essential tree-sitter-cli golang-go` を導入し、`ja_JP.UTF-8` ロケールを生成
+- Ubuntu / WSL: apt で `fish tmux neovim starship fzf zoxide eza bat fd-find ripgrep tig jq unzip build-essential tree-sitter-cli golang-go git-delta gh` を導入し、`ja_JP.UTF-8` ロケールを生成
+- `~/.gitconfig` に `git/delta.gitconfig` を include (未登録の場合のみ)
+- Linux (非WSL): Herdr core の shell 設定 `herdr/core-config.linux.toml` をリンク
 - TPM を clone して tmux プラグイン (dracula) を導入
 - Linux: `ghq` を GitHub Releases から `~/.local/bin` に配置
 - WSL: `win32yank.exe` (クリップボード連携)、Windows Terminal の Dracula fragment、HackGen Console NF フォント、IME 切替スクリプトを導入
@@ -38,6 +41,14 @@ sudo を使う手順 (apt / locale-gen / chsh) を飛ばすには `./install.sh 
 
 Windows Terminal・フォント・IME 切替など Windows 側の設定は [windows/README.md](windows/README.md) にまとめている。
 fish の `op` は `explorer.exe .` でカレントディレクトリをエクスプローラで開く。
+
+### Linux VM (Lima) の補足
+
+`vm/lima/agent.yaml` から Ubuntu VM を作成し、VM 内で `install.sh` を実行する。
+
+```bash
+limactl create --name=agent vm/lima/agent.yaml && limactl start agent
+```
 
 ### macOS の補足
 
