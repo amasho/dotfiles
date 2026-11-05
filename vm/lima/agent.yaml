@@ -26,3 +26,13 @@ ssh:
 containerd:
   system: false
   user: false
+
+# Mac (127.0.0.1) に転送するポートは決めたものだけにする。VM の中のブラウザ
+# (terminal-browser) の CDP などを Mac のプロセスから触れないようにするため
+portForwards:
+  - guestPort: 3000 # frontend の dev server
+  - guestPort: 8000 # backend の dev server
+  - guestPort: 1455 # codex login の受け口 (ログインのときだけ使う)
+  - guestPortRange: [1, 65535]
+    proto: any # TCP だけでなく UDP (mDNS など) も転送しない
+    ignore: true
