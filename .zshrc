@@ -111,7 +111,19 @@ alias -s py=python
 
 # Git
 alias g='git'
-alias gd='git diff --color'
+# 引数なしのときは、まだ追っていない新しいファイルも差分に出す
+function gd() {
+  if [[ $# -ne 0 ]]; then
+    git diff --color "$@"
+    return
+  fi
+  {
+    git --no-pager diff --color
+    git ls-files -z --others --exclude-standard | while IFS= read -r -d '' f; do
+      git --no-pager diff --color --no-index /dev/null "$f"
+    done
+  } | if [[ -t 1 ]]; then LESS=${LESS:-FRX} ${=$(git var GIT_PAGER)}; else cat; fi
+}
 alias gst='git status -s -b'
 alias gsw='git switch'
 export EDITOR=vim
