@@ -119,7 +119,25 @@ end
 
 # Git
 alias g 'git'
-alias gd 'git diff -u'
+# 引数なしのときは、まだ追っていない新しいファイルも差分に出す
+function gd
+    if test (count $argv) -ne 0
+        git diff -u $argv
+        return
+    end
+    begin
+        git --no-pager diff -u --color
+        for f in (git ls-files --others --exclude-standard)
+            git --no-pager diff -u --color --no-index /dev/null $f
+        end
+    end | if isatty stdout
+        set -q LESS; or set -lx LESS FRX
+        set -l pager (string split ' ' -- (git var GIT_PAGER))
+        $pager
+    else
+        cat
+    end
+end
 alias gst 'git status -s -b'
 alias gco 'git checkout'
 alias gsw 'git switch'
