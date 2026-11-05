@@ -11,6 +11,7 @@ Ubuntu の Linux VM (Lima) でも `install.sh` でセットアップできる。
 | `starship/starship.toml` | プロンプト | `~/.config/starship.toml` |
 | `.tmux.conf` | tmux (TPM + dracula/tmux) | `~/.tmux.conf` |
 | `.tigrc` `.asdfrc` `.irbrc` `.ctags` | 各ツール | `~/` 直下 |
+| `hunk/config.toml` | hunk (diff ビューア) の配色 | `~/.config/hunk/config.toml` |
 | `claude/` | Claude Code の statusline ([詳細](claude/README.md)) | `~/.claude/statusline.sh` |
 | `ghostty/` `alacritty/` `cmux/` | macOS のターミナル | `~/.config/{ghostty,alacritty}` |
 | `windows/` | Windows (WSL2) 用の追加設定: Windows Terminal の fragment、IME 切替スクリプト ([詳細](windows/README.md)) | Windows 側へコピー |
@@ -28,7 +29,7 @@ cd ~/ghq/github.com/amasho/dotfiles
 
 - 上記のシンボリックリンク作成 (既存ファイルは `*.bak.<日時>` に退避)
 - Ubuntu / WSL: apt で `fish tmux neovim starship fzf zoxide eza bat fd-find ripgrep tig jq unzip build-essential tree-sitter-cli golang-go git-delta gh` を導入し、`ja_JP.UTF-8` ロケールを生成
-- `~/.gitconfig` に `git/delta.gitconfig` を include (未登録の場合のみ)
+- `~/.gitconfig` に `git/delta.gitconfig` と `git/hunk.gitconfig` を include (それぞれ delta / hunk がある場合のみ。未登録の場合のみ)
 - Linux (非WSL): Herdr core の shell 設定 `herdr/core-config.linux.toml` をリンク
 - TPM を clone して tmux プラグイン (dracula) を導入
 - Linux: `ghq` を GitHub Releases から `~/.local/bin` に配置

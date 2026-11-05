@@ -78,6 +78,7 @@ setup_links() {
   link .irbrc "$HOME/.irbrc"
   link .ctags "$HOME/.ctags"
   link claude/statusline.sh "$HOME/.claude/statusline.sh"
+  link hunk/config.toml "$HOME/.config/hunk/config.toml"
   # Herdr core の shell (macOS は herdr/install.sh が担当)
   if [ "$OS" = Linux ] && ! $IS_WSL; then
     link herdr/core-config.linux.toml "$HOME/.config/herdr-core/config.toml"
@@ -88,18 +89,10 @@ setup_links() {
   fi
 }
 
-### ~/.gitconfig に delta 設定を include ####################################
-setup_gitconfig() {
-  info "gitconfig (delta)"
-  if ! command -v git >/dev/null; then
-    warn "git が無いためスキップ"
-    return
-  fi
-  if ! command -v delta >/dev/null; then
-    warn "delta が無いためスキップ"
-    return
-  fi
-  local inc="$DOTFILES/git/delta.gitconfig" v
+### ~/.gitconfig に delta / hunk 設定を include ##############################
+# 登録済みなら何もしない
+include_gitconfig() {
+  local inc="$DOTFILES/git/$1" v
   while IFS= read -r v; do
     # ~ 表記で登録済みの場合も同一パスとして扱う
     if [ "${v/#\~/$HOME}" = "$inc" ]; then
@@ -109,6 +102,24 @@ setup_gitconfig() {
   done < <(git config --global --get-all include.path || true)
   git config --global --add include.path "$inc"
   info "include: $inc"
+}
+
+setup_gitconfig() {
+  info "gitconfig (delta / hunk)"
+  if ! command -v git >/dev/null; then
+    warn "git が無いためスキップ"
+    return
+  fi
+  if command -v delta >/dev/null; then
+    include_gitconfig delta.gitconfig
+  else
+    warn "delta が無いためスキップ"
+  fi
+  if command -v hunk >/dev/null; then
+    include_gitconfig hunk.gitconfig
+  else
+    warn "hunk が無いためスキップ"
+  fi
 }
 
 ### Ubuntu パッケージ #######################################################

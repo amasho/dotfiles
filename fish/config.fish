@@ -138,6 +138,8 @@ function gd
         cat
     end
 end
+# hunk で今の変更を見る（新しいファイルも含む）
+alias hd 'hunk diff'
 alias gst 'git status -s -b'
 alias gco 'git checkout'
 alias gsw 'git switch'

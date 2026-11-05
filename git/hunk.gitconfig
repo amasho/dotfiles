@@ -1,0 +1,6 @@
+# hunk (https://hunk.dev/)
+# ~/.gitconfig から [include] で読み込む
+# 普段の pager（delta）は変えず、git hdiff / git hshow のときだけ hunk で開く
+[alias]
+	hdiff = -c \"core.pager=hunk pager\" diff
+	hshow = -c \"core.pager=hunk pager\" show
