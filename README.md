@@ -28,7 +28,7 @@ cd ~/ghq/github.com/amasho/dotfiles
 `install.sh` は何度実行しても同じ結果になる。行うこと:
 
 - 上記のシンボリックリンク作成 (既存ファイルは `*.bak.<日時>` に退避)
-- Ubuntu / WSL: apt で `fish tmux neovim starship fzf zoxide eza bat fd-find ripgrep tig jq unzip build-essential tree-sitter-cli golang-go git-delta gh` を導入し、`ja_JP.UTF-8` ロケールを生成
+- Ubuntu / WSL: apt で `fish tmux neovim starship fzf zoxide eza bat fd-find ripgrep tig jq unzip build-essential tree-sitter-cli golang-go git-delta gh fonts-noto-cjk` を導入し、`ja_JP.UTF-8` ロケールを生成
 - `~/.gitconfig` に `git/delta.gitconfig` と `git/hunk.gitconfig` を include (それぞれ delta / hunk がある場合のみ。未登録の場合のみ)
 - Linux (非WSL): Herdr core の shell 設定 `herdr/core-config.linux.toml` をリンク
 - TPM を clone して tmux プラグイン (dracula) を導入

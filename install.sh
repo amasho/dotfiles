@@ -128,6 +128,7 @@ install_apt_packages() {
   local pkgs=(
     fish tmux neovim starship fzf zoxide eza bat fd-find ripgrep tig
     jq unzip curl git build-essential tree-sitter-cli golang-go git-delta gh
+    fonts-noto-cjk
   )
   local missing=()
   for p in "${pkgs[@]}"; do
