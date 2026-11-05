@@ -3,7 +3,7 @@
 # install.sh - dotfiles セットアップ (macOS / Ubuntu / WSL2 / Ubuntu Lima VM)
 #
 #   ./install.sh            全手順 (apt, locale-gen, chsh で sudo のパスワードを聞かれる)
-#   ./install.sh --no-sudo  sudo 不要な手順のみ (リンク (Linux は herdr-core 設定も), gitconfig, TPM, ghq, win32yank, Windows Terminal 設定, フォント)
+#   ./install.sh --no-sudo  sudo 不要な手順のみ (リンク (Linux は herdr-core 設定も), gitconfig, TPM, ghq, hunk, win32yank, Windows Terminal 設定, フォント)
 #
 # 何度実行しても同じ結果になる (冪等)。既存の実体ファイルは *.bak.<日時> に退避する。
 #
@@ -115,7 +115,7 @@ setup_gitconfig() {
   else
     warn "delta が無いためスキップ"
   fi
-  if command -v hunk >/dev/null; then
+  if command -v hunk >/dev/null || [ -x "$HOME/.local/bin/hunk" ]; then
     include_gitconfig hunk.gitconfig
   else
     warn "hunk が無いためスキップ"
@@ -198,6 +198,43 @@ install_ghq() {
   unzip_to "$TMP/ghq.zip" "$TMP/ghq"
   install -Dm755 "$TMP/ghq/ghq_linux_${arch}/ghq" "$HOME/.local/bin/ghq"
   info "installed: $HOME/.local/bin/ghq"
+}
+
+### hunk (apt に無いので GitHub Releases から。版と sha256 を固定) ###########
+HUNK_VERSION=0.24.1
+install_hunk() {
+  info "hunk"
+  if [ -x "$HOME/.local/bin/hunk" ] || command -v hunk >/dev/null; then
+    skip "hunk"
+    return
+  fi
+  local arch sha
+  case "$(uname -m)" in
+    x86_64)
+      arch=x64
+      sha=4b8c98f8d97745499916cc1e1d2f27ffd258c6d6358dd4532f61e41c5eb19692
+      ;;
+    aarch64 | arm64)
+      arch=arm64
+      sha=ab49c8aba82c3c9872f1c5eefd96d1c4c2491e5b80647f97b2e81fc6c4676deb
+      ;;
+    *)
+      warn "未対応アーキテクチャ: $(uname -m)"
+      return
+      ;;
+  esac
+  local name="hunkdiff-linux-${arch}"
+  curl -fsSL -o "$TMP/$name.tar.gz" \
+    "https://github.com/modem-dev/hunk/releases/download/v${HUNK_VERSION}/$name.tar.gz"
+  echo "$sha  $TMP/$name.tar.gz" | sha256sum -c --quiet -
+  tar -xzf "$TMP/$name.tar.gz" -C "$TMP"
+  # 本体の隣に skills/ が必要なので、ディレクトリごと置いてリンクする
+  local dst="$HOME/.local/share/hunk"
+  rm -rf "$dst"
+  mkdir -p "$(dirname "$dst")" "$HOME/.local/bin"
+  mv "$TMP/$name" "$dst"
+  ln -sfn "$dst/hunk" "$HOME/.local/bin/hunk"
+  info "installed: $HOME/.local/bin/hunk -> $dst/hunk"
 }
 
 ### WSL: クリップボード / Windows Terminal / フォント ########################
@@ -325,6 +362,10 @@ main() {
     setup_locale
   fi
   setup_links
+  # gitconfig の hunk の include は hunk の有無を見るので、先に入れる
+  if [ "$OS" = Linux ]; then
+    install_hunk
+  fi
   setup_gitconfig
   setup_tpm
   if [ "$OS" = Linux ]; then
