@@ -34,5 +34,21 @@ portForwards:
   - guestPort: 8000 # backend の dev server
   - guestPort: 1455 # codex login の受け口 (ログインのときだけ使う)
   - guestPortRange: [1, 65535]
-    proto: any # TCP だけでなく UDP (mDNS など) も転送しない
+    proto: any # TCP だけでなく UDP も転送しない (0.0.0.0 で待ち受ける UDP には効かないので、mDNS は下の provision で止める)
     ignore: true
+
+provision:
+  # systemd-resolved の mDNS / LLMNR を止める。VM では .local の名前解決は使わないのに、
+  # mDNS が 0.0.0.0:5353 で待ち受けると Lima が Mac の 127.0.0.1:5353 に転送してしまうため。
+  # Lima の 00-lima-enable-mdns.conf より後に読まれる名前にして上書きする
+  - mode: system
+    script: |
+      #!/bin/sh
+      set -eu
+      conf=/etc/systemd/resolved.conf.d/no-mdns.conf
+      new=$(printf '[Resolve]\nMulticastDNS=no\nLLMNR=no\n')
+      if [ "$(cat "$conf" 2>/dev/null)" != "$new" ]; then
+        mkdir -p "$(dirname "$conf")"
+        printf '%s\n' "$new" > "$conf"
+        systemctl restart systemd-resolved
+      fi
