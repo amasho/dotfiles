@@ -62,6 +62,11 @@ for mod in "$DOTFILES_HERDR"/mods/*/; do
   mod=${mod%/}
   link "$mod" "$APP_HOME/mods/$(basename "$mod")"
 done
+# themes/ には Herdr 付属のテーマもあるので、フォルダごとではなく 1 ファイルずつリンクする
+for theme in "$DOTFILES_HERDR"/themes/*.json; do
+  [ -f "$theme" ] || continue
+  link "$theme" "$APP_HOME/themes/$(basename "$theme")"
+done
 
 ### 依存コマンドの確認
 [ -x /opt/homebrew/bin/fish ] || say "warning: /opt/homebrew/bin/fish がありません (core-config.toml のシェル)"

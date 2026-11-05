@@ -5,6 +5,7 @@
   },
   "minimum_contrast": 1,
   "appearance": "dark",
+  "theme": "dracula",
   "telemetry": false,
   "font_size": 16,
   "ui_font": "Roboto Mono Light for Powerline",
