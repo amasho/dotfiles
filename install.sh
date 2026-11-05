@@ -78,6 +78,7 @@ setup_links() {
   link .irbrc "$HOME/.irbrc"
   link .ctags "$HOME/.ctags"
   link claude/statusline.sh "$HOME/.claude/statusline.sh"
+  link hunk/config.toml "$HOME/.config/hunk/config.toml"
   # Herdr core の shell (macOS は herdr/install.sh が担当)
   if [ "$OS" = Linux ] && ! $IS_WSL; then
     link herdr/core-config.linux.toml "$HOME/.config/herdr-core/config.toml"

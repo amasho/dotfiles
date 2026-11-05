@@ -11,6 +11,7 @@ Ubuntu の Linux VM (Lima) でも `install.sh` でセットアップできる。
 | `starship/starship.toml` | プロンプト | `~/.config/starship.toml` |
 | `.tmux.conf` | tmux (TPM + dracula/tmux) | `~/.tmux.conf` |
 | `.tigrc` `.asdfrc` `.irbrc` `.ctags` | 各ツール | `~/` 直下 |
+| `hunk/config.toml` | hunk (diff ビューア) の配色 | `~/.config/hunk/config.toml` |
 | `claude/` | Claude Code の statusline ([詳細](claude/README.md)) | `~/.claude/statusline.sh` |
 | `ghostty/` `alacritty/` `cmux/` | macOS のターミナル | `~/.config/{ghostty,alacritty}` |
 | `windows/` | Windows (WSL2) 用の追加設定: Windows Terminal の fragment、IME 切替スクリプト ([詳細](windows/README.md)) | Windows 側へコピー |
