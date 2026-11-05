@@ -206,7 +206,7 @@ bindkey '\M-q' show_buffer_stack
 export TERM=xterm-256color
 export TERMCAP="xterm-256color:Co#256:pa#256:AF=\E[38;5;%dm:AB=\E[48;5;%dm:tc=xterm-xfree86:"
 
-function chpwd() { ls }
+function chpwd() { [[ -o interactive ]] && command eza }
 
 # nvim
 export XDG_CONFIG_HOME=${HOME}/.config
