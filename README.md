@@ -28,7 +28,7 @@ cd ~/ghq/github.com/amasho/dotfiles
 
 - 上記のシンボリックリンク作成 (既存ファイルは `*.bak.<日時>` に退避)
 - Ubuntu / WSL: apt で `fish tmux neovim starship fzf zoxide eza bat fd-find ripgrep tig jq unzip build-essential tree-sitter-cli golang-go git-delta gh` を導入し、`ja_JP.UTF-8` ロケールを生成
-- `~/.gitconfig` に `git/delta.gitconfig` を include (未登録の場合のみ)
+- `~/.gitconfig` に `git/delta.gitconfig` と `git/hunk.gitconfig` を include (それぞれ delta / hunk がある場合のみ。未登録の場合のみ)
 - Linux (非WSL): Herdr core の shell 設定 `herdr/core-config.linux.toml` をリンク
 - TPM を clone して tmux プラグイン (dracula) を導入
 - Linux: `ghq` を GitHub Releases から `~/.local/bin` に配置

@@ -124,6 +124,8 @@ function gd() {
     done
   } | if [[ -t 1 ]]; then LESS=${LESS:-FRX} ${=$(git var GIT_PAGER)}; else cat; fi
 }
+# hunk で今の変更を見る（新しいファイルも含む）
+alias hd='hunk diff'
 alias gst='git status -s -b'
 alias gsw='git switch'
 export EDITOR=vim
