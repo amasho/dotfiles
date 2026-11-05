@@ -33,6 +33,7 @@ cd ~/ghq/github.com/amasho/dotfiles
 - Linux (非WSL): Herdr core の shell 設定 `herdr/core-config.linux.toml` をリンク
 - TPM を clone して tmux プラグイン (dracula) を導入
 - Linux: `ghq` を GitHub Releases から `~/.local/bin` に配置
+- Linux: `hunk` を GitHub Releases から `~/.local/share/hunk` に配置し、`~/.local/bin/hunk` にリンク (版と sha256 は `install.sh` で固定)
 - WSL: `win32yank.exe` (クリップボード連携)、Windows Terminal の Dracula fragment、HackGen Console NF フォント、IME 切替スクリプトを導入
 - ログインシェルを fish に変更 (`chsh`)
 
@@ -62,7 +63,7 @@ hc machine add --via "ssh -F $HOME/.lima/agent/ssh.config lima-agent" --name age
 
 ### macOS の補足
 
-ツール自体は Homebrew で入れる (`brew install fish tmux neovim starship fzf zoxide eza bat fd ripgrep tig ghq jq tree-sitter git-delta gh`)。
+ツール自体は Homebrew で入れる (`brew install fish tmux neovim starship fzf zoxide eza bat fd ripgrep tig ghq jq tree-sitter git-delta gh hunk`)。
 `install.sh` はリンクと TPM の導入のみ行う。
 
 ## 初回起動
