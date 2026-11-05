@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 #
-# install.sh - dotfiles セットアップ (macOS / Ubuntu / WSL2)
+# install.sh - dotfiles セットアップ (macOS / Ubuntu / WSL2 / Ubuntu Lima VM)
 #
 #   ./install.sh            全手順 (apt, locale-gen, chsh で sudo のパスワードを聞かれる)
-#   ./install.sh --no-sudo  sudo 不要な手順のみ (リンク, TPM, ghq, win32yank, Windows Terminal 設定, フォント)
+#   ./install.sh --no-sudo  sudo 不要な手順のみ (リンク (Linux は herdr-core 設定も), gitconfig, TPM, ghq, win32yank, Windows Terminal 設定, フォント)
 #
 # 何度実行しても同じ結果になる (冪等)。既存の実体ファイルは *.bak.<日時> に退避する。
 #
@@ -21,7 +21,7 @@ for arg in "$@"; do
   case "$arg" in
     --no-sudo) WITH_SUDO=false ;;
     -h | --help)
-      sed -n '2,10p' "$0" | sed 's/^# \{0,1\}//'
+      sed -n '2,8p' "$0" | sed 's/^# \{0,1\}//'
       exit 0
       ;;
     *)
@@ -78,10 +78,37 @@ setup_links() {
   link .irbrc "$HOME/.irbrc"
   link .ctags "$HOME/.ctags"
   link claude/statusline.sh "$HOME/.claude/statusline.sh"
+  # Herdr core の shell (macOS は herdr/install.sh が担当)
+  if [ "$OS" = Linux ] && ! $IS_WSL; then
+    link herdr/core-config.linux.toml "$HOME/.config/herdr-core/config.toml"
+  fi
   if [ "$OS" = Darwin ]; then
     link ghostty/config "$HOME/.config/ghostty/config"
     link alacritty/alacritty.toml "$HOME/.config/alacritty/alacritty.toml"
   fi
+}
+
+### ~/.gitconfig に delta 設定を include ####################################
+setup_gitconfig() {
+  info "gitconfig (delta)"
+  if ! command -v git >/dev/null; then
+    warn "git が無いためスキップ"
+    return
+  fi
+  if ! command -v delta >/dev/null; then
+    warn "delta が無いためスキップ"
+    return
+  fi
+  local inc="$DOTFILES/git/delta.gitconfig" v
+  while IFS= read -r v; do
+    # ~ 表記で登録済みの場合も同一パスとして扱う
+    if [ "${v/#\~/$HOME}" = "$inc" ]; then
+      skip "$inc"
+      return
+    fi
+  done < <(git config --global --get-all include.path || true)
+  git config --global --add include.path "$inc"
+  info "include: $inc"
 }
 
 ### Ubuntu パッケージ #######################################################
@@ -89,7 +116,7 @@ install_apt_packages() {
   info "apt パッケージ"
   local pkgs=(
     fish tmux neovim starship fzf zoxide eza bat fd-find ripgrep tig
-    jq unzip curl git build-essential tree-sitter-cli golang-go
+    jq unzip curl git build-essential tree-sitter-cli golang-go git-delta gh
   )
   local missing=()
   for p in "${pkgs[@]}"; do
@@ -262,14 +289,19 @@ setup_shell() {
     warn "fish が無いためスキップ"
     return
   fi
-  if [ "${SHELL:-}" = "$fish" ]; then
+  # 現在のログインシェル (getent が無い macOS は $SHELL)
+  local current user="${USER:-$(id -un)}"
+  current="$(getent passwd "$user" 2>/dev/null | cut -d: -f7 || true)"
+  current="${current:-${SHELL:-}}"
+  if [ "$current" = "$fish" ]; then
     skip "$fish"
     return
   fi
   if ! grep -qx "$fish" /etc/shells; then
     echo "$fish" | sudo tee -a /etc/shells >/dev/null
   fi
-  chsh -s "$fish"
+  # Lima のユーザーはパスワードが無いので sudo 経由で変更する
+  sudo chsh -s "$fish" "$user"
   info "次回ログインから fish になる"
 }
 
@@ -281,6 +313,7 @@ main() {
     setup_locale
   fi
   setup_links
+  setup_gitconfig
   setup_tpm
   if [ "$OS" = Linux ]; then
     install_ghq

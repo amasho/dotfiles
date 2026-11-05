@@ -1,0 +1,28 @@
+# Lima: エージェント (Claude Code / Codex) 用の隔離 VM
+#
+#   limactl create --name=agent vm/lima/agent.yaml && limactl start agent
+#
+# Mac とのつながりは最小限にする:
+#   - 共有は ~/vm-inbox のみ (VM からは読み取り専用)。ubuntu-26.04 テンプレートは
+#     _default/mounts で ~ を共有するため、base には _images だけを指定する
+#   - Mac の ~/.ssh の公開鍵・ssh-agent は VM に渡さない
+#   - コンテナ実行環境 (containerd / nerdctl) は入れない
+minimumLimaVersion: 2.0.0
+base:
+  - template:_images/ubuntu-26.04
+
+cpus: 6
+memory: "16GiB"
+disk: "100GiB"
+
+mounts:
+  - location: "~/vm-inbox"
+    writable: false
+
+ssh:
+  loadDotSSHPubKeys: false
+  forwardAgent: false
+
+containerd:
+  system: false
+  user: false
