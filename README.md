@@ -47,12 +47,21 @@ fish の `op` は `explorer.exe .` でカレントディレクトリをエクス
 `vm/lima/agent.yaml` から Ubuntu VM を作成し、VM 内で `install.sh` を実行する。
 
 ```bash
+# Mac: VM から読み取り専用で見える唯一の共有フォルダ (VM 内では /Users/<user>/vm-inbox)
+mkdir -p ~/vm-inbox
 limactl create --name=agent vm/lima/agent.yaml && limactl start agent
+
+# VM 内 (limactl shell agent): Mac の SSH 鍵・ssh-agent は渡さないので https で clone する
+git clone https://github.com/amasho/dotfiles.git ~/ghq/github.com/amasho/dotfiles \
+  && cd ~/ghq/github.com/amasho/dotfiles && ./install.sh
+
+# Mac: Herdr に登録 (~/.ssh/config を書き換えずに済む)
+hc machine add --via "ssh -F $HOME/.lima/agent/ssh.config lima-agent" --name agent
 ```
 
 ### macOS の補足
 
-ツール自体は Homebrew で入れる (`brew install fish tmux neovim starship fzf zoxide eza bat fd ripgrep tig ghq jq tree-sitter`)。
+ツール自体は Homebrew で入れる (`brew install fish tmux neovim starship fzf zoxide eza bat fd ripgrep tig ghq jq tree-sitter git-delta gh`)。
 `install.sh` はリンクと TPM の導入のみ行う。
 
 ## 初回起動

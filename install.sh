@@ -3,7 +3,7 @@
 # install.sh - dotfiles セットアップ (macOS / Ubuntu / WSL2 / Ubuntu Lima VM)
 #
 #   ./install.sh            全手順 (apt, locale-gen, chsh で sudo のパスワードを聞かれる)
-#   ./install.sh --no-sudo  sudo 不要な手順のみ (リンク, TPM, ghq, win32yank, Windows Terminal 設定, フォント)
+#   ./install.sh --no-sudo  sudo 不要な手順のみ (リンク (Linux は herdr-core 設定も), gitconfig, TPM, ghq, win32yank, Windows Terminal 設定, フォント)
 #
 # 何度実行しても同じ結果になる (冪等)。既存の実体ファイルは *.bak.<日時> に退避する。
 #
@@ -21,7 +21,7 @@ for arg in "$@"; do
   case "$arg" in
     --no-sudo) WITH_SUDO=false ;;
     -h | --help)
-      sed -n '2,10p' "$0" | sed 's/^# \{0,1\}//'
+      sed -n '2,8p' "$0" | sed 's/^# \{0,1\}//'
       exit 0
       ;;
     *)
@@ -93,6 +93,10 @@ setup_gitconfig() {
   info "gitconfig (delta)"
   if ! command -v git >/dev/null; then
     warn "git が無いためスキップ"
+    return
+  fi
+  if ! command -v delta >/dev/null; then
+    warn "delta が無いためスキップ"
     return
   fi
   local inc="$DOTFILES/git/delta.gitconfig" v
@@ -286,8 +290,8 @@ setup_shell() {
     return
   fi
   # 現在のログインシェル (getent が無い macOS は $SHELL)
-  local current
-  current="$(getent passwd "$USER" 2>/dev/null | cut -d: -f7 || true)"
+  local current user="${USER:-$(id -un)}"
+  current="$(getent passwd "$user" 2>/dev/null | cut -d: -f7 || true)"
   current="${current:-${SHELL:-}}"
   if [ "$current" = "$fish" ]; then
     skip "$fish"
@@ -297,7 +301,7 @@ setup_shell() {
     echo "$fish" | sudo tee -a /etc/shells >/dev/null
   fi
   # Lima のユーザーはパスワードが無いので sudo 経由で変更する
-  sudo chsh -s "$fish" "$USER"
+  sudo chsh -s "$fish" "$user"
   info "次回ログインから fish になる"
 }
 

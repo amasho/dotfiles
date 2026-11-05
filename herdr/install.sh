@@ -5,6 +5,7 @@
 #   ./herdr/install.sh           Herdr.app が無ければ公式インストーラーで入れ、設定をリンクする
 #   ./herdr/install.sh --no-app  設定のリンクだけ行う
 #
+# macOS 専用 (Linux では ../install.sh が Herdr core の設定をリンクする)。
 # 何度実行しても同じ結果になる。既存の通常ファイルは *.bak-<日時> に退避してからリンクする。
 #
 set -eu
@@ -21,10 +22,15 @@ install_app=true
 for arg in "$@"; do
   case $arg in
     --no-app) install_app=false ;;
-    -h | --help) sed -n '3,9p' "$0"; exit 0 ;;
+    -h | --help) sed -n '3,10p' "$0"; exit 0 ;;
     *) say "unknown option: $arg" >&2; exit 1 ;;
   esac
 done
+
+if [ "$(uname -s)" != Darwin ]; then
+  say "herdr/install.sh は macOS 専用。Linux では ../install.sh が Herdr core の設定をリンクする" >&2
+  exit 1
+fi
 
 # src を dest へリンクする。正しいリンクが既にあれば何もしない
 link() {
