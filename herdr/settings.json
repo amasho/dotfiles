@@ -1,13 +1,14 @@
 {
-  "zoom": 1.2,
+  "zoom": 1.4,
   "sounds": {
     "enabled": true
   },
+  "font": "Roboto Mono Light for Powerline",
+  "font_size": 13,
+  "font_ligatures": false,
+  "ui_font": "Roboto Mono Light for Powerline",
+  "telemetry": false,
   "minimum_contrast": 1,
   "appearance": "dark",
-  "theme": "dracula",
-  "telemetry": false,
-  "font_size": 16,
-  "ui_font": "Roboto Mono Light for Powerline",
-  "font": "Roboto Mono Light for Powerline"
+  "theme": "dracula"
 }
