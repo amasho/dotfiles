@@ -1,6 +1,0 @@
-#!/bin/sh
-# terminal-browser の Electron に、WebGL を CPU で描く設定 (SwiftShader) を足して起動する
-# Chromium 137 以降は、GPU が使えなくても SwiftShader に自動では切り替わらない
-# AppArmor の許可はこのファイルのパスに対して要る (install.sh が入れる)
-exec "$HOME/.local/share/terminal-browser/app/electron/pixel" \
-  --use-angle=swiftshader --enable-unsafe-swiftshader "$@"

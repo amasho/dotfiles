@@ -2,8 +2,8 @@
 #
 # install.sh - dotfiles セットアップ (macOS / Ubuntu / WSL2 / Ubuntu Lima VM)
 #
-#   ./install.sh            全手順 (apt, locale-gen, terminal-browser の AppArmor, chsh で sudo のパスワードを聞かれる)
-#   ./install.sh --no-sudo  sudo 不要な手順のみ (リンク (Linux は herdr-core 設定と terminal-browser の入口も), gitconfig, TPM, ghq, hunk, win32yank, Windows Terminal 設定, フォント)
+#   ./install.sh            全手順 (apt, locale-gen, chsh で sudo のパスワードを聞かれる)
+#   ./install.sh --no-sudo  sudo 不要な手順のみ (リンク (Linux は herdr-core 設定も), gitconfig, TPM, ghq, hunk, win32yank, Windows Terminal 設定, フォント)
 #
 # 何度実行しても同じ結果になる (冪等)。既存の実体ファイルは *.bak.<日時> に退避する。
 #
@@ -16,7 +16,6 @@ if [ "$OS" = Linux ] && grep -qi microsoft /proc/version 2>/dev/null; then
   IS_WSL=true
 fi
 WITH_SUDO=true
-TB_APP="$HOME/.local/share/terminal-browser/app"
 
 for arg in "$@"; do
   case "$arg" in
@@ -83,14 +82,6 @@ setup_links() {
   # Herdr core の shell (macOS は herdr/install.sh が担当)
   if [ "$OS" = Linux ] && ! $IS_WSL; then
     link herdr/core-config.linux.toml "$HOME/.config/herdr-core/config.toml"
-  fi
-  # terminal-browser の入口 (画面のない Linux で WebGL を使えるようにする)
-  if [ "$OS" = Linux ] && ! $IS_WSL; then
-    if [ -d "$TB_APP" ]; then
-      link terminal-browser/terminal-browser "$HOME/.local/bin/terminal-browser"
-    else
-      skip "terminal-browser が入っていない ($TB_APP)"
-    fi
   fi
   if [ "$OS" = Darwin ]; then
     link ghostty/config "$HOME/.config/ghostty/config"
@@ -338,19 +329,6 @@ install_ime_toggle() {
   fi
 }
 
-### terminal-browser の AppArmor ############################################
-# terminal-browser は、Electron のパスに合う AppArmor の許可がないと起動しない。
-# 差し替えた terminal-browser/electron の分を、terminal-browser 付属のスクリプトで入れる
-# (入れてあれば何もしない。AppArmor の制限がない環境でも何もしない)
-setup_terminal_browser_apparmor() {
-  if [ ! -f "$TB_APP/scripts/apparmor.sh" ]; then
-    skip "terminal-browser が入っていない ($TB_APP)"
-    return
-  fi
-  info "terminal-browser の AppArmor の許可"
-  bash "$TB_APP/scripts/apparmor.sh" "$DOTFILES/terminal-browser/electron"
-}
-
 ### ログインシェル ##########################################################
 setup_shell() {
   info "ログインシェルを fish に変更"
@@ -398,9 +376,6 @@ main() {
     install_wt_fragment
     install_hackgen_font
     install_ime_toggle
-  fi
-  if [ "$OS" = Linux ] && ! $IS_WSL && $WITH_SUDO; then
-    setup_terminal_browser_apparmor
   fi
   if $WITH_SUDO; then
     setup_shell
